@@ -16,7 +16,7 @@ const initialForm = {
 }; 
 
 // funcion donde se realizan las validaciones de los campos
-const validationsForm = (form) => {
+const validationsForm = (form, emailExists) => {
     let errors = {};
 
     // expresiones regulares para los distintos campos del formulario
@@ -35,6 +35,8 @@ const validationsForm = (form) => {
         errors.email = "El campo 'email' es obligatorio";
     } else if (!regexEmail.test(form.email.trim())){
         errors.email = "El formato ingresado no es válido";
+    } else if (emailExists){
+        errors.email = "El correo ingresado está en uso. Ingrese uno nuevo.";
     }
 
     if (!form.password.trim()){
@@ -83,11 +85,22 @@ const Register = () => {
         }
     }, []);
 
+    const checkEmailExists = async (email) => {
+        let response = false;
+        await axios.post('http://localhost:8000/api/auth/check-email', { email }).then(({data}) =>{
+            if(data.exists){
+                response =  true;
+            }
+        });
+        return response;
+    }
+
     const submitRegistro = async (e) => {
         e.preventDefault();
 
         // Actualiza los errores antes de proceder
-        const validationErrors = validationsForm(form);
+        const emailExists = await checkEmailExists(email);
+        const validationErrors = validationsForm(form, emailExists);
         setErrors(validationErrors);
 
         // Solo procede con el envío si no hay errores y se ha seleccionado un rol válido
@@ -95,21 +108,13 @@ const Register = () => {
             await axios.post(endpoint, {name, email, password, idRol}).then(({data})=> {
                 if(data.success){
                     resetForm();
-                    /*console.log(data.user);
-                    console.log(data.herencia);
-                    console.log(data.message);*/
-                    //navigate('/login');
                     console.log("registrado exitosamente");
-                    openModal();// se abre el modal
+                    openModal(); // se abre el modal
                 } else {
                     openModalFallido();
-                    /*console.log(data.message);*/
                 }
             });
-        } /*else {
-            console.log("no se puede");
-            console.log(validationErrors);
-        }*/
+        }
     }
 
     
@@ -146,13 +151,9 @@ const Register = () => {
                  <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                  <span >{errors.password}</span>
                </div>}
-            </div>
-    
-<br />
-
-            
+            </div>        
             <h3 className="mb-5 text-lg font-medium text-gray-900">¿Qué tipo de cuenta quieres crear?</h3>
-            <ul className="grid w-full gap-6 md:grid-cols-2">
+            <ul className="grid w-full gap-6 md:grid-cols-2 mb-5">
                 <li>
                     <input type="radio" id="cliente" name="idRol" value="2" className="hidden peer" 
                     onChange={() => handleRoleChange(2)}
@@ -183,13 +184,8 @@ const Register = () => {
                  <span >{errors.idRol}</span>
                </div>}
             </div>
-
-            <br />
-
-
             <button onClick={submitRegistro} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </form>
-
 
             {/* modal exitoso */}
             <Modal isOpen={isOpenModal} closeModal={closeModal}>

@@ -8,6 +8,7 @@ import LayoutPublic from './layouts/LayoutPublic';
 import Login from './pageauth/Login';
 import Register from './pageauth/Register';
 import PageHome from './pagepublic/PageHome';
+import PageError from './pagepublic/PageError';
 
 // PRIVATE
 import ProtectedRoutes from './pageauth/ProtectedRoutes';
@@ -38,6 +39,9 @@ function App() {
             {/* Rutas de autenticación */}
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
+
+            {/* Ruta para errores */}
+            <Route path='*' element={<PageError/>}/>
           </Route>
 
           {/* Rutas Privadas */}

@@ -84,4 +84,10 @@ class AuthController extends Controller
         $response=["success" => true, "message" => "Sesión cerrada"];
         return response()->json($response, 200);
     }
+
+    public function checkEmail (Request $request){
+        $email = $request->input('email');
+        $exists = User::where('email', $email)->exists();
+        return response()->json(['exists' => $exists]);
+    }
 }

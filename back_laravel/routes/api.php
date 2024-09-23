@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 // autenticacion
 Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('/auth/check-email', [AuthController::class, 'checkEmail']);
 
 
 // RUTAS PRIVADAS
