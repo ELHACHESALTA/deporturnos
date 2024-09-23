@@ -1,11 +1,11 @@
 import React from "react";
 
-const PageHome = () => {
+const  WelcomeGestor = () => {
     return (
         <div className="flex-grow">
-            PageHome
+            WelcomeGestor
         </div>
     )
 }
 
-export default PageHome;
+export default WelcomeGestor;

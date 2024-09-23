@@ -1,11 +1,11 @@
 import React from "react";
 
-const PageHome = () => {
+const  WelcomeCliente = () => {
     return (
         <div className="flex-grow">
-            PageHome
+            WelcomeCliente
         </div>
     )
 }
 
-export default PageHome;
+export default WelcomeCliente;

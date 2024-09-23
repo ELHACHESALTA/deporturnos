@@ -8,6 +8,7 @@ use App\Models\Cliente;
 use App\Models\GestorComplejo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -49,8 +50,38 @@ class AuthController extends Controller
             $gestorComplejo = GestorComplejo::create($datos);
             $response["herencia"] = $gestorComplejo;
         }
-        //$response["token"] = $user->createToken("Token")->plainTextToken;
         return response()->json($response, 200);
     }
 
+    public function login(Request $request){
+        $response = ["success" => false];
+        // validacion
+        $validator = Validator::make($request->all(),[
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            $user = Auth::user();
+            $response["token"] = $user->createToken("token")->plainTextToken;
+            $response["user"] = $user;
+            $response["success"] = true;
+            $response["message"] = "Logueado";
+        } else {
+            $response["error"] = "Credenciales inválidas";
+        }
+        return response()->json($response, 200);
+    }
+
+    public function logout(){
+        $response["success"] = false;
+        Auth::user()->tokens()->delete();
+        $response=["success" => true, "message" => "Sesión cerrada"];
+        return response()->json($response, 200);
+    }
 }
