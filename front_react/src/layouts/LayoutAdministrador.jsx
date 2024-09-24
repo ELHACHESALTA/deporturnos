@@ -8,12 +8,21 @@ import AuthUser from "../pageauth/AuthUser";
 const LayoutAdministrador = () => {
     const {getRol} = AuthUser();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchRoleAndNavigate = async () => {
+            try {
+                const rol = await getRol();
+                if (rol !== 1) {
+                    navigate('/');
+                }
+            } catch (error) {
+                console.error('Error al obtener el rol:', error);
+            }
+        };
     
-    useEffect(()=>{
-        if (getRol() !== 1){
-            navigate('/');
-        }
-    });
+        fetchRoleAndNavigate();
+    }, [navigate]);
     return (
         <div className="min-h-screen flex flex-col">
             <Navbar />

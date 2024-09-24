@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,46 +12,54 @@ const AuthUser = () => {
     }
     
     const getUser = () => {
-        const userString = sessionStorage.getItem('user');
-        const user = JSON.parse(userString);
-        //console.log(user.idRol);
+        const user = fetchUserInfo();
         return user;
     }
 
-    const getRol = () => {
-        const user = getUser();
-        var rol = null;
-        if(user !== null){
-            rol = user.idRol;
+    const fetchUserInfo = async () => {
+        const token = sessionStorage.getItem('token');
+        let str = token;
+        let result = str.replace(/^["']|["']$/g, '');
+        const response = await fetch('http://localhost:8000/api/user', {
+                method: 'GET',
+                headers: {
+                'Authorization': `Bearer ${result}`,
+            },
+        });
+        
+        if (response.ok) {
+            const userData = await response.json();
+            console.log(userData);
+            console.log(userData.idRol);
+            return userData;
+        } else {
+            console.error('Error al obtener información del usuario');
         }
+    };
+
+    const getRol = async () => {
+        const userData = await fetchUserInfo();
+        const rol = userData.idRol;
+        console.log(rol);
         return rol;
     }
-    
 
     const [token, setToken] = useState(getToken());
-    const [user, setUser] = useState(getUser());
-    const [rol, setRol] = useState(getRol());
 
-    //console.log(user);
-
-    const saveToken = (user, token, rol) => {
-        sessionStorage.setItem('user', JSON.stringify(user));
+    const saveToken = (token) => {
         sessionStorage.setItem('token', JSON.stringify(token));
-        sessionStorage.setItem('rol', JSON.stringify(rol));
 
-        setUser(user);
         setToken(token);
-        setRol(rol);
 
-        if(getRol() === 1){
-            navigate('/administrador');
-        }
-        if(getRol() === 2){
-            navigate('/cliente');
-        }
-        if(getRol() === 3){
-            navigate('/gestorComplejo');
-        }
+        // if(getRol() === 1){
+        //     navigate('/administrador');
+        // }
+        // if(getRol() === 2){
+        //     navigate('/cliente');
+        // }
+        // if(getRol() === 3){
+        //     navigate('/gestorComplejo');
+        // }
     }
 
     const getLogout = () => {
@@ -63,8 +70,6 @@ const AuthUser = () => {
     return {
         setToken: saveToken,
         token,
-        user,
-        rol,
         getToken, getRol, getUser, getLogout 
     }
 }

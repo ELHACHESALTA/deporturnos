@@ -24,9 +24,7 @@ const Login = () => {
         await axios.post(endpoint, {email, password}).then(({data})=> {
             if(data.success){
                 setToken(
-                    data.user,
                     data.token,
-                    data.user.idRol
                 )
             } else {
                 setMessage("Correo electrónico y contraseña incorrectos");
