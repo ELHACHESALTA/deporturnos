@@ -44,7 +44,6 @@ const MiComplejo = () => {
 
     return (
         <div className='flex-grow'>
-            {console.log(complejo)}
             {complejo.length > 0 ? <EditComplejo complejo={complejo}/> : <CreateComplejo/>}
         </div>
     )

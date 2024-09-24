@@ -30,8 +30,6 @@ const AuthUser = () => {
         
         if (response.ok) {
             const userData = await response.json();
-            /*console.log(userData);
-            console.log(userData.idRol);*/
             return userData;
         } else {
             console.error('Error al obtener información del usuario');
@@ -41,7 +39,6 @@ const AuthUser = () => {
     const getRol = async () => {
         const userData = await fetchUserInfo();
         const rol = userData.idRol;
-        //console.log(rol);
         return rol;
     }
 

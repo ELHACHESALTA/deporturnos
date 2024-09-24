@@ -107,12 +107,8 @@ const EditComplejo = ({complejo}) => {
           }
       }).then(({data})=> {
           if(data.success){
-              resetForm();
-              console.log("complejo actualizado correctamente");
-              window.location.reload();
-          } else {
-            console.log(data.error);
-            console.log("no se pudo actualizar el complejo");
+            resetForm();
+            window.location.reload();
           }
         });
       }

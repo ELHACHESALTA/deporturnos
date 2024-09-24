@@ -108,8 +108,7 @@ const Register = () => {
             await axios.post(endpoint, {name, email, password, idRol}).then(({data})=> {
                 if(data.success){
                     resetForm();
-                    console.log("registrado exitosamente");
-                    openModal(); // se abre el modal
+                    openModal();
                 } else {
                     openModalFallido();
                 }

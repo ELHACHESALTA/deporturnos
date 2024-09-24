@@ -54,12 +54,9 @@ const Panel = () => {
         },
       }).then(({ data }) => {
         if (data.success) {
-          console.log(data.message);
           getAllUsers(); // Actualiza la lista de usuarios
           closeModalBaja1(); // Cierra el modal de baja
           closeModalAlta1(); // Cierra el modal de alta
-        } else {
-          console.log(data.error);
         }
       });
     }

@@ -101,11 +101,7 @@ const CreateComplejo = () => {
   }).then(({data})=> {
       if(data.success){
           resetForm();
-          console.log("complejo registrado correctamente");
           window.location.reload();
-      } else {
-        console.log(data.error);
-        console.log("no se pudo crear el complejo");
       }
     });
   }
