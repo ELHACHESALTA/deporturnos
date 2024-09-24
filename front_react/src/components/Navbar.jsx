@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AuthUser from "../pageauth/AuthUser";
 import axios from "axios";
+import Loading from "./Loading/Loading";
 
 const Navbar = () => {
     const endpoint = "http://localhost:8000/api/auth/logout";
 
-    const { getToken, getLogout, getUser } = AuthUser();
+    const { getToken, getLogout, getUser, getRol } = AuthUser();
+
+    const [loading, setLoading] = useState(true);
 
     const logoutUser = async () => {
         await axios.post(endpoint, null, {
@@ -20,6 +23,41 @@ const Navbar = () => {
 
     } 
 
+
+    const [rol, setRol] = useState(null);
+    const [userName, setUserName] = useState(null);
+
+
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const role = await getRol();
+                setRol(role);
+
+                const user = await getUser();
+                if (user) {
+                    setUserName(user.name);
+                }
+            } catch (error) {
+                console.error("Error al obtener los datos del usuario", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (getToken()) {
+            fetchUserData();
+        } else {
+            setLoading(false);
+        }
+    }, [getToken, getRol, getUser]);
+
+    // Si está cargando, mostramos la pantalla de carga
+    if (loading) {
+        return <Loading />;
+    }
+
     // para mostrar menu si está logueado o no
     const renderLinks = () => {
         if(getToken()){
@@ -29,7 +67,7 @@ const Navbar = () => {
                         <button onClick={logoutUser} className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Logout</button>
                     </li>
                     <li>
-                        <p>{getUser().name}</p>
+                        <p>{userName}</p>
                     </li>
                 </>
             )
@@ -47,6 +85,29 @@ const Navbar = () => {
         }
     }
 
+    const renderLinksRol = () => {
+        if (rol === 1) {
+            return (
+                <li>
+                    <a href="/administrador" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Administrador</a>
+                </li>
+            );
+        } else if (rol === 2) {
+            return (
+                <li>
+                    <a href="/cliente" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Cliente</a>
+                </li>
+            );
+        } else if (rol === 3) {
+            return (
+                <li>
+                    <a href="/gestorComplejo" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Gestor de Complejo</a>
+                </li>
+            );
+        }
+        return null;
+    };
+
     return (
         <div>
             <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
@@ -56,15 +117,7 @@ const Navbar = () => {
                     <li>
                     <a href="/" className="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Home</a>
                     </li>
-                    <li>
-                    <a href="/administrador" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Administrador</a>
-                    </li>
-                    <li>
-                    <a href="/cliente" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Cliente</a>
-                    </li>
-                    <li>
-                    <a href="/gestorComplejo" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Gestor de Complejo</a>
-                    </li>
+                    {renderLinksRol()}
                     {renderLinks()}
                 </ul>
                 </div>
