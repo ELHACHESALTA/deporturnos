@@ -40,7 +40,7 @@ function App() {
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
 
-            {/* Ruta para errores */}
+            {/* Ruta para errores (debe quedar siempre abajo de las demas rutas públicas) */}
             <Route path='*' element={<PageError/>}/>
           </Route>
 

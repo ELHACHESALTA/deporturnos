@@ -9,20 +9,11 @@ const LayoutGestorComplejo = () => {
     const {getRol} = AuthUser();
     const navigate = useNavigate();
     
-    useEffect(() => {
-        const fetchRoleAndNavigate = async () => {
-            try {
-                const rol = await getRol();
-                if (rol !== 3) {
-                    navigate('/');
-                }
-            } catch (error) {
-                console.error('Error al obtener el rol:', error);
-            }
-        };
-    
-        fetchRoleAndNavigate();
-    }, [navigate]);
+    useEffect(()=>{
+        if (getRol() !== 3){
+            navigate('/');
+        }
+    });
     
     return (
         <div className="min-h-screen flex flex-col">

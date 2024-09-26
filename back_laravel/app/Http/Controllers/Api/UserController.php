@@ -15,7 +15,6 @@ class UserController extends Controller
     }
 
     public function cambiarEstadoUsuario($id){
-    
         try {
             $user = User::findOrFail($id);
             if ($user->bajaUsuario === null){
