@@ -28,7 +28,8 @@ const useForm = (initialForm) => {
         handleChange,
         resetForm,
         handleRoleChange,
-        handleDeporteChange
+        handleDeporteChange,
+        setForm,
     }
 }
 

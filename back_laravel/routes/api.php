@@ -35,4 +35,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('gestorComplejo/editarComplejo', [ComplejoController::class, 'update']);
     Route::post('gestorComplejo/obtenerCanchas', [CanchaController::class, 'obtenerCanchas']);
     Route::post('gestorComplejo/crearCancha', [CanchaController::class, 'store']);
+    Route::put('gestorComplejo/editarCancha', [CanchaController::class, 'update']);
+    Route::put('gestorComplejo/cambiarEstadoCancha', [CanchaController::class, 'cambiarEstadoCancha']);
 });

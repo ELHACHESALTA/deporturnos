@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('idComplejo')->references('id')->on('complejos')->onDelete('cascade');
             $table->unsignedBigInteger('idDeporte');
             $table->foreign('idDeporte')->references('id')->on('deportes')->onDelete('cascade');
+            $table->timestamp('bajaCancha')->nullable();
             $table->timestamps();
         });
     }
