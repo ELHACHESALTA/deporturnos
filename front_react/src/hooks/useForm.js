@@ -13,6 +13,10 @@ const useForm = (initialForm) => {
         setForm({ ...form, idRol: value });
     };
 
+    const handleDeporteChange = (value) => {
+        setForm({ ...form, idDeporte: value });
+    };
+
     const resetForm = () => {
         setForm(initialForm);
         setErrors({});
@@ -23,7 +27,8 @@ const useForm = (initialForm) => {
         errors,
         handleChange,
         resetForm,
-        handleRoleChange
+        handleRoleChange,
+        handleDeporteChange
     }
 }
 

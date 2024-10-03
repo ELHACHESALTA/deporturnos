@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ComplejoController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CanchaController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -32,4 +33,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);
     Route::post('gestorComplejo/crearComplejo', [ComplejoController::class, 'store']);
     Route::put('gestorComplejo/editarComplejo', [ComplejoController::class, 'update']);
+    Route::post('gestorComplejo/obtenerCanchas', [CanchaController::class, 'obtenerCanchas']);
+    Route::post('gestorComplejo/crearCancha', [CanchaController::class, 'store']);
 });

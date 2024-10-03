@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             AdministradorsTableSeeder::class,
             ClientesTableSeeder::class,
-            GestorComplejosTableSeeder::class
+            GestorComplejosTableSeeder::class,
+            DeportesTableSeeder::class
         ]);
     }
 }
