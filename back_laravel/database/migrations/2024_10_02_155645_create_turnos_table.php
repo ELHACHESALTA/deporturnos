@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('idCancha');
             $table->foreign('idCancha')->references('id')->on('canchas')->onDelete('cascade');
-            $table->date('horarioInicio');
-            $table->date('horarioFin');
+            $table->dateTime('horarioInicio');
+            $table->dateTime('horarioFin');
             $table->string('estadoDisponible', 50);
             $table->string('metodoPago', 50);
             $table->time('timerPago');
-            $table->date('timerReprogramacion');
+            $table->time('timerReprogramacion');
             $table->float('precio');
             $table->timestamps();
         });

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Loading from '../components/Loading/Loading';
 import Modal from '../components/Modal/Modal';
+import CreateTurno from '../components/CreateTurno/CreateTurno';
+import { useModal } from '../hooks/useModal';
 
 const MisTurnos = () => {
     const { getToken, getUser } = AuthUser();
@@ -16,6 +18,9 @@ const MisTurnos = () => {
     const [canchaSeleccionada, setCanchaSeleccionada] = useState({});
     const [turnosAMostrar, setTurnosAMostrar] = useState([]);
     const navigate = useNavigate();
+
+    // variable para manejar el modal de creacion de turnos
+    const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
 
     const obtenerData = async (idUser) => {
         await axios.post(`http://localhost:8000/api/gestorComplejo/obtenerCanchasYTurnos`, { idUser }, {
@@ -67,8 +72,6 @@ const MisTurnos = () => {
         setTurnosAMostrar(arreglo);
     };
 
-    console.log(turnosAMostrar);
-
   return (
     <div className='flex-grow'>
         <h1>Mis turnos</h1>
@@ -116,7 +119,7 @@ const MisTurnos = () => {
             </form>
             {idCanchaSeleccionada !== 0 ? (
                 <>
-            <div>
+            <div className='mb-6'>
                 <h3>{canchaSeleccionada.nombreCancha}</h3>
                 <p className="text-gray-600 mb-1">
                     <strong>Id:</strong> {canchaSeleccionada.id}
@@ -127,9 +130,13 @@ const MisTurnos = () => {
                 <p className="text-gray-600 mb-2">
                     <strong>Deporte:</strong> {canchaSeleccionada.idDeporte}
                 </p>
+                <div>
+                    <button onClick={openModalCreate}>Crear turno manual</button>
+                </div>
             </div>
             {turnosAMostrar.length > 0 ?
              <>
+             <h2>Turnos:</h2>
                 {turnosAMostrar.map((turno) => (
                     <div key={turno.id}>
                         <p><strong>Id:</strong>{turno.id}</p>
@@ -157,6 +164,10 @@ const MisTurnos = () => {
           : 
           <div>No hay canchas en este complejo</div>
           }
+          {/* modal para crear turnos */}
+          <Modal isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
+            <CreateTurno closeModal={closeModalCreate} idCancha={idCanchaSeleccionada}/>
+          </Modal>
         </div>
         }
     </div>
