@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ComplejoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CanchaController;
+use App\Http\Controllers\Api\TurnoController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -37,4 +38,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('gestorComplejo/crearCancha', [CanchaController::class, 'store']);
     Route::put('gestorComplejo/editarCancha', [CanchaController::class, 'update']);
     Route::put('gestorComplejo/cambiarEstadoCancha', [CanchaController::class, 'cambiarEstadoCancha']);
+    Route::post('gestorComplejo/crearTurno', [TurnoController::class, 'crearTurno']);
+    Route::post('gestorComplejo/obtenerCanchasYTurnos', [TurnoController::class, 'obtenerCanchasYTurnos']);
 });

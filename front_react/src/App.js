@@ -27,6 +27,7 @@ import LayoutGestorComplejo from './layouts/LayoutGestorComplejo';
 import WelcomeGestor from './pagegestorcomplejo/WelcomeGestor';
 import MiComplejo from './pagegestorcomplejo/MiComplejo';
 import MisCanchas from './pagegestorcomplejo/MisCanchas';
+import MisTurnos from './pagegestorcomplejo/MisTurnos';
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
               <Route index element={<WelcomeGestor/>}/>
               <Route path='miComplejo' element={<MiComplejo/>}/>
               <Route path='misCanchas' element={<MisCanchas/>}/>
+              <Route path='misTurnos' element={<MisTurnos/>}/>
             </Route>
           </Route>
         </Routes>
