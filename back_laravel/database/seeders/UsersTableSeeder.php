@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         $user1 = new User;
-        $user1->name = "admin";
+        $user1->name = "Admin";
         $user1->email = "admin@gmail.com";
         $user1->password = "Admin123";
         $user1->idRol = 1;
@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         $user1->save();
 
         $user2 = new User;
-        $user2->name = "cliente";
+        $user2->name = "Cliente";
         $user2->email = "cliente@gmail.com";
         $user2->password = "Cliente123";
         $user2->idRol = 2;
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         $user2->save();
     
         $user3 = new User;
-        $user3->name = "gestor";
+        $user3->name = "Gestor";
         $user3->email = "gestor@gmail.com";
         $user3->password = "Gestor123";
         $user3->idRol = 3;

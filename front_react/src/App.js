@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import "preline/preline";
 
 // componentes
 
@@ -70,6 +71,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.min.js"></script>
     </div>
   );
 }
