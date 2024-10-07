@@ -25,10 +25,10 @@ const Navbar = () => {
         if (getToken()) {
             return (
                 <>
-                    <button onClick={logoutUser} type="button" className="w-28 py-2 text-sm font-medium rounded-full border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white">
+                    <button onClick={logoutUser} type="button" className="whitespace-nowrap min-w-28 max-w-auto py-2 px-3 text-sm font-medium rounded-full border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white">
                         Cerrar Sesión
                     </button>
-                    <button type="button" className="w-24 py-2 text-sm font-medium rounded-full border border-transparent bg-lime-500 text-black hover:bg-lime-600 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-600">
+                    <button type="button" className="whitespace-nowrap min-w-24 max-w-auto py-2 px-3 text-sm font-medium rounded-full border border-transparent bg-lime-500 text-black hover:bg-lime-600 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-600">
                         {getUser().name}
                     </button>
                 </>
@@ -37,12 +37,12 @@ const Navbar = () => {
             return (
                 <>
                     <a href="/login">
-                        <button type="button" className="w-28 py-2 text-sm font-medium rounded-full border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white">
+                        <button type="button" className="whitespace-nowrap min-w-28 max-w-auto py-2 px-3 text-sm font-medium rounded-full border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white">
                             Iniciar Sesión
                         </button>
                     </a>
                     <a href="/register">
-                        <button type="button" className="w-24 py-2 text-sm font-medium rounded-full border border-transparent bg-lime-500 text-black hover:bg-lime-600 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-600">
+                        <button type="button" className="whitespace-nowrap min-w-24 max-w-auto py-2 px-3 text-sm font-medium rounded-full border border-transparent bg-lime-500 text-black hover:bg-lime-600 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-600">
                             Regístrate
                         </button>
                     </a>
