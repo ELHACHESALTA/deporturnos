@@ -56,23 +56,23 @@ const Navbar = () => {
         if (getRol() === 1) {
             return (
                 <>
-                    <a href="/administrador" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Administrador</a>
-                    <a href="/administrador/panel" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Panel</a>
+                    <a href="/administrador" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Administrador</a>
+                    <a href="/administrador/panel" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Panel</a>
                 </>
             );
         } else if (getRol() === 2) {
             return (
                 <>
-                    <a href="/cliente" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Cliente</a>
+                    <a href="/cliente" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Cliente</a>
                 </>
             );
         } else if (getRol() === 3) {
             return (
                 <>
-                    <a href="/gestorComplejo" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Gestor de Complejo</a>
-                    <a href="/gestorComplejo/miComplejo" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Mi Complejo</a>
-                    <a href="/gestorComplejo/misCanchas" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Mis Canchas</a>
-                    <a href="/gestorComplejo/misTurnos" classNameName="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Mis Turnos</a>
+                    <a href="/gestorComplejo" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Gestor de Complejo</a>
+                    <a href="/gestorComplejo/miComplejo" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Mi Complejo</a>
+                    <a href="/gestorComplejo/misCanchas" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Mis Canchas</a>
+                    <a href="/gestorComplejo/misTurnos" className="py-0.5 md:py-0 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200">Mis Turnos</a>
                 </>
             );
         }
@@ -102,12 +102,12 @@ const Navbar = () => {
 
                             {/* Menú desplegable */}
                             <button type="button" className="hs-collapse-toggle flex justify-center items-center size-10 border border-gray-200 text-gray-500 rounded-full md:order-2 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" id="hs-navbar-header-floating-collapse" aria-expanded="false" aria-controls="hs-navbar-header-floating" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-header-floating">
-                                <svg className="hs-collapse-open:hidden shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg className="hs-collapse-open:hidden shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <line x1="3" x2="21" y1="6" y2="6" />
                                     <line x1="3" x2="21" y1="12" y2="12" />
                                     <line x1="3" x2="21" y1="18" y2="18" />
                                 </svg>
-                                <svg className="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg className="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M18 6 6 18" />
                                     <path d="m6 6 12 12" />
                                 </svg>
