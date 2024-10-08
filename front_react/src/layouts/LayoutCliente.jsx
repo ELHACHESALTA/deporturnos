@@ -15,7 +15,7 @@ const LayoutCliente = () => {
         }
     });
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="dark:bg-neutral-900 min-h-screen flex flex-col text-white">
             <Navbar />
             <Outlet />
             <Footer/>
