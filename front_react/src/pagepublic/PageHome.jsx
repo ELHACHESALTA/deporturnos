@@ -2,7 +2,7 @@ import React from "react";
 
 const PageHome = () => {
     return (
-        <div className="mx-auto dark:bg-neutral-900">
+        <div className="flex-grow mx-auto dark:bg-neutral-900">
             <div className="flex flex-row  dark:text-white px-2 md:min-w-[66rem] max-w-[66rem]">
                 <div className="basis-3/4">
                     {/* Carrusel */}

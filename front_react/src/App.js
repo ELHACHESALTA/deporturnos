@@ -1,6 +1,7 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import "preline/preline";
+import { useEffect } from 'react';
 
 // componentes
 
@@ -34,45 +35,58 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          {/* Rutas Públicas */} 
-          <Route path='/' element={<LayoutPublic/>}>
-            <Route index element={<PageHome/>}/>
-            
-            {/* Rutas de autenticación */}
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/register' element={<Register/>}/>
-
-            {/* Ruta para errores (debe quedar siempre abajo de las demas rutas públicas) */}
-            <Route path='*' element={<PageError/>}/>
-          </Route>
-
-          {/* Rutas Privadas */}
-          <Route element={<ProtectedRoutes/>}>
-
-          {/* Rutas para administradores */}
-            <Route path='/administrador' element={<LayoutAdministrador/>}>
-              <Route index element={<Bienvenida/>}/>
-              <Route path='panel' element={<Panel/>} />
-            </Route>
-
-          {/* Rutas para clientes */}
-            <Route path='/cliente' element={<LayoutCliente/>}>
-              <Route index element={<WelcomeCliente/>}/>
-            </Route>
-
-          {/* Rutas para gestores de complejo */}
-            <Route path='/gestorComplejo' element={<LayoutGestorComplejo/>}>
-              <Route index element={<WelcomeGestor/>}/>
-              <Route path='miComplejo' element={<MiComplejo/>}/>
-              <Route path='misCanchas' element={<MisCanchas/>}/>
-              <Route path='misTurnos' element={<MisTurnos/>}/>
-            </Route>
-          </Route>
-        </Routes>
+        <MainContent />
       </BrowserRouter>
       <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.min.js"></script>
     </div>
+  );
+}
+
+function MainContent() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.HSStaticMethods) {
+      window.HSStaticMethods.autoInit();
+    }
+  }, [location.pathname]);
+
+  return (
+    <Routes>
+      {/* Rutas Públicas */} 
+      <Route path='/' element={<LayoutPublic />}>
+        <Route index element={<PageHome />} />
+
+        {/* Rutas de autenticación */}
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+
+        {/* Ruta para errores */}
+        <Route path='*' element={<PageError />} />
+      </Route>
+
+      {/* Rutas Privadas */}
+      <Route element={<ProtectedRoutes />}>
+        {/* Rutas para administradores */}
+        <Route path='/administrador' element={<LayoutAdministrador />}>
+          <Route index element={<Bienvenida />} />
+          <Route path='panel' element={<Panel />} />
+        </Route>
+
+        {/* Rutas para clientes */}
+        <Route path='/cliente' element={<LayoutCliente />}>
+          <Route index element={<WelcomeCliente />} />
+        </Route>
+
+        {/* Rutas para gestores de complejo */}
+        <Route path='/gestorComplejo' element={<LayoutGestorComplejo />}>
+          <Route index element={<WelcomeGestor />} />
+          <Route path='miComplejo' element={<MiComplejo />} />
+          <Route path='misCanchas' element={<MisCanchas />} />
+          <Route path='misTurnos' element={<MisTurnos />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 
