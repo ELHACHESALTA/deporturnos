@@ -6,7 +6,7 @@ import {Outlet} from "react-router-dom";
 
 const LayoutPublic = () => {
     return (
-        <div className="dark:bg-neutral-900 min-h-screen flex flex-col">
+        <div className="dark:bg-neutral-900 min-h-screen flex flex-col min-w-[500px]">
             <Navbar />
             <Outlet />
             <Footer/>

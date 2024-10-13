@@ -16,7 +16,7 @@ const LayoutGestorComplejo = () => {
     });
     
     return (
-        <div className="dark:bg-neutral-900 min-h-screen flex flex-col text-white">
+        <div className="dark:bg-neutral-900 min-h-screen flex flex-col min-w-[500px]">
             <Navbar />
             <Outlet />
             <Footer/>

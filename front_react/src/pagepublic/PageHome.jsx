@@ -2,348 +2,75 @@ import React from "react";
 
 const PageHome = () => {
     return (
-        <div className="flex-grow mx-auto dark:bg-neutral-900">
-            <div className="flex flex-row  dark:text-white px-2 md:min-w-[66rem] max-w-[66rem]">
-                <div className="basis-3/4">
-                    {/* Carrusel */}
-                    <div data-hs-carousel='{
-                        "loadingClasses": "opacity-0",
-                        "isInfiniteLoop": true,
-                        "slidesQty": 1
-                    }' className="relative mx-auto">
-                        <div className="hs-carousel relative overflow-hidden w-full min-h-96 bg-white rounded-lg">
-                            <div className="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
-                                <div className="hs-carousel-slide">
-                                    <div className="flex justify-center h-full bg-gray-100 p-6 dark:bg-neutral-900 gap-4">
-                                        <img src="/cancha01.jpg" alt="cancha1" />
-                                        <span className="self-center text-4xl text-gray-800 transition duration-700 dark:text-white">Club Biguá – Cancha 1 (azul)</span>
-                                    </div>
-                                </div>
-                                <div className="hs-carousel-slide">
-                                    <div className="flex justify-center h-full bg-gray-200 p-6 dark:bg-neutral-800 gap-4">
-                                        <img src="/cancha02.jpg" alt="cancha2" />
-                                        <span className="self-center text-4xl text-gray-800 transition duration-700 dark:text-white">Club Biguá – Cancha 2 (verde)</span>
-                                    </div>
-                                </div>
-                                <div className="hs-carousel-slide">
-                                    <div className="flex justify-center h-full bg-gray-300 p-6 dark:bg-neutral-700 gap-4">
-                                        <img src="/cancha03.jpg" alt="cancha3" />
-                                        <span className="self-center text-4xl text-gray-800 transition duration-700 dark:text-white">Club Alta Barda – Cancha 3</span>
-                                    </div>
-                                </div>
-                            </div>
+        <div className="flex-grow mx-auto">
+            <div className="flex flex-row  dark:text-white px-2 max-w-[66rem]">
+                <div className="relative p-6 md:p-16">
+                    {/* Caracteristicas */}
+                    <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+                        {/* Cartas */}
+                        <div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
+                            <nav className="grid" aria-label="Tabs" role="tablist" aria-orientation="vertical">
+                                <button type="button" className="hs-tab-active:bg-white mb-2 hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 active" id="tabs-with-card-item-1" aria-selected="true" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
+                                    <span className="flex gap-x-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
+                                        <span className="grow">
+                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Complejos</span>
+                                            <span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Reserva fácilmente y accede a múltiples opciones en un solo lugar. Recorre las diferentes instalaciones deportivas que ofrecen una variedad de canchas y servicios.</span>
+                                        </span>
+                                    </span>
+                                </button>
+
+                                <button type="button" className="hs-tab-active:bg-white mb-2 hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" id="tabs-with-card-item-2" aria-selected="false" data-hs-tab="#tabs-with-card-2" aria-controls="tabs-with-card-2" role="tab">
+                                    <span className="flex gap-x-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg>
+                                        <span className="grow">
+                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Canchas</span>
+                                            <span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Encuentra canchas de fútbol y pádel listas para adaptarse a tus horarios y necesidades.</span>
+                                        </span>
+                                    </span>
+                                </button>
+
+                                <button type="button" className="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" id="tabs-with-card-item-3" aria-selected="false" data-hs-tab="#tabs-with-card-3" aria-controls="tabs-with-card-3" role="tab">
+                                    <span className="flex gap-x-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
+                                        <span className="grow">
+                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Clientes</span>
+                                            <span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Gestiona los turnos de tus complejos y canchas favoritas en un solo lugar.</span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </nav>
                         </div>
+                        {/* Cartas */}
 
-                        <button type="button" className="hs-carousel-prev hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute inset-y-0 start-0 inline-flex justify-center items-center w-[46px] h-full text-gray-800 hover:bg-gray-800/10 focus:outline-none focus:bg-gray-800/10 rounded-s-lg dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
-                            <span className="text-2xl" aria-hidden="true">
-                                <svg className="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="m15 18-6-6 6-6"></path>
-                                </svg>
-                            </span>
-                            <span className="sr-only">Previous</span>
-                        </button>
-                        <button type="button" className="hs-carousel-next hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute inset-y-0 end-0 inline-flex justify-center items-center w-[46px] h-full text-gray-800 hover:bg-gray-800/10 focus:outline-none focus:bg-gray-800/10 rounded-e-lg dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
-                            <span className="sr-only">Next</span>
-                            <span className="text-2xl" aria-hidden="true">
-                                <svg className="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="m9 18 6-6-6-6"></path>
-                                </svg>
-                            </span>
-                        </button>
+                        <div className="lg:col-span-7">
+                            <div className="relative flex justify-center">
+                                {/* <!-- Tab Content --> */}
+                                <div>
+                                    <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
+                                        <img className="h-[600px] w-[500px] shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="/cancha01.jpg" alt="cancha1" />
+                                    </div>
 
-                        <div className="dark:bg-neutral-600 hs-carousel-info inline-flex justify-center px-4 absolute bottom-3 start-[50%] -translate-x-[50%] bg-white rounded-lg">
-                            <span className="hs-carousel-info-current me-1">0</span>
-                            /
-                            <span className="hs-carousel-info-total ms-1">0</span>
+                                    <div id="tabs-with-card-2" className="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-2">
+                                        <img className="h-[600px] w-[500px] shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="/cancha02.jpg" alt="cancha2" />
+                                    </div>
+
+                                    <div id="tabs-with-card-3" className="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-3">
+                                        <img className="h-[600px] w-[500px] shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="/cancha03.jpg" alt="cancha3" />
+                                    </div>
+                                </div>
+                                {/* <!-- End Tab Content --> */}
+
+                            </div>
                         </div>
                     </div>
-                    {/* Carrusel */}
-                </div>
-                <div className="bases-1/4">
-                    {/* Vista de Árbol */}
-                    <div className="hs-accordion-treeview-root" role="tree" aria-orientation="vertical">
-                        {/* <!-- 1st Level Accordion Group --> */}
-                        <div className="hs-accordion-group">
-                            {/* <!-- 1st Level Accordion --> */}
-                            <div className="hs-accordion active" role="treeitem" aria-expanded="true" id="hs-close-currently-opened-tree-heading-one">
-                                {/* <!-- 1st Level Accordion Heading --> */}
-                                <div className="hs-accordion-heading py-0.5 flex items-center gap-x-0.5 w-full">
-                                    <button className="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-expanded="true" aria-controls="hs-close-currently-opened-tree-collapse-one">
-                                        <svg className="size-4 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M5 12h14"></path>
-                                            <path className="hs-accordion-active:hidden block" d="M12 5v14"></path>
-                                        </svg>
-                                    </button>
+                    {/* Caracteristicas */}
 
-                                    <div className="grow hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
-                                        <div className="flex items-center gap-x-3">
-                                            <div className="grow">
-                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                    Fútbol
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End 1st Level Accordion Heading --> */}
-
-                                {/* <!-- 1st Level Collapse --> */}
-                                <div id="hs-close-currently-opened-tree-collapse-one" className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300" role="group" aria-labelledby="hs-close-currently-opened-tree-heading-one">
-                                    {/* <!-- 2nd Level Accordion Group --> */}
-                                    <div className="hs-accordion-group ps-7 relative before:absolute before:top-0 before:start-3 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700">
-                                        {/* <!-- 2nd Level Nested Accordion --> */}
-                                        <div className="hs-accordion active" role="treeitem" aria-expanded="true" id="hs-close-currently-opened-tree-sub-heading-one">
-                                            {/* <!-- 2nd Level Accordion Heading --> */}
-                                            <div className="hs-accordion-heading py-0.5 flex items-center gap-x-0.5 w-full">
-                                                <button className="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-expanded="true" aria-controls="hs-close-currently-opened-tree-sub-collapse-one">
-                                                    <svg className="size-4 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M5 12h14"></path>
-                                                        <path className="hs-accordion-active:hidden block" d="M12 5v14"></path>
-                                                    </svg>
-                                                </button>
-
-                                                <div className="grow hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
-                                                    <div className="flex items-center gap-x-3">
-                                                        <div className="grow">
-                                                            <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                Fútbol 5
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* <!-- End 2nd Level Accordion Heading --> */}
-
-                                            {/* <!-- 2nd Level Collapse --> */}
-                                            <div id="hs-close-currently-opened-tree-sub-collapse-two" className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="group" aria-labelledby="hs-close-currently-opened-tree-sub-heading-two">
-                                                <div className="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700">
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Canchas Versus
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Complejo Candelaria
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Coco F.C.
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-                                                </div>
-                                            </div>
-                                            {/* <!-- End 2nd Level Collapse --> */}
-                                        </div>
-                                        {/* <!-- End 2nd Level Nested Accordion --> */}
-
-                                        {/* <!-- 2nd Level Nested Accordion --> */}
-                                        <div className="hs-accordion" role="treeitem" aria-expanded="false" id="hs-close-currently-opened-tree-sub-heading-two">
-                                            {/* <!-- 2nd Level Accordion Heading --> */}
-                                            <div className="hs-accordion-heading py-0.5 flex items-center gap-x-0.5 w-full">
-                                                <button className="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-expanded="false" aria-controls="hs-close-currently-opened-tree-sub-collapse-two">
-                                                    <svg className="size-4 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M5 12h14"></path>
-                                                        <path className="hs-accordion-active:hidden block" d="M12 5v14"></path>
-                                                    </svg>
-                                                </button>
-
-                                                <div className="grow hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
-                                                    <div className="flex items-center gap-x-3">
-                                                        <div className="grow">
-                                                            <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                Fútbol 8
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* <!-- End 2nd Level Accordion Heading --> */}
-
-                                            {/* <!-- 2nd Level Collapse --> */}
-                                            <div id="hs-close-currently-opened-tree-sub-collapse-two" className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="group" aria-labelledby="hs-close-currently-opened-tree-sub-heading-two">
-                                                <div className="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700">
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Complejo Q
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Fanaticos Fútbol
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Puro Fútbol
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-                                                </div>
-                                            </div>
-                                            {/* <!-- End 2nd Level Collapse --> */}
-                                        </div>
-                                        {/* <!-- End 2nd Level Nested Accordion --> */}
-
-                                        {/* <!-- 2nd Level Nested Accordion --> */}
-                                        <div className="hs-accordion" role="treeitem" aria-expanded="false" id="hs-close-currently-opened-tree-sub-heading-three">
-                                            {/* <!-- 2nd Level Accordion Heading --> */}
-                                            <div className="hs-accordion-heading py-0.5 flex items-center gap-x-0.5 w-full">
-                                                <button className="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-expanded="false" aria-controls="hs-close-currently-opened-tree-sub-collapse-three">
-                                                    <svg className="size-4 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M5 12h14"></path>
-                                                        <path className="hs-accordion-active:hidden block" d="M12 5v14"></path>
-                                                    </svg>
-                                                </button>
-
-                                                <div className="grow hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
-                                                    <div className="flex items-center gap-x-3">
-                                                        <div className="grow">
-                                                            <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                Fútbol 11
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* <!-- End 2nd Level Accordion Heading --> */}
-
-                                            {/* <!-- 2nd Level Collapse --> */}
-                                            <div id="hs-close-currently-opened-tree-sub-collapse-three" className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="group" aria-labelledby="hs-close-currently-opened-tree-sub-heading-three">
-                                                <div className="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700">
-                                                    {/* <!-- 2nd Level Item --> */}
-                                                    <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                                        <div className="flex items-center gap-x-3">
-                                                            <div className="grow">
-                                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                                    Club Atlético Neuquén
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* <!-- End 2nd Level Item --> */}
-                                                </div>
-                                            </div>
-                                            {/* <!-- End 2nd Level Collapse --> */}
-                                        </div>
-                                        {/* <!-- End 2nd Level Nested Accordion --> */}
-                                    </div>
-                                    {/* <!-- 2nd Level Accordion Group --> */}
-                                </div>
-                                {/* <!-- End 1st Level Collapse --> */}
-                            </div>
-                            {/* <!-- End 1st Level Accordion --> */}
-
-                            {/* <!-- 1st Level Accordion --> */}
-                            <div className="hs-accordion" role="treeitem" aria-expanded="false" id="hs-close-currently-opened-tree-heading-two">
-                                {/* <!-- 1st Level Accordion Heading --> */}
-                                <div className="hs-accordion-heading py-0.5 flex items-center gap-x-0.5 w-full">
-                                    <button className="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-expanded="false" aria-controls="hs-close-currently-opened-tree-collapse-two">
-                                        <svg className="size-4 text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M5 12h14"></path>
-                                            <path className="hs-accordion-active:hidden block" d="M12 5v14"></path>
-                                        </svg>
-                                    </button>
-
-                                    <div className="grow hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
-                                        <div className="flex items-center gap-x-3">
-                                            <div className="grow">
-                                                <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                    Pádel
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- End 1st Level Accordion Heading --> */}
-
-                                {/* <!-- 1st Level Collapse --> */}
-                                <div id="hs-close-currently-opened-tree-collapse-two" className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="group" aria-labelledby="hs-close-currently-opened-tree-heading-two">
-                                    <div className="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700">
-                                        {/* <!-- 1st Level Item --> */}
-                                        <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                            <div className="flex items-center gap-x-3">
-                                                <div className="grow">
-                                                    <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                        Alta Barda
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {/* <!-- End 1st Level Item --> */}
-
-                                        {/* <!-- 1st Level Item --> */}
-                                        <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                            <div className="flex items-center gap-x-3">
-                                                <div className="grow">
-                                                    <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                        Biguá
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {/* <!-- End 1st Level Item --> */}
-
-                                        {/* <!-- 1st Level Item --> */}
-                                        <div className="hs-accordion-selectable hs-accordion-selected:bg-gray-100 dark:hs-accordion-selected:bg-neutral-700 px-2 rounded-md cursor-pointer" role="treeitem">
-                                            <div className="flex items-center gap-x-3">
-                                                <div className="grow">
-                                                    <span className="text-sm text-gray-800 dark:text-neutral-200">
-                                                        Winter
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {/* <!-- End 1st Level Item --> */}
-                                    </div>
-                                </div>
-                                {/* <!-- End 1st Level Collapse --> */}
-                            </div>
-                            {/* <!-- End 1st Level Accordion --> */}
-                        </div>
-                        {/* <!-- End 1st Level Accordion Group --> */}
+                    {/* Fondo */}
+                    <div className="absolute inset-0 grid grid-cols-12 size-full">
+                        <div className="col-span-full bg-gray-100 w-full rounded-xl h-full dark:bg-neutral-800"></div>
                     </div>
-                    {/* Vista de Árbol */}
+                    {/* Fondo */}
                 </div>
             </div>
         </div>
