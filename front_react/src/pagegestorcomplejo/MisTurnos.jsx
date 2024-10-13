@@ -7,6 +7,21 @@ import Modal from '../components/Modal/Modal';
 import CreateTurno from '../components/CreateTurno/CreateTurno';
 import { useModal } from '../hooks/useModal';
 
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+
+const localizer = momentLocalizer(moment);
+
+const events = [
+    {
+        title: 'Reunión de trabajo',
+        start: new Date(2024, 9, 15, 10, 0),  // 15 de octubre de 2024, 10:00 AM
+        end: new Date(2024, 9, 15, 12, 0),    // 12:00 PM
+    },
+    // Más eventos...
+];
+
 const MisTurnos = () => {
     const { getToken, getUser } = AuthUser();
     const idUser = getUser().id;
@@ -136,28 +151,28 @@ const MisTurnos = () => {
                                     {turnosAMostrar.length > 0 ?
                                         <>
                                             <h2>Turnos:</h2>
-                                            <div class="flex flex-col max-w-[66rem] mx-auto">
-                                                <div class="-m-1.5 overflow-x-auto">
-                                                    <div class="p-1.5 min-w-full inline-block align-middle">
-                                                        <div class="border rounded-lg overflow-hidden dark:border-neutral-700">
-                                                            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                                            <div className="flex flex-col max-w-[66rem] mx-auto">
+                                                <div className="-m-1.5 overflow-x-auto">
+                                                    <div className="p-1.5 min-w-full inline-block align-middle">
+                                                        <div className="border rounded-lg overflow-hidden dark:border-neutral-700">
+                                                            <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Turno N°</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Cancha</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hora Inicio</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hora Fin</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Estado</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Método de Pago</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Timer Pago</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Reprogramación</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Precio</th>
-                                                                        <th scope="col" class="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Acciones</th>
+                                                                        <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Turno N°</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Cancha</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hora Inicio</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hora Fin</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Estado</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Método de Pago</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Timer Pago</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Reprogramación</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Precio</th>
+                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Acciones</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                                                                <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
                                                                     {turnosAMostrar.map((turno) => (
-                                                                        <tr>
+                                                                        <tr key={turno.id}>
                                                                             <td>{turno.id}</td>
                                                                             <td>{turno.idCancha}</td>
                                                                             <td>{turno.horarioInicio}</td>
@@ -168,7 +183,7 @@ const MisTurnos = () => {
                                                                             <td>{turno.timerReprogramacion}</td>
                                                                             <td>{turno.precio}</td>
                                                                             <td>
-                                                                                <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
+                                                                                <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
                                                                             </td>
                                                                         </tr>
                                                                     ))}
@@ -177,6 +192,16 @@ const MisTurnos = () => {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div style={{ height: '500px' }}>
+                                                <Calendar
+                                                    localizer={localizer}
+                                                    events={events}
+                                                    startAccessor="start"
+                                                    endAccessor="end"
+                                                    style={{ height: 500 }}
+                                                />
                                             </div>
                                         </>
                                         :
