@@ -8,14 +8,23 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Cancha;
 use App\Models\GestorComplejo;
 use App\Models\Complejo;
+use App\Models\Deporte;
+use App\Models\Servicio;
 use DateTime;
 
 class CanchaController extends Controller
 {
     public function index()
     {
-        // $complejos = Complejo::all();
-        // return $complejos;
+        $canchas = Cancha::all();
+        $complejos = Complejo::all();
+        $deportes = Deporte::all();
+        $servicios = Servicio::all();
+        return response()->json([
+        'canchas' => $canchas, 
+        'complejos' => $complejos, 
+        'deportes' => $deportes, 
+        'servicios' => $servicios]);
     }
 
     public function store(Request $request)

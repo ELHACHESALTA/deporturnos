@@ -23,6 +23,7 @@ import Bienvenida from './pageadministrador/Bienvenida';
 // ROL CLIENTE
 import LayoutCliente from './layouts/LayoutCliente';
 import WelcomeCliente from './pagecliente/WelcomeCliente';
+import VerCanchas from './pagecliente/VerCanchas';
 
 // ROL GESTOR DE COMPLEJOS
 import LayoutGestorComplejo from './layouts/LayoutGestorComplejo';
@@ -76,6 +77,7 @@ function MainContent() {
         {/* Rutas para clientes */}
         <Route path='/cliente' element={<LayoutCliente />}>
           <Route index element={<WelcomeCliente />} />
+          <Route path='verCanchas' element={<VerCanchas/>}/>
         </Route>
 
         {/* Rutas para gestores de complejo */}
