@@ -19,7 +19,6 @@ const events = [
         start: new Date(2024, 9, 15, 10, 0),  // 15 de octubre de 2024, 10:00 AM
         end: new Date(2024, 9, 15, 12, 0),    // 12:00 PM
     },
-    // Más eventos...
 ];
 
 const MisTurnos = () => {
@@ -36,6 +35,18 @@ const MisTurnos = () => {
 
     // variable para manejar el modal de creacion de turnos
     const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
+
+    // Nuevo estado para eventos del calendario
+    const [calendarEvents, setCalendarEvents] = useState([]);
+
+    // Función para mapear los turnos a eventos del calendario
+    const mapTurnosToEvents = (turnos) => {
+        return turnos.map((turno) => ({
+            title: `Turno en cancha ${turno.idCancha}`,
+            start: new Date(turno.horarioInicio),
+            end: new Date(turno.horarioFin),
+        }));
+    };
 
     const obtenerData = async (idUser) => {
         await axios.post(`http://localhost:8000/api/gestorComplejo/obtenerCanchasYTurnos`, { idUser }, {
@@ -68,23 +79,13 @@ const MisTurnos = () => {
         setTurnosAMostrar([]);
         const selectedValue = parseInt(event.target.value, 10);
         setIdCanchaSeleccionada(selectedValue);
-        for (let i = 0; i < canchas.length; i++) {
-            if (canchas[i].id === selectedValue) {
-                setCanchaSeleccionada(canchas[i]);
-            }
-        }
-        let arreglo = [];
-        if (turnos.length > 0) {
-            for (let j = 0; j < turnos.length; j++) {
-                console.log(turnos[j].idCancha);
-                console.log(canchaSeleccionada);
+        let canchaSeleccionada = canchas.find(cancha => cancha.id === selectedValue);
+        setCanchaSeleccionada(canchaSeleccionada);
 
-                if (turnos[j].idCancha === selectedValue) {
-                    arreglo.push(turnos[j]);
-                }
-            }
-        }
-        setTurnosAMostrar(arreglo);
+        // Filtrar y mapear turnos para la cancha seleccionada
+        let turnosFiltrados = turnos.filter(turno => turno.idCancha === selectedValue);
+        setTurnosAMostrar(turnosFiltrados);
+        setCalendarEvents(mapTurnosToEvents(turnosFiltrados)); // Mapear a eventos del calendario
     };
 
     return (
@@ -197,7 +198,7 @@ const MisTurnos = () => {
                                             <div style={{ height: '500px' }}>
                                                 <Calendar
                                                     localizer={localizer}
-                                                    events={events}
+                                                    events={calendarEvents}  // Aquí van los eventos mapeados
                                                     startAccessor="start"
                                                     endAccessor="end"
                                                     style={{ height: 500 }}
