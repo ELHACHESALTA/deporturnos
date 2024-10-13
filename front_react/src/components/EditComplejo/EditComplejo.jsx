@@ -11,7 +11,7 @@ const validationsForm = (form) => {
     // expresiones regulares para los distintos campos del formulario
     let regexNombreComplejo = /^[a-zA-Z0-9À-ÿ\u00f1\u00d1\s'"]+$/;
     let regexCiudad = /^[A-Za-zÁ-Ýá-ýñÑ’']([A-Za-zÁ-Ýá-ýñÑ’' ]*)$/;
-    let regexCalle = /^[A-Za-zÁ-Ýá-ýñÑ’']([A-Za-zÁ-Ýá-ýñÑ’' ]*)$/;
+    let regexCalle = /^[A-Za-zÁ-Ýá-ýñÑ’'0-9]([A-Za-zÁ-Ýá-ýñÑ’'0-9 ]*)$/;
     let regexNumero = /^[0-9]+$/;
     let regexHora = /^([01]\d|2[0-3]):([0-5]\d)$/;
     
@@ -32,7 +32,7 @@ const validationsForm = (form) => {
     if (!form.calle.trim() || !form.numero.trim()){
         errors.calle = "Los campos 'calle' y 'N°' son obligatorios";
     } else if (!regexCalle.test(form.calle.trim())){
-        errors.calle = "El campo 'calle' sólo acepta letras y espacios en blanco";
+        errors.calle = "El campo 'calle' sólo acepta letras, números y espacios en blanco";
     } else if (!regexNumero.test(form.numero.trim())){
       errors.calle = "El campo 'número' sólo acepta números";
     }
@@ -41,7 +41,7 @@ const validationsForm = (form) => {
 
 const EditComplejo = ({complejo, diasDisponibles, servicios, serviciosSeleccionados}) => {
   const cadena = complejo[0].ubicacion;
-  const partes = cadena.match(/^([a-zA-ZÀ-ÿ\u00f1\u00d1\s]+)(\d+)$/);
+  const partes = cadena.match(/^(.*?)(\d+)(?!.*\d)/);
   const calle = partes[1].trim();
   const numero = partes[2];
   const initialForm = {
