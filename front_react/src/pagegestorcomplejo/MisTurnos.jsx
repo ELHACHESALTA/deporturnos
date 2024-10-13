@@ -131,7 +131,7 @@ const MisTurnos = () => {
                     <strong>Deporte:</strong> {canchaSeleccionada.idDeporte}
                 </p>
                 <div>
-                    <button onClick={openModalCreate}>Crear turno manual</button>
+                    <button onClick={openModalCreate} className='text-black'>Crear turno manual</button>
                 </div>
             </div>
             {turnosAMostrar.length > 0 ?

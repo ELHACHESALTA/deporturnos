@@ -7,7 +7,10 @@ import CreateComplejo from '../components/CreateComplejo/CreateComplejo';
 const MiComplejo = () => {
     const { getUser, getToken } = AuthUser();
     const idUser = getUser().id;
-    const [complejo, setComplejo] = useState([]);    
+    const [complejo, setComplejo] = useState([]);
+    const [diasDisponibles, setDiasDisponibles] = useState([]);
+    const [servicios, setServicios] = useState([]);
+    const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
 
     const [loading, setLoading] = useState(true);
 
@@ -18,7 +21,10 @@ const MiComplejo = () => {
                 'Authorization': 'Bearer '+ getToken()
             }
         }).then(response => {
-            setComplejo(response.data);
+            setComplejo(response.data.complejo);
+            setDiasDisponibles(response.data.diasDisponibles);
+            setServicios(response.data.servicios);
+            setServiciosSeleccionados(response.data.serviciosSeleccionados);
             setLoading(false);
         })
         .catch(error => {
@@ -44,7 +50,7 @@ const MiComplejo = () => {
 
     return (
         <div className='flex-grow'>
-            {complejo.length > 0 ? <EditComplejo complejo={complejo}/> : <CreateComplejo/>}
+            {complejo.length > 0 ? <EditComplejo complejo={complejo} diasDisponibles={diasDisponibles} servicios={servicios} serviciosSeleccionados={serviciosSeleccionados}/> : <CreateComplejo servicios={servicios}/>}
         </div>
     )
 }

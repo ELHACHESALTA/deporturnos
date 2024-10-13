@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('complejos', function (Blueprint $table) {
+        Schema::create('servicios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreComplejo', 50);
-            $table->string('ciudad', 50);
-            $table->string('ubicacion', 50);
-            $table->unsignedBigInteger('idGestorComplejo');
-            $table->foreign('idGestorComplejo')->references('id')->on('gestor_complejos')->onDelete('cascade');
+            $table->string('descripcionServicio', 50);
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('complejos');
+        Schema::dropIfExists('servicios');
     }
 };

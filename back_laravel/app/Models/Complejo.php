@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\GestorComplejo;
+use App\Models\Cancha;
+use App\Models\Dia;
+use App\Models\ComplejoServicio;
 
 class Complejo extends Model
 {
@@ -23,5 +26,17 @@ class Complejo extends Model
 
     public function gestorComplejo(){
         return $this->belongsTo(GestorComplejo::class);
+    }
+
+    public function cancha(){
+        return $this->hasMany(Cancha::class);
+    }
+
+    public function dia(){
+        return $this->hasMany(Dia::class);
+    }
+
+    public function complejoServicio(){
+        return $this->hasMany(ComplejoServicio::class);
     }
 }
