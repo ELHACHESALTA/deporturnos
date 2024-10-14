@@ -104,7 +104,7 @@ const VerCanchas = () => {
                         <form className="">
                             {/* Buscador por nombre de complejo */}
                             <div className="relative mb-4 w-full flex items-center justify-between rounded-md">
-                                <svg className="absolute left-2 block h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg className="absolute left-2 block h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="11" cy="11" r="8" className=""></circle>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65" className=""></line>
                                 </svg>
@@ -121,7 +121,7 @@ const VerCanchas = () => {
                             {/* Buscador por nombre de complejo */}
 
                             {/* Filtros */}
-                            <label for="date" className="text-lg flex justify-center rounded-md w-full bg-neutral-200 font-medium text-stone-600 mb-4 dark:bg-neutral-500 dark:text-white">Filtros</label>
+                            <label htmlFor="date" className="text-lg flex justify-center rounded-md w-full bg-neutral-200 font-medium text-stone-600 mb-4 dark:bg-neutral-500 dark:text-white">Filtros</label>
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                 {/* Filtro por deporte */}
                                 <div className="flex flex-col items-center justify-center">
@@ -158,7 +158,7 @@ const VerCanchas = () => {
                                 {/* Filtro por ciudad */}
 
                                 <div className="flex flex-col items-end justify-center">
-                                    <label for="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
+                                    <label htmlFor="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
                                 </div>
 
                                 <div className="flex flex-col items-start justify-center dark:text-white">
@@ -183,17 +183,28 @@ const VerCanchas = () => {
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4">
                                 {/* Filtro por día turno */}
                                 <div className="flex flex-col items-center justify-center">
-                                    <label for="name" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
+                                    <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
                                     <input type="date" id="date" className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" />
                                 </div>
                                 {/* Filtro por día turno */}
 
                                 {/* Filtro por hora inicio turno */}
                                 <div className="flex flex-col items-center justify-center">
-                                    <label for="name" className="text-sm font-medium text-stone-600 dark:text-white">Por hora inicio turno:</label>
+                                    <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por hora inicio turno:</label>
                                     <input type="time" id="time" className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" min="09:00" max="18:00" value="00:00" required />
                                 </div>
                                 {/* Filtro por hora inicio turno */}
+
+                                <div className='col-span-2'>
+                                    <div className="relative mb-6">
+                                        <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por precio turno merno a:</label>
+                                        <input id="labels-range-input" type="range" value="1000" min="100" max="1500" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">$100</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$1500</span>
+                                    </div>
+                                </div>
                             </div>
                             {/* Filtros */}
                         </form>
