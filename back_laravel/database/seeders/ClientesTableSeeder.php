@@ -17,5 +17,15 @@ class ClientesTableSeeder extends Seeder
         $cliente1->idUser = 2;
         $cliente1->urlFotoPerfil = null;
         $cliente1->save();
+
+        $cliente2 = new Cliente();
+        $cliente2->idUser = 4;
+        $cliente2->urlFotoPerfil = null;
+        $cliente2->save();
+
+        $cliente3 = new Cliente();
+        $cliente3->idUser = 5;
+        $cliente3->urlFotoPerfil = null;
+        $cliente3->save();
     }
 }

@@ -20,7 +20,12 @@ class DatabaseSeeder extends Seeder
             ClientesTableSeeder::class,
             GestorComplejosTableSeeder::class,
             DeportesTableSeeder::class,
-            ServiciosTableSeeder::class
+            ServiciosTableSeeder::class,
+            ComplejosTableSeeder::class,
+            ComplejoServiciosTableSeeder::class,
+            CanchasTableSeeder::class,
+            DiasTableSeeder::class,
+            TurnosTableSeeder::class
         ]);
     }
 }
