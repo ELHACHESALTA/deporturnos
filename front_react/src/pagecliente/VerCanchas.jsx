@@ -10,12 +10,16 @@ const VerCanchas = () => {
     const [deportes, setDeportes] = useState([]);
     const [servicios, setServicios] = useState([]);
     const [complejoServicios, setComplejoServicios] = useState([]);
+    const [turnos, setTurnos] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [valorBuscador, setValorBuscador] = useState('');
     const [deporteFiltro, setDeporteFiltro] = useState('');
     const [ciudadFiltro, setCiudadFiltro] = useState('');
     const [serviciosSeleccionados, setServiciosSeleccionados] = useState([]);
+    const [fechaFiltro, setFechaFiltro] = useState('');
+    const [horaInicioFiltro, setHoraInicioFiltro] = useState('');
+    const [precioFiltro, setPrecioFiltro] = useState(0);
 
     const [canchasFiltradas, setCanchasFiltradas] = useState([]);
 
@@ -31,12 +35,14 @@ const VerCanchas = () => {
         setDeportes(respuesta.data.deportes);
         setServicios(respuesta.data.servicios);
         setComplejoServicios(respuesta.data.complejoServicios);
+        setTurnos(respuesta.data.turnos);
         setCanchasFiltradas(respuesta.data.canchas);
         setLoading(false);
     };
 
     useEffect(() => {
         obtenerCanchas();
+        window.scrollTo(0, 0); // Desplaza hacia arriba cada vez que carga la página
     }, []);
 
     const getComplejo = (idComplejo) => complejos.find(complejo => complejo.id === idComplejo);
@@ -60,12 +66,25 @@ const VerCanchas = () => {
                 const matchesDeporte = deporteFiltro === '' || `${deporte?.nombreDeporte} ${deporte?.tipoDeporte}` === deporteFiltro;
                 const matchesCiudad = ciudadFiltro === '' || complejo?.ciudad === ciudadFiltro;
                 const matchesServicios = serviciosSeleccionados.length === 0 || serviciosSeleccionados.every(servicioId => serviciosComplejo.some(servicio => servicio.id === servicioId));
-                return matchesNombre && matchesDeporte && matchesCiudad && matchesServicios;
+                
+                // se filtran los turnos que pertenecen a la cancha
+                const turnosCancha = turnos.filter(turno => turno.idCancha === cancha.id);
+
+                const matchesTurnoFecha = fechaFiltro === '' || turnosCancha.some(turno => turno.horarioInicio.startsWith(fechaFiltro));
+                const matchesTurnoHora = horaInicioFiltro === '' || turnosCancha.some(turno => {
+                    const horaInicioTurno = turno.horarioInicio.split(' ')[1];
+                    return horaInicioTurno == (horaInicioFiltro + ":00");
+                });
+
+                // filtro por precio
+                const matchesPrecio = precioFiltro === 0 || turnosCancha.some(turno => turno.precio <= precioFiltro);
+                
+                return matchesNombre && matchesDeporte && matchesCiudad && matchesServicios && matchesTurnoFecha && matchesTurnoHora && matchesPrecio;
             });
             setCanchasFiltradas(result);
         };
         filtrarCanchas();
-    }, [valorBuscador, deporteFiltro, ciudadFiltro, serviciosSeleccionados, canchas]);
+    }, [valorBuscador, deporteFiltro, ciudadFiltro, serviciosSeleccionados, canchas, turnos, fechaFiltro, horaInicioFiltro, precioFiltro]);
 
     if (loading) {
         return (<Loading />);
@@ -82,6 +101,29 @@ const VerCanchas = () => {
         } else {
             setServiciosSeleccionados([...serviciosSeleccionados, servicioId]); // Agregar el servicio
         }
+    };
+
+    // Funciones para manejar los cambios en los inputs
+    const handleFechaFiltroChange = (e) => {
+        setFechaFiltro(e.target.value);
+    };
+
+    const handleHoraInicioFiltroChange = (e) => {
+        setHoraInicioFiltro(e.target.value);
+    };
+
+    const limpiarFechaFiltro = (e) => {
+        e.preventDefault();
+        setFechaFiltro('');
+    }
+
+    const limpiarHoraInicioFiltro = (e) => {
+        e.preventDefault();
+        setHoraInicioFiltro('');
+    }
+
+    const cambiarPrecioFiltro = (event) => {
+        setPrecioFiltro(Number(event.target.value));
     };
 
     return (
@@ -115,7 +157,6 @@ const VerCanchas = () => {
                                     onChange={(e) => setValorBuscador(e.target.value)}
                                     className="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-9 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
                                     placeholder="Buscar por nombre de complejo"
-                                    required
                                 />
                             </div>
                             {/* Buscador por nombre de complejo */}
@@ -183,26 +224,61 @@ const VerCanchas = () => {
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4">
                                 {/* Filtro por día turno */}
                                 <div className="flex flex-col items-center justify-center">
-                                    <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
-                                    <input type="date" id="date" className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" />
+                                    <label htmlFor="diaTurno" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
+                                    <input type="date"
+                                     id="diaTurno" 
+                                     className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" 
+                                     value={fechaFiltro}
+                                     onChange={handleFechaFiltroChange} />
+
+                                     <button 
+                                     type='button'
+                                     onClick={limpiarFechaFiltro}
+                                     className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                     >
+                                        Limpiar fecha
+                                     </button>
                                 </div>
                                 {/* Filtro por día turno */}
 
                                 {/* Filtro por hora inicio turno */}
                                 <div className="flex flex-col items-center justify-center">
                                     <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por hora inicio turno:</label>
-                                    <input type="time" id="time" className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" min="09:00" max="18:00" value="00:00" required />
+                                    <input type="time" 
+                                    id="time" 
+                                    className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" 
+                                    value={horaInicioFiltro}
+                                    onChange={handleHoraInicioFiltroChange}
+                                    />
+                                    <button 
+                                     type='button' 
+                                     onClick={limpiarHoraInicioFiltro}
+                                     className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                     >
+                                        Limpiar hora
+                                     </button>
                                 </div>
                                 {/* Filtro por hora inicio turno */}
 
                                 <div className='col-span-2'>
                                     <div className="relative mb-6">
-                                        <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por precio turno merno a:</label>
-                                        <input id="labels-range-input" type="range" value="1000" min="100" max="1500" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
-                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">$100</span>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$500</span>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">$1000</span>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">$1500</span>
+                                        <label htmlFor="labels-range-input" className="text-sm font-medium text-stone-600 dark:text-white">Por precio turno menor a: {precioFiltro > 0 ? `$${precioFiltro}` : ""}</label>
+                                        <input id="labels-range-input"
+                                         type="range"
+                                         value={precioFiltro}
+                                         onChange={cambiarPrecioFiltro}
+                                         min="0" 
+                                         max="70000" 
+                                         step="10000"
+                                         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-0 -bottom-6">X</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[14.28%] -translate-x-1/2 -bottom-6">$10000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[28.57%] -translate-x-1/2 -bottom-6">$20000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[42.85%] -translate-x-1/2 -bottom-6">$30000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[57.14%] -translate-x-1/2 -bottom-6">$40000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[71.42%] -translate-x-1/2 -bottom-6">$50000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[85.71%] -translate-x-1/2 -bottom-6">$60000</span>
+                                        <span className="text-sm text-gray-500 dark:text-gray-400 absolute right-0 -bottom-6">$70000</span>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +316,8 @@ const VerCanchas = () => {
                                             Calle: {complejoFinal?.ubicacion}
                                         </p>
                                         <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                            Deporte: {deporteFinal?.nombreDeporte}
+                                            {/* Deporte: {deporteFinal?.nombreDeporte} */}
+                                            Deporte: {`${deporteFinal?.nombreDeporte} ${deporteFinal?.tipoDeporte}`}
                                         </p>
                                         <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
                                             Servicios: {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}

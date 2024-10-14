@@ -11,6 +11,7 @@ use App\Models\Complejo;
 use App\Models\ComplejoServicio;
 use App\Models\Deporte;
 use App\Models\Servicio;
+use App\Models\Turno;
 use DateTime;
 
 class CanchaController extends Controller
@@ -22,12 +23,14 @@ class CanchaController extends Controller
         $deportes = Deporte::all();
         $servicios = Servicio::all();
         $complejoServicios = ComplejoServicio::all();
+        $turnos = Turno::all();
         return response()->json([
         'canchas' => $canchas, 
         'complejos' => $complejos, 
         'deportes' => $deportes, 
         'servicios' => $servicios,
-        'complejoServicios' => $complejoServicios]);
+        'complejoServicios' => $complejoServicios,
+        'turnos' => $turnos]);
     }
 
     public function store(Request $request)
