@@ -24,4 +24,8 @@ class Turno extends Model
     public function cancha(){
         return $this->belongsTo(Cancha::class);
     }
+
+    public function reserva(){
+        return $this->belongsTo(Reserva::class);
+    }
 }

@@ -15,8 +15,15 @@ class Cliente extends Model
         'urlFotoPerfil',
     ];
 
-
     public function users(){
         return $this->belongsTo(User::class);
+    }
+
+    public function reserva(){
+        return $this->hasMany(Reserva::class);
+    }
+
+    public function favorito(){
+        return $this->hasMany(Favorito::class);
     }
 }

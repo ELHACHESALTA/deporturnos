@@ -18,9 +18,6 @@ class Complejo extends Model
         'nombreComplejo',
         'ciudad',
         'ubicacion',
-        'diasDisponibles',
-        'horaApertura',
-        'horaCierre',
         'idGestorComplejo',
     ];
 
@@ -38,5 +35,9 @@ class Complejo extends Model
 
     public function complejoServicio(){
         return $this->hasMany(ComplejoServicio::class);
+    }
+
+    public function favorito(){
+        return $this->hasMany(Favorito::class);
     }
 }
