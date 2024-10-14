@@ -18,7 +18,7 @@ const MiComplejo = () => {
         await axios.post(`http://localhost:8000/api/gestorComplejo/miComplejo`, { idUser }, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+ getToken()
+                'Authorization': 'Bearer ' + getToken()
             }
         }).then(response => {
             setComplejo(response.data.complejo);
@@ -27,13 +27,13 @@ const MiComplejo = () => {
             setServiciosSeleccionados(response.data.serviciosSeleccionados);
             setLoading(false);
         })
-        .catch(error => {
-            console.error('There was an error!', error);
-            setLoading(false);
-        });
+            .catch(error => {
+                console.error('There was an error!', error);
+                setLoading(false);
+            });
     };
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         mostrarComplejo(idUser);
     }, []);
 
@@ -50,7 +50,18 @@ const MiComplejo = () => {
 
     return (
         <div className='flex-grow'>
-            {complejo.length > 0 ? <EditComplejo complejo={complejo} diasDisponibles={diasDisponibles} servicios={servicios} serviciosSeleccionados={serviciosSeleccionados}/> : <CreateComplejo servicios={servicios}/>}
+
+            {/* Banner */}
+            <div className="flex mx-auto max-w-[66rem] px-2">
+                <div className="flex justify-center w-full">
+                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 py-4 rounded-xl w-full max-w-full">
+                        <h2 className="text-white dark:text-neutral-900 font-bold text-2xl text-center">MI COMPLEJO</h2>
+                    </div>
+                </div>
+            </div>
+            {/* Banner */}
+
+            {complejo.length > 0 ? <EditComplejo complejo={complejo} diasDisponibles={diasDisponibles} servicios={servicios} serviciosSeleccionados={serviciosSeleccionados} /> : <CreateComplejo servicios={servicios} />}
         </div>
     )
 }

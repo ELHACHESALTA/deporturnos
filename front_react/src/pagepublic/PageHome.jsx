@@ -14,7 +14,7 @@ const PageHome = () => {
                                     <span className="flex gap-x-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>
                                         <span className="grow">
-                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Complejos</span>
+                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-500 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Complejos</span>
                                             <span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Reserva fácilmente y accede a múltiples opciones en un solo lugar. Recorre las diferentes instalaciones deportivas que ofrecen una variedad de canchas y servicios.</span>
                                         </span>
                                     </span>
@@ -24,7 +24,7 @@ const PageHome = () => {
                                     <span className="flex gap-x-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg>
                                         <span className="grow">
-                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Canchas</span>
+                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-500 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Canchas</span>
                                             <span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Encuentra canchas de fútbol y pádel listas para adaptarse a tus horarios y necesidades.</span>
                                         </span>
                                     </span>
@@ -34,7 +34,7 @@ const PageHome = () => {
                                     <span className="flex gap-x-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>
                                         <span className="grow">
-                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-600 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Clientes</span>
+                                            <span className="block text-lg font-semibold hs-tab-active:text-lime-500 text-gray-800 dark:hs-tab-active:text-lime-500 dark:text-neutral-200">Clientes</span>
                                             <span className="block mt-1 text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Gestiona los turnos de tus complejos y canchas favoritas en un solo lugar.</span>
                                         </span>
                                     </span>

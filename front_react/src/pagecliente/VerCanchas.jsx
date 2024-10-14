@@ -55,7 +55,7 @@ const VerCanchas = () => {
                 const complejo = getComplejo(cancha.idComplejo);
                 const deporte = getDeporte(cancha.idDeporte);
                 const serviciosComplejo = getServiciosComplejo(cancha.idComplejo);
-                
+
                 const matchesNombre = complejo?.nombreComplejo.toLowerCase().includes(valorBuscador.toLowerCase());
                 const matchesDeporte = deporteFiltro === '' || `${deporte?.nombreDeporte} ${deporte?.tipoDeporte}` === deporteFiltro;
                 const matchesCiudad = ciudadFiltro === '' || complejo?.ciudad === ciudadFiltro;
@@ -85,106 +85,170 @@ const VerCanchas = () => {
     };
 
     return (
-        <div className='flex-grow text-black'>
-            {/* Buscador por nombre de complejo */}
-            <div className="max-w-md mx-auto">
-                <label htmlFor='default-search' className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div className="relative">
-                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
+        <div className='flex-grow'>
+
+            {/* Banner */}
+            <div className="flex mx-auto max-w-[66rem] px-2">
+                <div className="flex justify-center w-full">
+                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 py-4 rounded-xl w-full max-w-full">
+                        <h2 className="text-white dark:text-neutral-900 font-bold text-2xl text-center">VER CANCHAS</h2>
                     </div>
-                    <input 
-                        type="search" 
-                        id="default-search" 
-                        value={valorBuscador} 
-                        onChange={(e) => setValorBuscador(e.target.value)} 
-                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                        placeholder="Buscar por nombre de complejos..." 
-                        required 
-                    />
                 </div>
             </div>
-            {/* Fin de buscador por nombre de complejo */}
+            {/* Banner */}
 
-            {/* Filtros de deporte, ciudad y servicios */}
-            <div className="flex flex-col mt-4">
-                <div className="flex justify-center">
-                    {/* Filtro por deporte */}
-                    <select
-                        value={deporteFiltro}
-                        onChange={(e) => setDeporteFiltro(e.target.value)}
-                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-2"
-                    >
-                        <option value="">Todos los deportes</option>
-                        {deportes.map((deporte) => (
-                            <option key={deporte.id} value={`${deporte.nombreDeporte} ${deporte.tipoDeporte}`}>
-                                {`${deporte.nombreDeporte} ${deporte.tipoDeporte}`}
-                            </option>
-                        ))}
-                    </select>
-                    {/* Fin de filtro por deporte */}
+            {/* Búsqueda y filtros */}
+            <div className="flex mx-auto max-w-[66rem] px-2 mt-4">
+                <div className="flex flex-col mx-auto w-full">
+                    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg dark:bg-neutral-900 dark:border-neutral-700">
+                        <form className="">
+                            {/* Buscador por nombre de complejo */}
+                            <div className="relative mb-4 w-full flex items-center justify-between rounded-md">
+                                <svg className="absolute left-2 block h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8" className=""></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" className=""></line>
+                                </svg>
+                                <input
+                                    type="search"
+                                    id="default-search"
+                                    value={valorBuscador}
+                                    onChange={(e) => setValorBuscador(e.target.value)}
+                                    className="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-9 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                    placeholder="Buscar por nombre de complejo"
+                                    required
+                                />
+                            </div>
+                            {/* Buscador por nombre de complejo */}
 
-                    {/* Filtro por ciudad */}
-                    <select
-                        value={ciudadFiltro}
-                        onChange={(e) => setCiudadFiltro(e.target.value)}
-                        className="border p-2 rounded mx-2"
-                    >
-                        <option value="">Todas las ciudades</option>
-                        {ciudadesUnicas.map((ciudad, index) => (
-                            <option key={index} value={ciudad}>
-                                {ciudad}
-                            </option>
-                        ))}
-                    </select>
-                    {/* Fin de filtro por ciudad */}
+                            {/* Filtros */}
+                            <label for="date" className="text-lg flex justify-center rounded-md w-full bg-neutral-200 font-medium text-stone-600 mb-4 dark:bg-neutral-500 dark:text-white">Filtros</label>
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                {/* Filtro por deporte */}
+                                <div className="flex flex-col items-center justify-center">
+                                    <select
+                                        value={deporteFiltro}
+                                        onChange={(e) => setDeporteFiltro(e.target.value)}
+                                        className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                    >
+                                        <option value="">Por deporte</option>
+                                        {deportes.map((deporte) => (
+                                            <option key={deporte.id} value={`${deporte.nombreDeporte} ${deporte.tipoDeporte}`}>
+                                                {`${deporte.nombreDeporte} ${deporte.tipoDeporte}`}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                {/* Filtro por deporte */}
+
+                                {/* Filtro por ciudad */}
+                                <div className="flex flex-col items-center justify-center">
+                                    <select
+                                        value={ciudadFiltro}
+                                        onChange={(e) => setCiudadFiltro(e.target.value)}
+                                        className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                    >
+                                        <option value="">Por ciudad</option>
+                                        {ciudadesUnicas.map((ciudad, index) => (
+                                            <option key={index} value={ciudad}>
+                                                {ciudad}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                {/* Filtro por ciudad */}
+
+                                <div className="flex flex-col items-end justify-center">
+                                    <label for="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
+                                </div>
+
+                                <div className="flex flex-col items-start justify-center dark:text-white">
+                                    {/* Filtro por servicios */}
+                                    <div className="flex flex-col justify-center">
+                                        {servicios.map((servicio) => (
+                                            <label key={servicio.id} className="flex items-center mr-4">
+                                                <input
+                                                    type="checkbox"
+                                                    value={servicio.id}
+                                                    checked={serviciosSeleccionados.includes(servicio.id)}
+                                                    onChange={handleServicioChange}
+                                                    className="mr-2"
+                                                />
+                                                {servicio.descripcionServicio}
+                                            </label>
+                                        ))}
+                                    </div>
+                                    {/* Fin de filtro por servicios */}
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4">
+                                {/* Filtro por día turno */}
+                                <div className="flex flex-col items-center justify-center">
+                                    <label for="name" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
+                                    <input type="date" id="date" className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" />
+                                </div>
+                                {/* Filtro por día turno */}
+
+                                {/* Filtro por hora inicio turno */}
+                                <div className="flex flex-col items-center justify-center">
+                                    <label for="name" className="text-sm font-medium text-stone-600 dark:text-white">Por hora inicio turno:</label>
+                                    <input type="time" id="time" className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" min="09:00" max="18:00" value="00:00" required />
+                                </div>
+                                {/* Filtro por hora inicio turno */}
+                            </div>
+                            {/* Filtros */}
+                        </form>
+                    </div>
                 </div>
-
-                {/* Filtro por servicios */}
-                <h3 className="text-lg font-semibold mt-4">Filtrar por servicios:</h3>
-                <div className="flex flex-wrap justify-center">
-                    {servicios.map((servicio) => (
-                        <label key={servicio.id} className="flex items-center mr-4">
-                            <input
-                                type="checkbox"
-                                value={servicio.id}
-                                checked={serviciosSeleccionados.includes(servicio.id)}
-                                onChange={handleServicioChange}
-                                className="mr-2"
-                            />
-                            {servicio.descripcionServicio}
-                        </label>
-                    ))}
-                </div>
-                {/* Fin de filtro por servicios */}
             </div>
+            {/* Búsqueda y filtros */}
 
             {/* Canchas disponibles */}
-            <div className="max-w-lg mx-auto my-5 p-4 border rounded-lg shadow-lg bg-white">
-                <h2 className="text-2xl font-bold text-center mb-4">Canchas Disponibles</h2>
-                {canchasFiltradas.length > 0 ? (
-                    canchasFiltradas.map((cancha) => {
-                        const complejoFinal = getComplejo(cancha.idComplejo);
-                        const deporteFinal = getDeporte(cancha.idDeporte);
-                        const serviciosFinal = getServiciosComplejo(cancha.idComplejo);
+            <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Canchas Disponibles Encontradas</h2>
+            <div className="flex mx-auto max-w-[66rem] px-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                    {canchasFiltradas.length > 0 ? (
+                        canchasFiltradas.map((cancha) => {
+                            const complejoFinal = getComplejo(cancha.idComplejo);
+                            const deporteFinal = getDeporte(cancha.idDeporte);
+                            const serviciosFinal = getServiciosComplejo(cancha.idComplejo);
 
-                        return (
-                            <div key={cancha.id} className="bg-gray-100 p-4 rounded-lg mb-4 shadow">
-                                <h3 className="text-xl font-semibold"> {cancha.nombreCancha} </h3>
-                                <p className="text-gray-700"><strong>Complejo:</strong> {complejoFinal?.nombreComplejo}</p>
-                                <p className="text-gray-700"><strong>Ciudad:</strong> {complejoFinal?.ciudad}</p>
-                                <p className="text-gray-700"><strong>Calle:</strong> {complejoFinal?.ubicacion}</p>
-                                <p className="text-gray-700"><strong>Deporte:</strong> {deporteFinal?.nombreDeporte}</p>
-                                <p className="text-gray-700"><strong>Servicios:</strong> {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}</p>
-                            </div>
-                        );
-                    })
-                ) : (
-                    <p>No se encontraron canchas.</p>
-                )}
+                            return (
+                                <div key={cancha.id} className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                                    <img className="h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
+                                    <div className="p-4 md:p-5">
+                                        <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                                            {cancha.nombreCancha}
+                                        </h3>
+                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                            Complejo: {complejoFinal?.nombreComplejo}
+                                        </p>
+                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                            Ciudad: {complejoFinal?.ciudad}
+                                        </p>
+                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                            Calle: {complejoFinal?.ubicacion}
+                                        </p>
+                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                            Deporte: {deporteFinal?.nombreDeporte}
+                                        </p>
+                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                            Servicios: {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}
+                                        </p>
+
+                                        <button className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4">
+                                            Sacar Turno
+                                        </button>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p className='block text-sm mb-4 dark:text-white mt-4'>No se encontraron canchas.</p>
+                    )}
+                </div>
             </div>
+            {/* Canchas disponibles */}
+
         </div>
     );
 };

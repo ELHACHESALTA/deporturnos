@@ -7,9 +7,30 @@ import Modal from '../components/Modal/Modal';
 import CreateTurno from '../components/CreateTurno/CreateTurno';
 import { useModal } from '../hooks/useModal';
 
+// Inicio configuraciones de React Big Calendar
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
+
+// Inicio traducción al español
+import 'moment/locale/es';
+moment.locale('es');
+
+const messages = {
+    today: 'Hoy',
+    previous: 'Anterior',
+    next: 'Siguiente',
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    agenda: 'Agenda',
+    date: 'Fecha',
+    time: 'Hora',
+    event: 'Turno',
+    allDay: 'Todo el día',
+    noEventsInRange: 'No hay turnos en este rango.',
+};
+// Fin traducción al español
 
 const localizer = momentLocalizer(moment);
 
@@ -20,6 +41,18 @@ const events = [
         end: new Date(2024, 9, 15, 12, 0),    // 12:00 PM
     },
 ];
+
+const formats = {
+    dayFormat: (date, culture, localizer) =>
+        localizer.format(date, 'dddd D', culture),  // Muestra "Lunes 15"
+    weekdayFormat: (date, culture, localizer) =>
+        localizer.format(date, 'dddd', culture),  // Muestra "Lunes"
+    monthHeaderFormat: (date, culture, localizer) =>
+        localizer.format(date, 'MMMM YYYY', culture),  // Muestra "Octubre 2024"
+    timeGutterFormat: (date, culture, localizer) =>
+        localizer.format(date, 'HH:mm', culture),  // Muestra las horas en formato 24h
+};
+// Fin configuraciones de React Big Calendar
 
 const MisTurnos = () => {
     const { getToken, getUser } = AuthUser();
@@ -90,142 +123,146 @@ const MisTurnos = () => {
 
     return (
         <div className='flex-grow'>
-            <h1>Mis turnos</h1>
-            {complejo === null ? (
-                <Modal isOpen={true}>
-                    <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto text-center">
-                        <div className="flex justify-center mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-16 h-16 text-red-600">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
-                        </div>
-                        <p className="text-gray-700 text-xl mb-6">
-                            Primero debes crear un complejo para acceder a "Mis Canchas"!
-                        </p>
-                        <button
-                            onClick={() => navigate('/gestorComplejo/miComplejo')}
-                            className="bg-blue-500 text-white border-none px-6 py-3 rounded-lg transition-colors duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                        >
-                            Ir a Mi Complejo
-                        </button>
+
+            {/* Banner */}
+            <div className="flex mx-auto max-w-[66rem] px-2">
+                <div className="flex justify-center w-full">
+                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 py-4 rounded-xl w-full max-w-full">
+                        <h2 className="text-white dark:text-neutral-900 font-bold text-2xl text-center">MIS TURNOS</h2>
                     </div>
-                </Modal>
-            ) :
-                <div>
-                    {canchas.length > 0 ?
-                        <>
-                            <form className="max-w-sm mx-auto mt-10 mb-6">
-                                <label htmlFor="cancha" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Elige la cancha
-                                </label>
-                                <select
-                                    id="cancha"
-                                    name="cancha"
-                                    onChange={handleCanchaChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                >
-                                    <option value="0">Ninguna</option>
-                                    {canchas.map((cancha) => (
-                                        <option key={cancha.id} value={cancha.id}>
-                                            {cancha.nombreCancha}
-                                        </option>
-                                    ))}
-                                </select>
-                            </form>
-                            {idCanchaSeleccionada !== 0 ? (
-                                <>
-                                    <div className='mb-6'>
-                                        <h3>{canchaSeleccionada.nombreCancha}</h3>
-                                        <p className="text-gray-600 mb-1">
-                                            <strong>Id:</strong> {canchaSeleccionada.id}
-                                        </p>
-                                        <p className="text-gray-600 mb-1">
-                                            <strong>Complejo:</strong> {canchaSeleccionada.idComplejo}
-                                        </p>
-                                        <p className="text-gray-600 mb-2">
-                                            <strong>Deporte:</strong> {canchaSeleccionada.idDeporte}
-                                        </p>
-                                        <div>
-                                            <button onClick={openModalCreate} className='text-black'>Crear turno manual</button>
-                                        </div>
+                </div>
+            </div>
+            {/* Banner */}
+
+            {/* Zona de selección */}
+            <div className="w-full flex mx-auto max-w-[66rem] px-2">
+                {complejo === null ? (
+                    <Modal isOpen={true}>
+                        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto text-center">
+                            <div className="flex justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-16 h-16 text-red-600">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                                </svg>
+                            </div>
+                            <p className="block text-sm mb-4 dark:text-white mt-4">
+                                Primero debes crear un complejo para acceder a "Mis Canchas"!
+                            </p>
+                            <button
+                                onClick={() => navigate('/gestorComplejo/miComplejo')}
+                                className="bg-lime-500 text-white border-none px-6 py-3 rounded-lg transition-colors duration-300 hover:bg-lime-600 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                            >
+                                Ir a Mi Complejo
+                            </button>
+                        </div>
+                    </Modal>
+                ) : (
+                    <div className="w-full">
+                        {canchas.length > 0 ? (
+                            <>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                    {/* Columna izquierda: Select */}
+                                    <div className="w-full">
+                                        <form className="max-w-sm mx-auto my-4">
+                                            <div>
+                                                <label htmlFor="cancha" className="block text-sm mb-4 dark:text-white">Elige una cancha</label>
+                                                <select
+                                                    id="cancha"
+                                                    name="cancha"
+                                                    onChange={handleCanchaChange}
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-neutral-800 dark:border-neutral-700 dark:placeholder-gray-400 dark:text-white"
+                                                >
+                                                    <option className="checked:bg-lime-500 dark:checked:text-black" value="0">Ninguna</option>
+                                                    {canchas.map((cancha) => (
+                                                        <option className="checked:bg-lime-500 dark:checked:text-black" key={cancha.id} value={cancha.id}>
+                                                            {cancha.nombreCancha}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </form>
                                     </div>
-                                    {turnosAMostrar.length > 0 ?
+                                    {/* Columna izquierda: Select */}
+
+                                    {/* Columna derecha: Información de la cancha */}
+                                    {idCanchaSeleccionada !== 0 ? (
                                         <>
-                                            <h2>Turnos:</h2>
-                                            <div className="flex flex-col max-w-[66rem] mx-auto">
-                                                <div className="-m-1.5 overflow-x-auto">
-                                                    <div className="p-1.5 min-w-full inline-block align-middle">
-                                                        <div className="border rounded-lg overflow-hidden dark:border-neutral-700">
-                                                            <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Turno N°</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Cancha</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hora Inicio</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hora Fin</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Estado</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Método de Pago</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Timer Pago</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Reprogramación</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Precio</th>
-                                                                        <th scope="col" className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Acciones</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                                                                    {turnosAMostrar.map((turno) => (
-                                                                        <tr key={turno.id}>
-                                                                            <td>{turno.id}</td>
-                                                                            <td>{turno.idCancha}</td>
-                                                                            <td>{turno.horarioInicio}</td>
-                                                                            <td>{turno.horarioFin}</td>
-                                                                            <td>{turno.estadoDisponible}</td>
-                                                                            <td>{turno.metodoPago}</td>
-                                                                            <td>{turno.timerPago}</td>
-                                                                            <td>{turno.timerReprogramacion}</td>
-                                                                            <td>{turno.precio}</td>
-                                                                            <td>
-                                                                                <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    ))}
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                            <div className="w-full mt-4">
+                                                <div className=''>
+                                                    <div className="block text-sm mb-4 dark:text-white font-bold">{canchaSeleccionada.nombreCancha}</div>
+                                                    <div className="block text-sm mb-4 dark:text-white font-bold">Id: {canchaSeleccionada.id}</div>
+                                                    <div className="block text-sm mb-4 dark:text-white font-bold">Complejo: {canchaSeleccionada.idComplejo}</div>
+                                                    <div className="block text-sm mb-4 dark:text-white font-bold">Deporte: {canchaSeleccionada.idDeporte}</div>
+                                                    <div>
+                                                        <button onClick={openModalCreate} className='py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none'>Crear turno manual</button>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </>
+                                    ) : (
+                                        <div className="block text-sm mb-4 dark:text-white mt-4">No hay una cancha seleccionada.</div>
+                                    )}
+                                    {/* Columna derecha: Información de la cancha */}
+                                </div>
+                            </>
+                        ) : (
+                            <div className="block text-sm mb-4 dark:text-white mt-4">
+                                No hay canchas en este complejo.
+                            </div>
+                        )}
+                        {/* modal para crear turnos */}
+                        <Modal isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
+                            <CreateTurno closeModal={closeModalCreate} idCancha={idCanchaSeleccionada} />
+                        </Modal>
+                    </div>
+                )}
+            </div>
+            {/* Zona de selección */}
 
-                                            <div style={{ height: '500px' }}>
-                                                <Calendar
-                                                    localizer={localizer}
-                                                    events={calendarEvents}  // Aquí van los eventos mapeados
-                                                    startAccessor="start"
-                                                    endAccessor="end"
-                                                    style={{ height: 500 }}
-                                                />
-                                            </div>
-                                        </>
-                                        :
-                                        <>
-                                            <div>No hay turnos en esta cancha</div>
-                                        </>
-                                    }
-                                </>
-                            ) : (
-                                <div>No hay una cancha seleccionada.</div>
-                            )}
-                        </>
-                        :
-                        <div>No hay canchas en este complejo</div>
-                    }
-                    {/* modal para crear turnos */}
-                    <Modal isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
-                        <CreateTurno closeModal={closeModalCreate} idCancha={idCanchaSeleccionada} />
-                    </Modal>
-                </div>
-            }
+            {/* Calendario */}
+            <div className="flex mx-auto max-w-[66rem] px-2">
+                {turnosAMostrar.length > 0 ? (
+                    <>
+                        <style>
+                            {`
+                                .rbc-today {
+                                    background-color: #B3B3B3;
+                                }
+                                
+                                .rbc-event {
+                                    background-color: #65A30D;
+                                }
+
+                                .rbc-event {
+                                    background-color: #65A30D;
+                                }
+                            `}
+                        </style>
+                        <div className="flex flex-col w-full h-[500px] mt-4 px-2 dark:bg-neutral-900 dark:text-white bg-white text-black">
+                            <Calendar
+                                localizer={localizer}
+                                events={calendarEvents}  // Eventos mapeados (turnos)
+                                startAccessor="start"
+                                endAccessor="end"
+                                onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
+                                messages={messages} // Traducción personalizada
+                                formats={formats}  // Formatos personalizados
+                                className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
+                            />
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="mx-auto mt-4">
+                            <div className="block text-sm dark:text-white">No hay turnos en esta cancha</div>
+                        </div>
+                    </>
+                )}
+            </div>
+            {/* Calendario */}
+
         </div>
     )
+
 }
 
 export default MisTurnos

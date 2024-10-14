@@ -3,21 +3,21 @@ import { useNavigate } from 'react-router-dom'
 
 const PageError = () => {
     const navigate = useNavigate();
-  return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">404 - Página no encontrada</h1>
-        <p className="text-gray-500 mb-8">Lo sentimos, la página que estás buscando no existe.</p>
-        <button
-          onClick={() => navigate('/')}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md focus:ring-4 focus:ring-blue-300 focus:outline-none transition duration-300"
-        >
-          Volver a la página principal
-        </button>
-      </div>
-    </div>
-
-  )
+    return (
+        <div className="max-w-[50rem] flex flex-col mx-auto size-full">
+            <div className="text-center py-10 px-4 sm:px-6 lg:px-8">
+                <h1 className="block text-7xl font-bold text-gray-800 sm:text-9xl dark:text-white">404</h1>
+                <p className="mt-3 text-gray-600 font-bold dark:text-neutral-400 mb-10">Página no encontrada</p>
+                <p className="text-gray-600 dark:text-neutral-400 mb-10">Lo sentimos, la página que estás buscando no existe.</p>
+                <div className="mt-5 flex flex-col justify-center items-center gap-2 sm:flex-row sm:gap-3">
+                    <a className="w-full sm:w-auto py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none" href="/">
+                        <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+                        Volver a la página principal
+                    </a>
+                </div>
+            </div>
+        </div>
+    )
 }
 
 export default PageError
