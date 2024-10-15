@@ -47,6 +47,43 @@ class TurnoController extends Controller
 
     }
 
+    public function editarTurno(Request $request){
+        $response["success"] = false;
+
+        $validator = Validator::make($request->all(),[
+            'horarioInicio' => 'required',
+            'horarioFin' => 'required',
+            'precio' => 'required',
+            'timerReprogramacion' => 'required',
+        ]);
+
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
+
+        $turno = Turno::where('id', $request->id)->first();
+        $turno->horarioInicio = $request->horarioInicio;
+        $turno->horarioFin = $request->horarioFin;
+        $turno->timerReprogramacion = $request->timerReprogramacion;
+        $turno->precio = $request->precio;
+        $turno->save();
+        $response["success"] = true;
+        return response()->json($response, 200);
+    }
+
+    public function eliminarTurno($id){
+        $response["success"] = false;
+        $turno = Turno::findOrFail($id);
+        if($turno){
+            $turno->delete();
+            $response["success"] = true;
+        } else {
+            $response["message"] = "Turno no encontrado.";
+        }
+        return response()->json($response, 200);
+    }
+
     public function obtenerCanchasYTurnos (Request $request){
         $gestorComplejo = GestorComplejo::where('idUser', $request->idUser)->first();
         $canchas = [];

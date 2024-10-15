@@ -14,15 +14,15 @@ const initialForm = {
 const validationsForm = (form) => {
   let errors = {};
 
-  let regexPrecio = /^\d+(,\d+)?$/;
+  let regexPrecio = /^\d+(\.\d+)?$/;
   let regexFecha = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
   let regexTiempo = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
   if (form.precio === 0){
     errors.precio = "El campo 'precio' debe ser distinto de 0";
-  } else if (!form.precio.trim()){
+  } else if (!form.precio.toString().trim()){
     errors.precio = "El campo 'precio' es obligatorio";
-  } else if (!regexPrecio.test(form.precio.trim())){
+  } else if (!regexPrecio.test(form.precio.toString().trim())){
       errors.precio = "El campo solo debe contener números";
   }
 
@@ -115,7 +115,7 @@ const CreateTurno = ({ closeModal, idCancha }) => {
                  <span >{errors.precio}</span>
                </div>}
             </div>
-            <div>
+            <div className='mb-5'>
               <label htmlFor="fecha" className="block mb-2 text-sm font-medium text-gray-900">
                 Fecha del turno:
               </label>

@@ -41,4 +41,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('gestorComplejo/cambiarEstadoCancha', [CanchaController::class, 'cambiarEstadoCancha']);
     Route::post('gestorComplejo/crearTurno', [TurnoController::class, 'crearTurno']);
     Route::post('gestorComplejo/obtenerCanchasYTurnos', [TurnoController::class, 'obtenerCanchasYTurnos']);
+    Route::put('gestorComplejo/editarTurno', [TurnoController::class, 'editarTurno']);
+    Route::delete('gestorComplejo/eliminarTurno/{id}', [TurnoController::class, 'eliminarTurno']);
 });

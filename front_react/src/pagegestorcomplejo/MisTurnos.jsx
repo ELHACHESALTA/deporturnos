@@ -6,6 +6,7 @@ import Loading from '../components/Loading/Loading';
 import Modal from '../components/Modal/Modal';
 import CreateTurno from '../components/CreateTurno/CreateTurno';
 import { useModal } from '../hooks/useModal';
+import EditTurno from '../components/EditTurno/EditTurno';
 
 // Inicio configuraciones de React Big Calendar
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -14,6 +15,7 @@ import moment from 'moment';
 
 // Inicio traducción al español
 import 'moment/locale/es';
+
 moment.locale('es');
 
 const messages = {
@@ -68,6 +70,21 @@ const MisTurnos = () => {
 
     // variable para manejar el modal de creacion de turnos
     const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
+    const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal(false);
+
+    const [turnoAEditar, setTurnoAEditar] = useState([]);
+
+    const openModalEdit1 = (idTurno) => {
+        const turnoParaEditar = turnos.find(turno => turno.id === idTurno);
+        setTurnoAEditar(turnoParaEditar);
+        openModalEdit();
+    }
+
+    const closeModalEdit1 = () => {
+        setTurnoAEditar([]);
+        closeModalEdit();
+    }
+
 
     // Nuevo estado para eventos del calendario
     const [calendarEvents, setCalendarEvents] = useState([]);
@@ -78,6 +95,7 @@ const MisTurnos = () => {
             title: `Turno en cancha ${turno.idCancha}`,
             start: new Date(turno.horarioInicio),
             end: new Date(turno.horarioFin),
+            id: turno.id,
         }));
     };
 
@@ -213,6 +231,9 @@ const MisTurnos = () => {
                         <Modal isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
                             <CreateTurno closeModal={closeModalCreate} idCancha={idCanchaSeleccionada} />
                         </Modal>
+
+                        {/* modal para editar o eliminar turnos */}
+                        <EditTurno isOpen={isOpenModalEdit} closeModal={closeModalEdit1} turno={turnoAEditar}/>
                     </div>
                 )}
             </div>
@@ -243,7 +264,8 @@ const MisTurnos = () => {
                                 events={calendarEvents}  // Eventos mapeados (turnos)
                                 startAccessor="start"
                                 endAccessor="end"
-                                onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
+                                //onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
+                                onSelectEvent={(event) => openModalEdit1(event.id)}
                                 messages={messages} // Traducción personalizada
                                 formats={formats}  // Formatos personalizados
                                 className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
