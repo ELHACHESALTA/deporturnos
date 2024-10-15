@@ -82,7 +82,7 @@ function MainContent() {
         <Route path='/cliente' element={<LayoutCliente />}>
           <Route index element={<WelcomeCliente />} />
           <Route path='verCanchas' element={<VerCanchas/>}/>
-          <Route path='cancha' element={<Cancha/>}/>
+          <Route path='cancha/:id' element={<Cancha/>}/>
           <Route path='misFavoritos' element={<MisFavoritos/>}/>
           <Route path='misTurnosCliente' element={<MisTurnosCliente/>}/>
           <Route path='reprogramarTurno' element={<ReprogramarTurno/>}/>

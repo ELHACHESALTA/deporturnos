@@ -22,10 +22,10 @@ class Turno extends Model
     ];
 
     public function cancha(){
-        return $this->belongsTo(Cancha::class);
+        return $this->belongsTo(Cancha::class, "idCancha");
     }
 
     public function reserva(){
-        return $this->belongsTo(Reserva::class);
+        return $this->belongsTo(Reserva::class, "idReserva");
     }
 }

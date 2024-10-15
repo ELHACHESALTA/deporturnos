@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthUser from '../pageauth/AuthUser';
 import Loading from '../components/Loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const VerCanchas = () => {
     const { getToken } = AuthUser();
+    const navigate = useNavigate();
     const [canchas, setCanchas] = useState([]);
     const [complejos, setComplejos] = useState([]);
     const [deportes, setDeportes] = useState([]);
@@ -323,7 +325,10 @@ const VerCanchas = () => {
                                             Servicios: {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}
                                         </p>
 
-                                        <button className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4">
+                                        <button 
+                                         className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                         onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                         >
                                             Sacar Turno
                                         </button>
                                     </div>

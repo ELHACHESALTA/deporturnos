@@ -19,11 +19,11 @@ class Cancha extends Model
     ];
 
     public function complejo(){
-        return $this->belongsTo(Complejo::class);
+        return $this->belongsTo(Complejo::class, "idComplejo");
     }
 
     public function deporte(){
-        return $this->belongsTo(Deporte::class);
+        return $this->belongsTo(Deporte::class, "idDeporte");
     }
 
     public function turno(){

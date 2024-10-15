@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     // cliente
     Route::get('/cliente/verCanchas', [CanchaController::class, 'index']);
+    Route::get('cliente/cancha/{id}', [CanchaController::class, 'show']);
 
     // gestor de complejos
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);

@@ -10,8 +10,10 @@ use App\Models\GestorComplejo;
 use App\Models\Complejo;
 use App\Models\ComplejoServicio;
 use App\Models\Deporte;
+use App\Models\Dia;
 use App\Models\Servicio;
 use App\Models\Turno;
+use App\Models\Resenia;
 use DateTime;
 
 class CanchaController extends Controller
@@ -59,10 +61,32 @@ class CanchaController extends Controller
         return response()->json($response, 200);
     }
 
-    public function show(string $id)
+    public function show($id)
     {
+        $turnos = [];
         $cancha = Cancha::find($id);
-        return $cancha;
+        if ($cancha){
+            $complejo = $cancha->complejo;
+            $deporte = $cancha->deporte;
+            $turnos = Turno::where('idCancha', $id)->get();
+            $complejoServicios = ComplejoServicio::where('idComplejo', $complejo->id)->get();
+            $servicios = Servicio::all();
+            $resenias = Resenia::where('idComplejo', $complejo->id)->get();
+            $canchasComplejo = Cancha::where('idComplejo', $complejo->id)->get();
+            $diasComplejo = Dia::where('idComplejo', $complejo->id)->get();
+            $response["complejo"] = $complejo;
+            $response["deporte"] = $deporte;
+            $response["cancha"] = $cancha;
+            $response["turnos"] = $turnos;
+            $response["complejoServicios"] = $complejoServicios;
+            $response["servicios"] = $servicios;
+            $response["resenias"] = $resenias;
+            $response["canchasComplejo"] = $canchasComplejo;
+            $response["diasComplejo"] = $diasComplejo;
+        } else {
+            $response["message"] = "Cancha no encontrada";
+        }
+        return response()->json($response, 200);
     }
 
     public function update(Request $request)
