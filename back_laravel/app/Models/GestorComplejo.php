@@ -23,4 +23,8 @@ class GestorComplejo extends Model
     public function complejo(){
         return $this->hasOne(Complejo::class);
     }
+
+    public function respuesta(){
+        return $this->hasMany(Respuesta::class);
+    }
 }

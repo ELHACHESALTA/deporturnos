@@ -24,6 +24,10 @@ import Bienvenida from './pageadministrador/Bienvenida';
 import LayoutCliente from './layouts/LayoutCliente';
 import WelcomeCliente from './pagecliente/WelcomeCliente';
 import VerCanchas from './pagecliente/VerCanchas';
+import Cancha from './pagecliente/Cancha';
+import MisFavoritos from './pagecliente/MisFavoritos';
+import MisTurnosCliente from './pagecliente/MisTurnosCliente';
+import ReprogramarTurno from './pagecliente/ReprogramarTurno';
 
 // ROL GESTOR DE COMPLEJOS
 import LayoutGestorComplejo from './layouts/LayoutGestorComplejo';
@@ -78,6 +82,10 @@ function MainContent() {
         <Route path='/cliente' element={<LayoutCliente />}>
           <Route index element={<WelcomeCliente />} />
           <Route path='verCanchas' element={<VerCanchas/>}/>
+          <Route path='cancha' element={<Cancha/>}/>
+          <Route path='misFavoritos' element={<MisFavoritos/>}/>
+          <Route path='misTurnosCliente' element={<MisTurnosCliente/>}/>
+          <Route path='reprogramarTurno' element={<ReprogramarTurno/>}/>
         </Route>
 
         {/* Rutas para gestores de complejo */}

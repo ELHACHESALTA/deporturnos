@@ -26,4 +26,8 @@ class Cliente extends Model
     public function favorito(){
         return $this->hasMany(Favorito::class);
     }
+
+    public function resenia(){
+        return $this->hasMany(Resenia::class);
+    }
 }
