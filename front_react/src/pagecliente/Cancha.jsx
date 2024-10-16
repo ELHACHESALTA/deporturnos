@@ -5,6 +5,9 @@ import AuthUser from '../pageauth/AuthUser'
 import Loading from '../components/Loading/Loading'
 import { Star, Dot } from 'lucide-react';
 import { useModal } from '../hooks/useModal';
+import DatosCancha from '../components/DatosCancha/DatosCancha'
+import DatosComplejo from '../components/DatosComplejo/DatosComplejo'
+import Resenias from '../components/Resenias/Resenias'
 
 // Inicio configuraciones de React Big Calendar
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -78,6 +81,12 @@ const Cancha = () => {
     const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal(false);
 
     const [turnoAEditar, setTurnoAEditar] = useState([]);
+
+    const [componenteActivo, setComponenteActivo] = useState('turnos');
+
+    const handleDotClick = (componente) => {
+        setComponenteActivo(componente);
+    }
 
     const idUsuario = getUser().id;
     const idComplejo = cancha.idComplejo;
@@ -225,28 +234,52 @@ const Cancha = () => {
                     </div>
                     <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
-                            <div className='flex flex-col'>
-                                <div>Turnos</div>
-                                <Dot className='mx-auto' />
-                            </div>
+                            <button type='button' onClick={() => handleDotClick('turnos')}>
+                                <div className='flex flex-col'>
+                                    <div>Turnos</div>
+                                    {componenteActivo === 'turnos' ? (
+                                        <Dot className='mx-auto' /> 
+                                    ) : (
+                                        <Dot className='mx-auto text-white dark:text-neutral-800' />
+                                    )}
+                                </div>
+                            </button>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
-                        <div className='flex flex-col'>
-                                <div>Datos de Cancha</div>
-                                <Dot className='mx-auto text-white dark:text-neutral-800' />
-                            </div>
+                            <button type='button' onClick={() => handleDotClick('datosCancha')}>
+                                <div className='flex flex-col'>
+                                    <div>Datos de Cancha</div>
+                                    {componenteActivo === 'datosCancha' ? (
+                                        <Dot className='mx-auto' /> 
+                                    ) : (
+                                        <Dot className='mx-auto text-white dark:text-neutral-800' />
+                                    )}
+                                </div>
+                            </button>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
-                        <div className='flex flex-col'>
-                                <div>Datos de Complejo</div>
-                                <Dot className='mx-auto text-white dark:text-neutral-800' />
-                            </div>
+                            <button type='button' onClick={() => handleDotClick('datosComplejo')}>
+                                <div className='flex flex-col'>
+                                    <div>Datos de Complejo</div>
+                                    {componenteActivo === 'datosComplejo' ? (
+                                        <Dot className='mx-auto' /> 
+                                    ) : (
+                                        <Dot className='mx-auto text-white dark:text-neutral-800' />
+                                    )}
+                                </div>
+                            </button>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
-                        <div className='flex flex-col'>
-                                <div>Reseñas</div>
-                                <Dot className='mx-auto text-white dark:text-neutral-800' />
-                            </div>
+                            <button type='button' onClick={() => handleDotClick('resenias')}>
+                                <div className='flex flex-col'>
+                                    <div>Reseñas</div>
+                                    {componenteActivo === 'resenias' ? (
+                                        <Dot className='mx-auto' /> 
+                                    ) : (
+                                        <Dot className='mx-auto text-white dark:text-neutral-800' />
+                                    )}
+                                </div>
+                            </button>
                         </div>
                     </div>
                     <div className="flex flex-row bg-gray-100 dark:bg-neutral-800">
@@ -263,17 +296,35 @@ const Cancha = () => {
                             `}
                             </style>
                             <div className="flex flex-col w-full h-[500px] mt-4 px-2 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
-                                <Calendar
-                                    localizer={localizer}
-                                    events={calendarEvents}  // Eventos mapeados (turnos)
-                                    startAccessor="start"
-                                    endAccessor="end"
-                                    onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
-                                    // onSelectEvent={(event) => openModalEdit1(event.id)}
-                                    messages={messages} // Traducción personalizada
-                                    formats={formats}  // Formatos personalizados
-                                    className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
-                                />
+                                {componenteActivo === 'turnos' && (
+                                    <Calendar
+                                        localizer={localizer}
+                                        events={calendarEvents}  // Eventos mapeados (turnos)
+                                        startAccessor="start"
+                                        endAccessor="end"
+                                        onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
+                                        // onSelectEvent={(event) => openModalEdit1(event.id)}
+                                        messages={messages} // Traducción personalizada
+                                        formats={formats}  // Formatos personalizados
+                                        className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
+                                    />
+                                )}
+                                {componenteActivo === 'datosCancha' && (
+                                    <DatosCancha cancha={cancha} deporte={deporte}/>
+                                )}
+
+                                {componenteActivo === 'datosComplejo' && (
+                                    <DatosComplejo complejo={complejo} 
+                                        complejoServicios={complejoServicios} 
+                                        servicios={servicios}
+                                        canchasComplejo={canchasComplejo}
+                                        diasDisponiblesComplejo={diasDisponiblesComplejo}
+                                    />
+                                )}
+
+                                {componenteActivo === 'resenias' && (
+                                    <Resenias complejo={complejo} resenias={resenias}/>
+                                )}
                             </div>
                         </>
                     </div>
