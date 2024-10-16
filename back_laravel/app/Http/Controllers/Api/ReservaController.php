@@ -5,62 +5,32 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use App\Models\Cliente;
+use Illuminate\Support\Facades\Validator;
 
 class ReservaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function reservarTurno(Request $request){
+        $response["success"] = false;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $validator = Validator::make($request->all(),[
+            'idTurno' => 'required',
+            'idCliente' => 'required',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reserva $reserva)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reserva $reserva)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Reserva $reserva)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reserva $reserva)
-    {
-        //
+        $reserva = new Reserva();
+        $reserva->idTurno = $request->idTurno;
+        $cliente = Cliente::where('id', $request->idCliente)->first();
+        $reserva->idCliente = $cliente->id;
+        $reserva->esPeriodica = false;
+        $reserva->patronPeriodico = "";
+        $reserva->save();
+        $response["success"] = true;
+        return response()->json($response, 200);
     }
 }

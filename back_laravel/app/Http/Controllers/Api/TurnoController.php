@@ -115,4 +115,24 @@ class TurnoController extends Controller
             return response()->json(['error' => 'Gestor no encontrado'], 404);
         }
     }
+
+    public function cambiarEstadoTurno($id){
+        $turno = Turno::findOrFail($id);
+        if ($turno){
+            if ($turno->estadoDisponible === "disponible"){
+                $turno->estadoDisponible = "no disponible";
+                $turno->save();
+                return response()->json(['message' => 'Turno cambiado de estado correctamente.', 'success' => true], 200);
+            } else if ($turno->estadoDisponible === "no disponible"){
+                $turno->estadoDisponible = "disponible";
+                $turno->save();
+                return response()->json(['message' => 'Turno cambiado de estado correctamente.', 'success' => true], 200);
+            } else {
+                return response()->json(['message' => 'No se ha podido modificar el turno.', 'success' => false], 200);
+            }
+        } else {
+            return response()->json(['error' => 'No se ha encontrado ningún turno.', 'success' => false], 500);
+        }
+        
+    }
 }

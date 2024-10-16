@@ -8,6 +8,7 @@ import { useModal } from '../hooks/useModal';
 import DatosCancha from '../components/DatosCancha/DatosCancha'
 import DatosComplejo from '../components/DatosComplejo/DatosComplejo'
 import Resenias from '../components/Resenias/Resenias'
+import ReservarTurno from '../components/ReservarTurno/ReservarTurno'
 
 // Inicio configuraciones de React Big Calendar
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -75,12 +76,24 @@ const Cancha = () => {
     const [loading, setLoading] = useState(true);
 
     const [turnosAMostrar, setTurnosAMostrar] = useState([]);
+    const [turnoAReservar, setTurnoAReservar] = useState([]);
+    
 
-    // variable para manejar el modal de creacion de turnos
-    const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
-    const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal(false);
+    // modal para reservar un turno
+    const [isOpenModalReserva, openModalReserva, closeModalReserva] = useModal(false);
 
-    const [turnoAEditar, setTurnoAEditar] = useState([]);
+    const openModalReserva1 = (idTurno) => {
+        const turnoParaReservar = turnos.find(turno => turno.id === idTurno);
+        setTurnoAReservar(turnoParaReservar);
+        cambiarEstadoTurno(idTurno);
+        openModalReserva();
+    }
+
+    const closeModalReserva1 = (idTurno) => {
+        setTurnoAReservar([]);
+        cambiarEstadoTurno(idTurno);
+        closeModalReserva();
+    }
 
     const [componenteActivo, setComponenteActivo] = useState('turnos');
 
@@ -91,17 +104,6 @@ const Cancha = () => {
     const idUsuario = getUser().id;
     const idComplejo = cancha.idComplejo;
     const [cliente, setCliente] = useState([]);
-
-    const openModalEdit1 = (idTurno) => {
-        const turnoParaEditar = turnos.find(turno => turno.id === idTurno);
-        setTurnoAEditar(turnoParaEditar);
-        openModalEdit();
-    }
-
-    const closeModalEdit1 = () => {
-        setTurnoAEditar([]);
-        closeModalEdit();
-    }
 
     // Nuevo estado para eventos del calendario
     const [calendarEvents, setCalendarEvents] = useState([]);
@@ -212,6 +214,20 @@ const Cancha = () => {
 
     const esFavorito = favoritosComplejo.length > 0 && favoritosComplejo.some(favorito => favorito.idCliente === cliente.id);
 
+
+    const cambiarEstadoTurno = async (id) => {
+        await axios.put(`http://localhost:8000/api/cliente/cambiarEstadoTurno/${id}`, { id: id }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            },
+        }).then(({ data }) => {
+            if (data.success) {
+                console.log(data.message);
+            }
+        });
+    }
+
     return (
         <div className='flex-grow overflow-visible'>
             <div className="flex flex-col mx-auto max-w-[66rem] px-2">
@@ -302,8 +318,8 @@ const Cancha = () => {
                                         events={calendarEvents}  // Eventos mapeados (turnos)
                                         startAccessor="start"
                                         endAccessor="end"
-                                        onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
-                                        // onSelectEvent={(event) => openModalEdit1(event.id)}
+                                        //onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
+                                        onSelectEvent={(event) => openModalReserva1(event.id)}
                                         messages={messages} // Traducción personalizada
                                         formats={formats}  // Formatos personalizados
                                         className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
@@ -333,7 +349,13 @@ const Cancha = () => {
                     </div>
                 </div>
             </div>
-
+            {/* modal para reservar turnos */}
+            <ReservarTurno isOpen={isOpenModalReserva} 
+             closeModal={() => closeModalReserva1(turnoAReservar.id)} 
+             turno={turnoAReservar}
+             cancha={cancha}
+             idCliente={cliente.id}
+             deporte={deporte}/>
             <div className="">
                 {/* Sección Datos del Complejo */}
                 {/* <div>

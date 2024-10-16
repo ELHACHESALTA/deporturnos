@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\CanchaController;
 use App\Http\Controllers\Api\TurnoController;
 use App\Http\Controllers\Api\FavoritoController;
 use App\Http\Controllers\Api\ClienteController;
+use App\Http\Controllers\Api\ReservaController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -37,6 +38,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('cliente/eliminarFavorito', [FavoritoController::class, 'eliminarFavorito']);
     Route::post('cliente/obtenerCliente', [ClienteController::class, 'obtenerCliente']);
     Route::post('cliente/obtenerMisFavoritos', [FavoritoController::class, 'obtenerFavoritosCliente']);
+    Route::put('cliente/cambiarEstadoTurno/{id}', [TurnoController::class, 'cambiarEstadoTurno']);
+    Route::post('cliente/reservarTurno', [ReservaController::class, 'reservarTurno']);
 
     // gestor de complejos
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);
