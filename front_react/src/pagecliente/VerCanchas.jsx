@@ -68,7 +68,7 @@ const VerCanchas = () => {
                 const matchesDeporte = deporteFiltro === '' || `${deporte?.nombreDeporte} ${deporte?.tipoDeporte}` === deporteFiltro;
                 const matchesCiudad = ciudadFiltro === '' || complejo?.ciudad === ciudadFiltro;
                 const matchesServicios = serviciosSeleccionados.length === 0 || serviciosSeleccionados.every(servicioId => serviciosComplejo.some(servicio => servicio.id === servicioId));
-                
+
                 // se filtran los turnos que pertenecen a la cancha
                 const turnosCancha = turnos.filter(turno => turno.idCancha === cancha.id);
 
@@ -80,7 +80,7 @@ const VerCanchas = () => {
 
                 // filtro por precio
                 const matchesPrecio = precioFiltro === 0 || turnosCancha.some(turno => turno.precio <= precioFiltro);
-                
+
                 return matchesNombre && matchesDeporte && matchesCiudad && matchesServicios && matchesTurnoFecha && matchesTurnoHora && matchesPrecio;
             });
             setCanchasFiltradas(result);
@@ -165,7 +165,7 @@ const VerCanchas = () => {
 
                             {/* Filtros */}
                             <label htmlFor="date" className="text-lg flex justify-center rounded-md w-full bg-neutral-200 font-medium text-stone-600 mb-4 dark:bg-neutral-500 dark:text-white">Filtros</label>
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
                                 {/* Filtro por deporte */}
                                 <div className="flex flex-col items-center justify-center">
                                     <select
@@ -200,79 +200,83 @@ const VerCanchas = () => {
                                 </div>
                                 {/* Filtro por ciudad */}
 
-                                <div className="flex flex-col items-end justify-center">
-                                    <label htmlFor="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
-                                </div>
-
-                                <div className="flex flex-col items-start justify-center dark:text-white">
-                                    {/* Filtro por servicios */}
-                                    <div className="flex flex-col justify-center">
-                                        {servicios.map((servicio) => (
-                                            <label key={servicio.id} className="flex items-center mr-4">
-                                                <input
-                                                    type="checkbox"
-                                                    value={servicio.id}
-                                                    checked={serviciosSeleccionados.includes(servicio.id)}
-                                                    onChange={handleServicioChange}
-                                                    className="mr-2"
-                                                />
-                                                {servicio.descripcionServicio}
-                                            </label>
-                                        ))}
+                                {/* Filtro por servicios */}
+                                <div className="flex flex-row gap-6 col-span-2 dark:bg-neutral-700 rounded-md">
+                                    <div className="basis-1/2 justify-end items-center flex flex-row">
+                                        <label htmlFor="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
                                     </div>
-                                    {/* Fin de filtro por servicios */}
+
+                                    <div className="basis-1/2 justify-start flex flex-row items-center dark:text-white">
+
+                                        <div className="flex flex-col justify-center">
+                                            {servicios.map((servicio) => (
+                                                <label key={servicio.id} className="flex items-center mr-4">
+                                                    <input
+                                                        type="checkbox"
+                                                        value={servicio.id}
+                                                        checked={serviciosSeleccionados.includes(servicio.id)}
+                                                        onChange={handleServicioChange}
+                                                        className="mr-2"
+                                                    />
+                                                    {servicio.descripcionServicio}
+                                                </label>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
+                                {/* Fin de filtro por servicios */}
                             </div>
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-4">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 mt-4">
                                 {/* Filtro por día turno */}
                                 <div className="flex flex-col items-center justify-center">
                                     <label htmlFor="diaTurno" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
                                     <input type="date"
-                                     id="diaTurno" 
-                                     className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" 
-                                     value={fechaFiltro}
-                                     onChange={handleFechaFiltroChange} />
+                                        id="diaTurno"
+                                        className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                        value={fechaFiltro}
+                                        onChange={handleFechaFiltroChange} />
 
-                                     <button 
-                                     type='button'
-                                     onClick={limpiarFechaFiltro}
-                                     className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
-                                     >
+                                    <button
+                                        type='button'
+                                        onClick={limpiarFechaFiltro}
+                                        className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                    >
                                         Limpiar fecha
-                                     </button>
+                                    </button>
                                 </div>
                                 {/* Filtro por día turno */}
 
                                 {/* Filtro por hora inicio turno */}
                                 <div className="flex flex-col items-center justify-center">
                                     <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por hora inicio turno:</label>
-                                    <input type="time" 
-                                    id="time" 
-                                    className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500" 
-                                    value={horaInicioFiltro}
-                                    onChange={handleHoraInicioFiltroChange}
+                                    <input type="time"
+                                        id="time"
+                                        className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                        value={horaInicioFiltro}
+                                        onChange={handleHoraInicioFiltroChange}
                                     />
-                                    <button 
-                                     type='button' 
-                                     onClick={limpiarHoraInicioFiltro}
-                                     className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
-                                     >
+                                    <button
+                                        type='button'
+                                        onClick={limpiarHoraInicioFiltro}
+                                        className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                    >
                                         Limpiar hora
-                                     </button>
+                                    </button>
                                 </div>
                                 {/* Filtro por hora inicio turno */}
 
+                                {/* Filtro por precio de turno */}
                                 <div className='col-span-2'>
                                     <div className="relative mb-6">
                                         <label htmlFor="labels-range-input" className="text-sm font-medium text-stone-600 dark:text-white">Por precio turno menor a: {precioFiltro > 0 ? `$${precioFiltro}` : ""}</label>
                                         <input id="labels-range-input"
-                                         type="range"
-                                         value={precioFiltro}
-                                         onChange={cambiarPrecioFiltro}
-                                         min="0" 
-                                         max="70000" 
-                                         step="10000"
-                                         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+                                            type="range"
+                                            value={precioFiltro}
+                                            onChange={cambiarPrecioFiltro}
+                                            min="0"
+                                            max="70000"
+                                            step="10000"
+                                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
                                         <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-0 -bottom-6">X</span>
                                         <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[14.28%] -translate-x-1/2 -bottom-6">$10000</span>
                                         <span className="text-sm text-gray-500 dark:text-gray-400 absolute left-[28.57%] -translate-x-1/2 -bottom-6">$20000</span>
@@ -283,6 +287,7 @@ const VerCanchas = () => {
                                         <span className="text-sm text-gray-500 dark:text-gray-400 absolute right-0 -bottom-6">$70000</span>
                                     </div>
                                 </div>
+                                {/* Filtro por precio de turno */}
                             </div>
                             {/* Filtros */}
                         </form>
@@ -303,7 +308,7 @@ const VerCanchas = () => {
 
                             return (
                                 <div key={cancha.id} className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                                    <img className="h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
+                                    <img className="object-cover w-full h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
                                     <div className="p-4 md:p-5">
                                         <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                                             {cancha.nombreCancha}
@@ -325,10 +330,10 @@ const VerCanchas = () => {
                                             Servicios: {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}
                                         </p>
 
-                                        <button 
-                                         className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
-                                         onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
-                                         >
+                                        <button
+                                            className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                            onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                        >
                                             Sacar Turno
                                         </button>
                                     </div>

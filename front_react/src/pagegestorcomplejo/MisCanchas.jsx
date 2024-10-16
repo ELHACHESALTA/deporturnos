@@ -135,7 +135,7 @@ const MisCanchas = () => {
                             {canchas.length > 0 ? (
                                 canchas.map(cancha => (
                                     <div key={cancha.id} className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                                        <img className="h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
+                                        <img className="object-cover w-full h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
                                         <div className="relative">
                                             <div className="p-4 md:p-5">
                                                 <h3 className="text-lg font-bold text-gray-800 dark:text-white">

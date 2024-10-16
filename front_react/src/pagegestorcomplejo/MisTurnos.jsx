@@ -85,7 +85,6 @@ const MisTurnos = () => {
         closeModalEdit();
     }
 
-
     // Nuevo estado para eventos del calendario
     const [calendarEvents, setCalendarEvents] = useState([]);
 
@@ -252,10 +251,6 @@ const MisTurnos = () => {
                                 .rbc-event {
                                     background-color: #65A30D;
                                 }
-
-                                .rbc-event {
-                                    background-color: #65A30D;
-                                }
                             `}
                         </style>
                         <div className="flex flex-col w-full h-[500px] mt-4 px-2 dark:bg-neutral-900 dark:text-white bg-white text-black">
@@ -264,7 +259,6 @@ const MisTurnos = () => {
                                 events={calendarEvents}  // Eventos mapeados (turnos)
                                 startAccessor="start"
                                 endAccessor="end"
-                                //onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
                                 onSelectEvent={(event) => openModalEdit1(event.id)}
                                 messages={messages} // Traducción personalizada
                                 formats={formats}  // Formatos personalizados
