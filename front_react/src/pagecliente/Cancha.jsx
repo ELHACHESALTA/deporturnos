@@ -162,17 +162,17 @@ const Cancha = () => {
     return (
         <div className='flex-grow overflow-visible'>
             <div className="flex flex-col mx-auto max-w-[66rem] px-2">
-                <div className="relative flex flex-col w-full dark:bg-neutral-800 rounded-3xl overflow-hidden">
+                <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
                     <img className="object-cover w-full h-[450px]" src="/cancha01.jpg" alt="cancha" />
                     <div className="absolute top-[300px] left-0 p-4 dark:text-white text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
                         {cancha.nombreCancha}
                     </div>
-                    <div className="absolute top-[425px] left-0 h-[25px] dark:bg-neutral-800 rounded-t-3xl w-full"></div>
-                    <div className="backdrop-blur-sm bg-black/30 rounded-full absolute top-[385px] right-[50px] p-3">
+                    <div className="absolute top-[425px] left-0 h-[25px] bg-gray-100 dark:bg-neutral-800 rounded-t-3xl w-full"></div>
+                    <div className="backdrop-blur-sm bg-gray-100/30 dark:bg-black/30 border border-neutral-400 dark:border-neutral-700 rounded-full absolute top-[385px] right-[50px] p-3">
                         <Star size={52} className="text-yellow-500" />
                         <Star size={52} className="text-yellow-500 hidden" fill="#EAB308" />
                     </div>
-                    <div className="flex flex-row dark:bg-neutral-800 h-[65px]">
+                    <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                             <div className='flex flex-col'>
                                 <div>Turnos</div>
@@ -182,23 +182,23 @@ const Cancha = () => {
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                         <div className='flex flex-col'>
                                 <div>Datos de Cancha</div>
-                                <Dot className='mx-auto text-neutral-800' />
+                                <Dot className='mx-auto text-white dark:text-neutral-800' />
                             </div>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                         <div className='flex flex-col'>
                                 <div>Datos de Complejo</div>
-                                <Dot className='mx-auto text-neutral-800' />
+                                <Dot className='mx-auto text-white dark:text-neutral-800' />
                             </div>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                         <div className='flex flex-col'>
                                 <div>Reseñas</div>
-                                <Dot className='mx-auto text-neutral-800' />
+                                <Dot className='mx-auto text-white dark:text-neutral-800' />
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-row dark:bg-neutral-800">
+                    <div className="flex flex-row bg-gray-100 dark:bg-neutral-800">
                         <>
                             <style>
                                 {`
@@ -211,7 +211,7 @@ const Cancha = () => {
                                 }
                             `}
                             </style>
-                            <div className="flex flex-col w-full h-[500px] mt-4 px-2 dark:bg-neutral-800 dark:text-white bg-white text-black">
+                            <div className="flex flex-col w-full h-[500px] mt-4 px-2 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
                                 <Calendar
                                     localizer={localizer}
                                     events={calendarEvents}  // Eventos mapeados (turnos)

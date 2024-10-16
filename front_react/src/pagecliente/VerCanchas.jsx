@@ -201,7 +201,7 @@ const VerCanchas = () => {
                                 {/* Filtro por ciudad */}
 
                                 {/* Filtro por servicios */}
-                                <div className="flex flex-row gap-6 col-span-2 dark:bg-neutral-700 rounded-md">
+                                <div className="flex flex-row gap-6 col-span-2 bg-gray-100 dark:bg-neutral-700 rounded-md">
                                     <div className="basis-1/2 justify-end items-center flex flex-row">
                                         <label htmlFor="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
                                     </div>
