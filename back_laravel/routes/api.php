@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('cliente/agregarFavorito', [FavoritoController::class, 'agregarFavorito']);
     Route::post('cliente/eliminarFavorito', [FavoritoController::class, 'eliminarFavorito']);
     Route::post('cliente/obtenerCliente', [ClienteController::class, 'obtenerCliente']);
+    Route::post('cliente/obtenerMisFavoritos', [FavoritoController::class, 'obtenerFavoritosCliente']);
 
     // gestor de complejos
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);

@@ -97,4 +97,19 @@ class FavoritoController extends Controller
         $response["success"] = true;
         return response()->json($response, 200);
     }
+
+    public function obtenerFavoritosCliente(Request $request){
+        $response["success"] = false;
+        $cliente = Cliente::where('idUser', $request->idUsuario)->first();
+        $favoritosCliente = Favorito::where('idCliente', $cliente->id)->get();
+        $complejosFavoritos = [];
+        for($i=0; $i < count($favoritosCliente); $i++){
+            $complejoAgregado = Complejo::where('id', $favoritosCliente[$i]->idComplejo)->first();
+            array_push($complejosFavoritos, $complejoAgregado);
+        }
+        $response["favoritosCliente"] = $favoritosCliente;
+        $response["complejosFavoritos"] = $complejosFavoritos;
+        $response["success"] = true;
+        return response()->json($response, 200);
+    }
 }
