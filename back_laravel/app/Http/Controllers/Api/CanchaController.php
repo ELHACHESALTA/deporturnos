@@ -14,6 +14,7 @@ use App\Models\Dia;
 use App\Models\Servicio;
 use App\Models\Turno;
 use App\Models\Resenia;
+use App\Models\Favorito;
 use DateTime;
 
 class CanchaController extends Controller
@@ -74,6 +75,7 @@ class CanchaController extends Controller
             $resenias = Resenia::where('idComplejo', $complejo->id)->get();
             $canchasComplejo = Cancha::where('idComplejo', $complejo->id)->get();
             $diasComplejo = Dia::where('idComplejo', $complejo->id)->get();
+            $favoritosComplejo = Favorito::where('idComplejo', $complejo->id)->get();
             $response["complejo"] = $complejo;
             $response["deporte"] = $deporte;
             $response["cancha"] = $cancha;
@@ -83,6 +85,7 @@ class CanchaController extends Controller
             $response["resenias"] = $resenias;
             $response["canchasComplejo"] = $canchasComplejo;
             $response["diasComplejo"] = $diasComplejo;
+            $response["favoritosComplejo"] = $favoritosComplejo;
         } else {
             $response["message"] = "Cancha no encontrada";
         }

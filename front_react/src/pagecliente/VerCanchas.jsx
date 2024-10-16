@@ -88,9 +88,9 @@ const VerCanchas = () => {
         filtrarCanchas();
     }, [valorBuscador, deporteFiltro, ciudadFiltro, serviciosSeleccionados, canchas, turnos, fechaFiltro, horaInicioFiltro, precioFiltro]);
 
-    if (loading) {
+    /*if (loading) {
         return (<Loading />);
-    }
+    }*/
 
     const ciudadesUnicas = Array.from(new Set(complejos.map(complejo => complejo.ciudad)));
 

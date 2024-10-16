@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\ComplejoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CanchaController;
 use App\Http\Controllers\Api\TurnoController;
+use App\Http\Controllers\Api\FavoritoController;
+use App\Http\Controllers\Api\ClienteController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,6 +33,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // cliente
     Route::get('/cliente/verCanchas', [CanchaController::class, 'index']);
     Route::get('cliente/cancha/{id}', [CanchaController::class, 'show']);
+    Route::post('cliente/agregarFavorito', [FavoritoController::class, 'agregarFavorito']);
+    Route::post('cliente/eliminarFavorito', [FavoritoController::class, 'eliminarFavorito']);
+    Route::post('cliente/obtenerCliente', [ClienteController::class, 'obtenerCliente']);
 
     // gestor de complejos
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);

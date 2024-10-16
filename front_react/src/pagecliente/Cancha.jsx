@@ -56,7 +56,7 @@ const formats = {
 
 const Cancha = () => {
     const { id } = useParams();
-    const { getToken } = AuthUser();
+    const { getToken, getUser } = AuthUser();
 
     const [cancha, setCancha] = useState([]);
     const [complejo, setComplejo] = useState([]);
@@ -67,6 +67,7 @@ const Cancha = () => {
     const [resenias, setResenias] = useState([]);
     const [canchasComplejo, setCanchasComplejo] = useState([]);
     const [diasDisponiblesComplejo, setDiasDisponiblesComplejo] = useState([]);
+    const [favoritosComplejo, setFavoritosComplejo] = useState([]);
 
     const [loading, setLoading] = useState(true);
 
@@ -78,6 +79,9 @@ const Cancha = () => {
 
     const [turnoAEditar, setTurnoAEditar] = useState([]);
 
+    const idUsuario = getUser().id;
+    const idComplejo = cancha.idComplejo;
+    const [cliente, setCliente] = useState([]);
 
     const openModalEdit1 = (idTurno) => {
         const turnoParaEditar = turnos.find(turno => turno.id === idTurno);
@@ -103,26 +107,6 @@ const Cancha = () => {
         }));
     };
 
-    const obtenerInfoCancha = async () => {
-        const respuesta = await axios.get(`http://localhost:8000/api/cliente/cancha/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + getToken()
-            },
-        });
-        console.log(respuesta.data);
-        setCancha(respuesta.data.cancha);
-        setComplejo(respuesta.data.complejo);
-        setDeporte(respuesta.data.deporte);
-        setTurnos(respuesta.data.turnos);
-        setComplejoServicios(respuesta.data.complejoServicios);
-        setServicios(respuesta.data.servicios);
-        setResenias(respuesta.data.resenias);
-        setCanchasComplejo(respuesta.data.canchasComplejo);
-        setDiasDisponiblesComplejo(respuesta.data.diasComplejo);
-        setLoading(false);
-    };
-
     useEffect(() => {
         const obtenerInfoCancha = async () => {
             const respuesta = await axios.get(`http://localhost:8000/api/cliente/cancha/${id}`, {
@@ -142,11 +126,25 @@ const Cancha = () => {
             setResenias(respuesta.data.resenias);
             setCanchasComplejo(respuesta.data.canchasComplejo);
             setDiasDisponiblesComplejo(respuesta.data.diasComplejo);
+            setFavoritosComplejo(respuesta.data.favoritosComplejo);
             setLoading(false);
         };
 
-        obtenerInfoCancha();
-    }, [id, getToken]);
+    const obtenerCliente = async () => {
+        await axios.post('http://localhost:8000/api/cliente/obtenerCliente', { idUsuario }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ getToken()
+            }
+        }).then(({data})=> {
+            if(data.success){
+                setCliente(data.cliente);
+            }
+        });
+    }    
+    obtenerInfoCancha();
+    obtenerCliente();
+    }, []);
 
     useEffect(() => {
         // Filtrar y mapear turnos para la cancha seleccionada
@@ -159,6 +157,52 @@ const Cancha = () => {
         return (<Loading />);
     }
 
+    const agregarFavorito = async () => {
+        await axios.post(`http://localhost:8000/api/cliente/agregarFavorito`, { idUsuario, idComplejo }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            }
+        }).then(({data})=> {
+            if(data.success){
+                console.log("agregado a favoritos exitosamente");
+                const nuevoFavorito = {
+                    idCliente: cliente.id,
+                    idComplejo: idComplejo,
+                    created_at: new Date().toISOString(), // Fecha actual
+                    updated_at: new Date().toISOString() // Fecha actual
+                }
+                setFavoritosComplejo((prevFavoritos) => [...prevFavoritos, nuevoFavorito]);
+                //window.location.reload();
+            } else {
+                console.log(data.error);
+            }
+        });
+    }
+    const idCliente = cliente.id;
+
+    const eliminarFavorito = async () => {
+        await axios.post(`http://localhost:8000/api/cliente/eliminarFavorito`, { idCliente, idComplejo }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            }
+        }).then(({data})=> {
+            if(data.success){
+                console.log("eliminado de favoritos exitosamente");
+                const nuevosFavoritos = favoritosComplejo.filter(favorito => 
+                    !(favorito.idCliente === idCliente && favorito.idComplejo === idComplejo)
+                );
+                setFavoritosComplejo(nuevosFavoritos);
+                //window.location.reload();
+            } else {
+                console.log(data.error);
+            }
+        });
+    }
+
+    const esFavorito = favoritosComplejo.length > 0 && favoritosComplejo.some(favorito => favorito.idCliente === cliente.id);
+
     return (
         <div className='flex-grow overflow-visible'>
             <div className="flex flex-col mx-auto max-w-[66rem] px-2">
@@ -169,8 +213,15 @@ const Cancha = () => {
                     </div>
                     <div className="absolute top-[425px] left-0 h-[25px] bg-gray-100 dark:bg-neutral-800 rounded-t-3xl w-full"></div>
                     <div className="backdrop-blur-sm bg-gray-100/30 dark:bg-black/30 border border-neutral-400 dark:border-neutral-700 rounded-full absolute top-[385px] right-[50px] p-3">
-                        <Star size={52} className="text-yellow-500" />
-                        <Star size={52} className="text-yellow-500 hidden" fill="#EAB308" />
+                        {esFavorito ? 
+                         <button type='button' onClick={eliminarFavorito}>
+                            <Star size={52} className="text-yellow-500" fill="#EAB308" />
+                         </button>
+                         :
+                         <button type='button' onClick={agregarFavorito}>
+                            <Star size={52} className="text-yellow-500" />
+                         </button>
+                        }
                     </div>
                     <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
