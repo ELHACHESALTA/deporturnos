@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('cliente/obtenerMisFavoritos', [FavoritoController::class, 'obtenerFavoritosCliente']);
     Route::put('cliente/cambiarEstadoTurno/{id}', [TurnoController::class, 'cambiarEstadoTurno']);
     Route::post('cliente/reservarTurno', [ReservaController::class, 'reservarTurno']);
+    Route::post('cliente/obtenerMisTurnos', [ReservaController::class, 'obtenerReservasCliente']);
 
     // gestor de complejos
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);
