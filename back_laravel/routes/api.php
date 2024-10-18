@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('cliente/obtenerMisTurnos', [ReservaController::class, 'obtenerReservasCliente']);
     Route::post('cliente/buscarTurnoPeriodico', [ReservaController::class, 'buscarTurnoPeriodico']);
     Route::post('cliente/reservarTurnoPeriodico', [ReservaController::class, 'reservarTurnoPeriodico']);
+    Route::get('cliente/complejo/{id}', [ComplejoController::class, 'show']);
 
     // gestor de complejos
     Route::post('gestorComplejo/miComplejo', [ComplejoController::class, 'mostrarComplejo']);

@@ -8,6 +8,10 @@ use App\Models\GestorComplejo;
 use App\Models\Dia;
 use App\Models\Servicio;
 use App\Models\ComplejoServicio;
+use App\Models\Resenia;
+use App\Models\Cancha;
+use App\Models\Favorito;
+use App\Models\Deporte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -78,10 +82,22 @@ class ComplejoController extends Controller
         return response()->json($response, 200);
     }
 
-    public function show(string $id)
+    public function show($id)
     {
         $complejo = Complejo::find($id);
-        return $complejo;
+        if ($complejo){
+            $response["complejo"] = $complejo;
+            $response["complejoServicios"] = ComplejoServicio::where('idComplejo', $complejo->id)->get();
+            $response["servicios"] = Servicio::all();
+            $response["resenias"] = Resenia::where('idComplejo', $complejo->id)->get();
+            $response["canchasComplejo"] = Cancha::where('idComplejo', $complejo->id)->get();
+            $response["deportes"] = Deporte::all();
+            $response["diasComplejo"] = Dia::where('idComplejo', $complejo->id)->get();
+            $response["favoritosComplejo"] = Favorito::where('idComplejo', $complejo->id)->get();
+        } else {
+            $response["message"] = "Complejo no encontrado";
+        }
+        return response()->json($response, 200);
     }
 
     public function update(Request $request)

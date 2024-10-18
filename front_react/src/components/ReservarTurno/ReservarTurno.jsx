@@ -10,6 +10,12 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
 
     const [arregloTurnosPeriodicos, setArregloTurnosPeriodicos] = useState([]);
 
+    const [mostrarInputSemanas, setMostrarInputSemanas] = useState(false);
+
+    const [cantSemanas, setCantSemanas] = useState(2);
+
+    const [mostrarDatosReserva, setMostrarDatosReserva] = useState(false);
+
     const handleConfirmClick = () => {
         setConfirmarReserva(true);
     };
@@ -17,6 +23,18 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
     const handleCancelConfirm = () => {
         setConfirmarReserva(false);
     };
+
+    const handleAtras = () => {
+        setMostrarDatosReserva(false);
+        setMostrarInputSemanas(true);
+    }
+
+    const cancelarReserva = () => {
+        setMostrarDatosReserva(false);
+        setMostrarInputSemanas(false);
+        setCantSemanas(2);
+        closeModal();
+    } 
 
     const idTurno = turno.id;
     
@@ -38,7 +56,7 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
         });
     }
 
-    const cantSemanas = 4;
+    //const cantSemanas = 4;
 
     const buscarTurnoPeriodico = async () => {
         await axios.post('http://localhost:8000/api/cliente/buscarTurnoPeriodico', {idTurno, idCliente, cantSemanas}, {
@@ -53,6 +71,7 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
                 // window.location.reload();
                 console.log(data.arregloTurnosPeriodicos)
                 setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
+                setMostrarDatosReserva(true);
             } else {
                 console.log(data.error);
             }
@@ -69,7 +88,7 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
             if(data.success){
                 console.log("Se reservaron los turnos periodicos");
                 // closeModal();
-                // window.location.reload();
+                window.location.reload();
                 // setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
                 // console.log(data.arregloTurnosPeriodicos)
                 console.log(data.arregloTurnosPeriodicos);
@@ -79,6 +98,8 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
         });
     }
     // console.log(arregloTurnosPeriodicos)
+
+    const esFecha = (dato) => typeof dato === "string";
 
     return (
     <div>
@@ -122,15 +143,101 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
                 </div>
             </div>
         )}
-        <button type='button' onClick={buscarTurnoPeriodico} className="bg-gray-500 mr-3 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600">
-            Buscar reserva periódica
-        </button>
-        <button type='button' onClick={reservarTurnoPeriodico} className="bg-gray-500 mr-3 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600">
-            Reserva periodica
-        </button>
+
+        {!mostrarInputSemanas && (
+            <button type='button' onClick={() => setMostrarInputSemanas(true)} className="bg-gray-500 mr-3 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600">
+                Buscar reserva periódica
+            </button>
+        )}
+
+        {mostrarInputSemanas && !mostrarDatosReserva && (
+            <div className="mt-4">
+                <label htmlFor="cantSemanas" className="block mb-2 text-sm font-medium text-gray-900">
+                    ¿Por cuantas semanas seguidas quiere el mismo turno?
+                </label>
+                <input
+                    type="number"
+                    id='cantSemanas'
+                    name='cantSemanas'
+                    min={2}
+                    value={cantSemanas}
+                    onChange={(e) => setCantSemanas(e.target.value)}
+                    placeholder="Cantidad de semanas"
+                    className="border px-3 py-2 rounded-md w-full mb-2"
+                />
+                <button
+                    type="button"
+                    onClick={buscarTurnoPeriodico}
+                    className="bg-lime-600 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-lime-700"
+                >
+                    Buscar
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setMostrarInputSemanas(false)}
+                    className="py-2 px-3 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
+                >
+                    Cancelar
+                </button>
+            </div>
+        )}
+
+        {/* Mostrar los datos obtenidos */}
+        {mostrarDatosReserva && (
+            <div className="mt-4 mb-4">
+                <h3 className="text-lg font-medium">Datos de la reserva periódica:</h3>
+                <div className="p-4 bg-green-100 rounded-md">
+                    <p><strong>Cancha disponible:</strong></p>
+                    <p>Id Cancha: {turno.idCancha}</p>
+                    <p>Horario Inicio: {turno.horarioInicio}</p>
+                    <p>Horario Fin: {turno.horarioFin}</p>
+                    <p>Precio: {turno.precio}</p>
+                </div>
+                {arregloTurnosPeriodicos.map((turno, index) => (
+                    typeof turno === 'string' ? (
+                        <p key={index} className="text-red-600">
+                            Fecha no disponible: {turno}
+                        </p>
+                    ) : (
+                        <div key={index} className="p-4 bg-green-100 rounded-md">
+                            <p><strong>Cancha disponible:</strong></p>
+                            <p>Id Cancha: {turno.idCancha}</p>
+                            <p>Horario Inicio: {turno.horarioInicio}</p>
+                            <p>Horario Fin: {turno.horarioFin}</p>
+                            <p>Estado: {turno.estadoDisponible}</p>
+                            <p>Precio: {turno.precio}</p>
+                        </div>
+                    )
+                ))}
+
+                <div className='mt-4 mb-4'>
+                    <p><strong>Atención:</strong> En caso de confirmar el turno periódico, sólo se reservaran los turnos que se muestran disponibles </p>
+                </div>
+
+                {/* Botón para confirmar la reserva periódica */}
+                <div className='mt-4'>
+                    <button
+                        type="button"
+                        onClick={reservarTurnoPeriodico}
+                        className="bg-lime-600 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-lime-700"
+                    >
+                        Confirmar Reserva periódica
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleAtras}
+                        className="py-2 px-3 bg-gray-300 text-black rounded-lg hover:bg-gray-400"
+                    >
+                        Atrás
+                    </button>
+                </div>
+                
+            </div>
+        )}
+
         <button
                 type="button"
-                onClick={closeModal}
+                onClick={cancelarReserva}
                 className="bg-gray-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600"
             >
                 Cancelar

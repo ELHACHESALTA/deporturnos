@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import AuthUser from '../pageauth/AuthUser'
 import axios from 'axios'
 import Loading from '../components/Loading/Loading'
+import { useNavigate } from 'react-router-dom'
 
 const MisFavoritos = () => {
   const { getToken, getUser } = AuthUser();
+  const navigate = useNavigate();
   const [favoritos, setFavoritos] = useState([]);
   const [complejosFavoritos, setComplejosFavoritos] = useState([]);
   const [cliente, setCliente] = useState([]);
@@ -70,7 +72,7 @@ const MisFavoritos = () => {
       <h2>Complejos favoritos</h2>
       <div className="grid grid-cols-1 gap-4">
             {complejosFavoritos.map(complejo => (
-                <div key={complejo.id} className="p-4 border rounded-lg shadow">
+                <div key={complejo.id} className="p-4 border rounded-lg shadow" >
                     <h2 className="text-lg font-bold">{complejo.nombreComplejo}</h2>
                     <p><strong>Ciudad:</strong> {complejo.ciudad}</p>
                     <p><strong>Ubicación:</strong> {complejo.ubicacion}</p>
@@ -78,7 +80,10 @@ const MisFavoritos = () => {
                     <p><strong>Actualizado:</strong> {new Date(complejo.updated_at).toLocaleString()}</p>
                     <button type='button' onClick={() => eliminarFavorito(cliente.id, complejo.id)}>
                       <p><strong>Eliminar de favoritos</strong></p>
-                    </button>                  
+                    </button>
+                    <br />
+                    <br />
+                    <button type='button' onClick={() => navigate(`/cliente/complejo/${complejo.id}`)}>Ir al complejo</button>                  
                 </div>
             ))}
         </div>
