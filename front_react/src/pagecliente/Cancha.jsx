@@ -159,7 +159,7 @@ const Cancha = () => {
 
     useEffect(() => {
         // Filtrar y mapear turnos para la cancha seleccionada
-        const turnosFiltrados = turnos.filter(turno => turno.idCancha);
+        const turnosFiltrados = turnos.filter(turno => turno.idCancha && turno.estadoDisponible === "disponible");
         setTurnosAMostrar(turnosFiltrados); // Si necesitas usar este estado en otra parte
         setCalendarEvents(mapTurnosToEvents(turnosFiltrados)); // Mapear a eventos del calendario
     }, [turnos]); // Dependencia en turnos

@@ -259,10 +259,38 @@ const MisTurnos = () => {
                                 events={calendarEvents}  // Eventos mapeados (turnos)
                                 startAccessor="start"
                                 endAccessor="end"
-                                onSelectEvent={(event) => openModalEdit1(event.id)}
                                 messages={messages} // Traducción personalizada
                                 formats={formats}  // Formatos personalizados
                                 className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
+                                eventPropGetter={(event) => {
+                                    const fechaActual = new Date();
+                                    const esPasado = new Date(event.end) < fechaActual;
+                                    const esDisponible = turnos.find(turno => turno.id === event.id)?.estadoDisponible === "disponible";
+
+                                    let backgroundColor = "";
+
+                                    if (esPasado){
+                                        backgroundColor = "#ccc";
+                                    } else if (esDisponible){
+                                        backgroundColor = "#65A30D";
+                                    } else {
+                                        backgroundColor = "#DC2626";
+                                    }
+                                    return {
+                                        style: {
+                                            backgroundColor,
+                                            cursor: esPasado ? "not-allowed" : "pointer", // Desactiva el click en turnos pasados
+                                        }
+                                    };
+                                }}
+                                onSelectEvent={(event) => {
+                                    const fechaActual = new Date();
+                                    const esPasado = new Date(event.end) < fechaActual;
+                        
+                                    if (!esPasado) {
+                                        openModalEdit1(event.id);  // Solo abre el modal si el turno no ha pasado
+                                    }
+                                }}
                             />
                         </div>
                     </>

@@ -70,7 +70,7 @@ const VerCanchas = () => {
                 const matchesServicios = serviciosSeleccionados.length === 0 || serviciosSeleccionados.every(servicioId => serviciosComplejo.some(servicio => servicio.id === servicioId));
 
                 // se filtran los turnos que pertenecen a la cancha
-                const turnosCancha = turnos.filter(turno => turno.idCancha === cancha.id);
+                const turnosCancha = turnos.filter(turno => turno.idCancha === cancha.id && turno.estadoDisponible === "disponible");
 
                 const matchesTurnoFecha = fechaFiltro === '' || turnosCancha.some(turno => turno.horarioInicio.startsWith(fechaFiltro));
                 const matchesTurnoHora = horaInicioFiltro === '' || turnosCancha.some(turno => {
