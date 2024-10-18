@@ -8,6 +8,8 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
 
     const [confirmarReserva, setConfirmarReserva] = useState(false);
 
+    const [arregloTurnosPeriodicos, setArregloTurnosPeriodicos] = useState([]);
+
     const handleConfirmClick = () => {
         setConfirmarReserva(true);
     };
@@ -35,6 +37,48 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
             }
         });
     }
+
+    const cantSemanas = 4;
+
+    const buscarTurnoPeriodico = async () => {
+        await axios.post('http://localhost:8000/api/cliente/buscarTurnoPeriodico', {idTurno, idCliente, cantSemanas}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ getToken()
+            }
+        }).then(({data})=> {
+            if(data.success){
+                console.log("Se buscaron los turnos periódicos");
+                // closeModal();
+                // window.location.reload();
+                console.log(data.arregloTurnosPeriodicos)
+                setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
+            } else {
+                console.log(data.error);
+            }
+        });
+    }
+
+    const reservarTurnoPeriodico = async () => {
+        await axios.post('http://localhost:8000/api/cliente/reservarTurnoPeriodico', {idTurno, idCliente, arregloTurnosPeriodicos}, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ getToken()
+            }
+        }).then(({data})=> {
+            if(data.success){
+                console.log("Se reservaron los turnos periodicos");
+                // closeModal();
+                // window.location.reload();
+                // setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
+                // console.log(data.arregloTurnosPeriodicos)
+                console.log(data.arregloTurnosPeriodicos);
+            } else {
+                console.log(data.error);
+            }
+        });
+    }
+    // console.log(arregloTurnosPeriodicos)
 
     return (
     <div>
@@ -78,7 +122,10 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
                 </div>
             </div>
         )}
-        <button type='button' className="bg-gray-500 mr-3 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600">
+        <button type='button' onClick={buscarTurnoPeriodico} className="bg-gray-500 mr-3 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600">
+            Buscar reserva periódica
+        </button>
+        <button type='button' onClick={reservarTurnoPeriodico} className="bg-gray-500 mr-3 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600">
             Reserva periodica
         </button>
         <button

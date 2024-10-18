@@ -11,6 +11,7 @@ use App\Models\Cancha;
 use App\Models\Complejo;
 use App\Models\Deporte;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
@@ -51,6 +52,89 @@ class ReservaController extends Controller
         $response["canchas"] = $canchas;
         $response["complejos"] = $complejos;
         $response["deportes"] = $deportes;
+        $response["success"] = true;
+        return response()->json($response, 200);
+    }
+
+    public function buscarTurnoPeriodico(Request $request) {
+        $response["success"] = false;
+
+        $validator = Validator::make($request->all(),[
+            'idTurno' => 'required',
+            'idCliente' => 'required',
+            'cantSemanas' => 'required',
+        ]);
+
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
+
+        $turno = Turno::where("id", $request->idTurno)->first();
+        $fechaTurno = $turno->horarioInicio;
+        $carbonFecha = Carbon::parse($fechaTurno);
+        $diaSemana = $carbonFecha->locale('en')->isoFormat('dddd');
+
+        // Bucle de cantidad de semanas
+
+        $arregloTurnosPeriodicos = [];
+        for ($i=1; $i<$request -> cantSemanas; $i++) {
+            $carbonFecha -> addDays(7);
+            $fechaAComparar = $carbonFecha -> toDateTimeString();
+            $turnoNuevo = Turno::where("idCancha", $turno -> idCancha) -> where("horarioInicio", $fechaAComparar) -> where("estadoDisponible", "disponible")->first();
+            if($turnoNuevo) {
+                array_push($arregloTurnosPeriodicos, $turnoNuevo);
+            } else {
+                array_push($arregloTurnosPeriodicos, $fechaAComparar);
+            }
+        }
+        // Bucle de cantidad de semanas
+
+        $response["arregloTurnosPeriodicos"] = $arregloTurnosPeriodicos;
+        $response["success"] = true;
+        return response()->json($response, 200);
+    }
+
+    public function reservarTurnoPeriodico(Request $request){
+        $response["success"] = false;
+
+        $validator = Validator::make($request->all(),[
+            'idTurno' => 'required',
+            'idCliente' => 'required',
+            'arregloTurnosPeriodicos' => 'required',
+        ]);
+
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
+
+        $reserva = new Reserva();
+        $reserva->idTurno = $request->idTurno;
+        $cliente = Cliente::where('id', $request->idCliente)->first();
+        $reserva->idCliente = $cliente->id;
+        $reserva->esPeriodica = true;
+        $reserva->patronPeriodico = "";
+        $reserva->save();
+
+        for($i=0;$i<count($request->arregloTurnosPeriodicos);$i++) {
+            if(is_string($request->arregloTurnosPeriodicos[$i])) {
+                $response["error"] = "Hubo un error al cargar las reservas periodicas";
+            } else {
+                $turno = Turno::where("id", $request->arregloTurnosPeriodicos[$i]["id"])->first();
+                $turno->estadoDisponible = "no disponible";
+                $turno->save();
+
+                $reserva = new Reserva();
+                $reserva->idTurno = $request->arregloTurnosPeriodicos[$i]["id"];
+                $cliente = Cliente::where('id', $request->idCliente)->first();
+                $reserva->idCliente = $cliente->id;
+                $reserva->esPeriodica = true;
+                $reserva->patronPeriodico = "";
+                $reserva->save();
+            }
+        }
+
         $response["success"] = true;
         return response()->json($response, 200);
     }
