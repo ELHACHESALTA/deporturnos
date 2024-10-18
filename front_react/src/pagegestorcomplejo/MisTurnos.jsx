@@ -5,6 +5,7 @@ import axios from 'axios';
 import Loading from '../components/Loading/Loading';
 import Modal from '../components/Modal/Modal';
 import CreateTurno from '../components/CreateTurno/CreateTurno';
+import CreateTurnoAutomatico from '../components/CreateTurnoAutomatico/CreateTurnoAutomatico';
 import { useModal } from '../hooks/useModal';
 import EditTurno from '../components/EditTurno/EditTurno';
 
@@ -71,6 +72,7 @@ const MisTurnos = () => {
     // variable para manejar el modal de creacion de turnos
     const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
     const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal(false);
+    const [isOpenModalCreateAutomatico, openModalCreateAutomatico, closeModalCreateAutomatico] = useModal(false);
 
     const [turnoAEditar, setTurnoAEditar] = useState([]);
 
@@ -212,6 +214,9 @@ const MisTurnos = () => {
                                                     <div>
                                                         <button onClick={openModalCreate} className='py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none'>Crear turno manual</button>
                                                     </div>
+                                                    <div>
+                                                        <button onClick={openModalCreateAutomatico} className='py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none'>Crear turno automático</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </>
@@ -229,6 +234,11 @@ const MisTurnos = () => {
                         {/* modal para crear turnos */}
                         <Modal isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
                             <CreateTurno closeModal={closeModalCreate} idCancha={idCanchaSeleccionada} />
+                        </Modal>
+
+                        {/* modal para crear turnos automaticos */}
+                        <Modal isOpen={isOpenModalCreateAutomatico} closeModal={closeModalCreateAutomatico}>
+                            <CreateTurnoAutomatico closeModal={closeModalCreateAutomatico} idCancha={idCanchaSeleccionada} />
                         </Modal>
 
                         {/* modal para editar o eliminar turnos */}

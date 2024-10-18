@@ -43,8 +43,26 @@ class TurnoController extends Controller
         return response()->json($response, 200);
     }
 
-    public function crearTurnoAutomatico(){
+    public function crearTurnoAutomatico(Request $request){
+        $response["success"] = false;
 
+        $validator = Validator::make($request->all(),[
+            'fechaInicioTurnos' => 'required',
+            'fechaFinTurnos' => 'required',
+            'precio' => 'required',
+            'timerReprogramacion' => 'required',
+            'idCancha' => 'required',
+        ]);
+
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
+
+        
+
+        $response["success"] = true;
+        return response()->json($response, 200);
     }
 
     public function editarTurno(Request $request){
