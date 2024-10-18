@@ -48,7 +48,6 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
         }).then(({data})=> {
             if(data.success){
                 console.log("Se reservó el turno correctamente");
-                closeModal();
                 window.location.reload();
             } else {
                 console.log(data.error);
@@ -67,8 +66,6 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
         }).then(({data})=> {
             if(data.success){
                 console.log("Se buscaron los turnos periódicos");
-                // closeModal();
-                // window.location.reload();
                 console.log(data.arregloTurnosPeriodicos)
                 setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
                 setMostrarDatosReserva(true);
@@ -87,17 +84,13 @@ const ReservarTurno = ({turno, cancha, deporte, idCliente, isOpen, closeModal}) 
         }).then(({data})=> {
             if(data.success){
                 console.log("Se reservaron los turnos periodicos");
-                // closeModal();
                 window.location.reload();
-                // setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
-                // console.log(data.arregloTurnosPeriodicos)
                 console.log(data.arregloTurnosPeriodicos);
             } else {
                 console.log(data.error);
             }
         });
     }
-    // console.log(arregloTurnosPeriodicos)
 
     const esFecha = (dato) => typeof dato === "string";
 

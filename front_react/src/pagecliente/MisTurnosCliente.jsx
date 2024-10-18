@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import AuthUser from '../pageauth/AuthUser'
 import axios from 'axios'
 import Loading from '../components/Loading/Loading'
+import { useNavigate } from 'react-router-dom'
+
 
 const MisTurnosCliente = () => {
 
   const {getToken, getUser} = AuthUser();
+  const navigate = useNavigate();
   const [reservas, setReservas] = useState([]);
   const [turnos, setTurnos] = useState([]);
   const [canchas, setCanchas] = useState([]);
@@ -96,7 +99,7 @@ const MisTurnosCliente = () => {
                       <p className="text-lg font-medium text-blue-600">Precio: ${turno.precio}</p>
                       <button
                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition"
-                        // onClick={}
+                        onClick={() => navigate('/cliente/reprogramarTurno', {state : { turno }})}
                       >
                         Reprogramar
                       </button>

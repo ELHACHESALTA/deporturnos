@@ -138,4 +138,43 @@ class ReservaController extends Controller
         $response["success"] = true;
         return response()->json($response, 200);
     }
+
+    public function reprogramarReserva(Request $request){
+        $response["success"] = false;
+
+        $validator = Validator::make($request->all(),[
+            'idTurnoADescartar' => 'required',
+            'idTurnoNuevo' => 'required',
+            'idCliente' => 'required',
+        ]);
+
+        if($validator->fails()){
+            $response = ["error" => $validator->errors()];
+            return response()->json($response, 200);
+        }
+
+        $turnoADescartar = Turno::where('id', $request->idTurnoADescartar)->first();
+        $turnoADescartar->estadoDisponible = "disponible";
+        $turnoADescartar->save();
+
+        $turnoNuevo = Turno::where('id', $request->idTurnoNuevo)->first();
+        $turnoNuevo->estadoDisponible = "no disponible";
+        $turnoNuevo->save();
+
+        $reservaADescartar = Reserva::where('idTurno', $request->idTurnoADescartar)->first();
+        $esPeriodicaADescartar = $reservaADescartar->esPeriodica;
+        $patronPeriodicoADescartar = $reservaADescartar->patronPeriodico;
+        $reservaADescartar->delete();
+
+        $reservaNueva = new Reserva();
+        $reservaNueva->idTurno = $request->idTurnoNuevo;
+        $reservaNueva->idCliente = $request->idCliente;
+        $reservaNueva->esPeriodica = $esPeriodicaADescartar;
+        $reservaNueva->patronPeriodico = $patronPeriodicoADescartar;
+        $reservaNueva->save();
+
+        $response["success"] = true;
+        $response["message"] = "Se realizó la reprogramacion con exito!";
+        return response()->json($response, 200);
+    }
 }
