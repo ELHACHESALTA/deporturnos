@@ -120,7 +120,7 @@ const Register = () => {
     return (
         <div className="flex-grow w-96 mx-auto">
             <div className="px-2 max-w-[66rem]">
-                <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700 ">
+                <div className="mt-7 bg-gray-100 border border-gray-200 rounded-3xl dark:bg-neutral-800 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     <div className="p-4 sm:p-7">
 
                         {/* Cabecera */}
@@ -142,11 +142,11 @@ const Register = () => {
                                 <div>
                                     <label htmlFor="email" className="block text-sm mb-4 dark:text-white">Nombre</label>
                                     <div className="relative">
-                                        <input type="text" value={form.name} onChange={handleChange} name="name" className="py-3 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="email-error" placeholder="Ingrese su nombre" required />
+                                        <input type="text" value={form.name} onChange={handleChange} name="name" className="py-2 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="email-error" placeholder="Ingrese su nombre" required />
                                     </div>
                                 </div>
                                 {errors.name &&
-                                    <div className="p-2 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
                                         <span >{errors.name}</span>
                                     </div>
                                 }
@@ -156,11 +156,11 @@ const Register = () => {
                                 <div>
                                     <label htmlFor="email" className="block text-sm mb-4 dark:text-white">Correo electrónico</label>
                                     <div className="relative">
-                                        <input type="email" value={form.email} onChange={handleChange} name="email" className="py-3 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="email-error" placeholder="Ingrese su correo electrónico" required />
+                                        <input type="email" value={form.email} onChange={handleChange} name="email" className="py-2 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="email-error" placeholder="Ingrese su correo electrónico" required />
                                     </div>
                                 </div>
                                 {errors.email &&
-                                    <div className="p-2 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
                                         <span >{errors.email}</span>
                                     </div>
                                 }
@@ -170,11 +170,11 @@ const Register = () => {
                                 <div>
                                     <label htmlFor="password" className="block text-sm mb-4 dark:text-white">Contraseña</label>
                                     <div className="relative">
-                                        <input type="password" value={form.password} onChange={handleChange} name="password" className="py-3 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="password-error" placeholder="Ingrese su contraseña" required />
+                                        <input type="password" value={form.password} onChange={handleChange} name="password" className="py-2 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="password-error" placeholder="Ingrese su contraseña" required />
                                     </div>
                                 </div>
                                 {errors.password &&
-                                    <div className="p-2 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
                                         <span >{errors.password}</span>
                                     </div>
                                 }
@@ -189,7 +189,7 @@ const Register = () => {
                                                 onChange={() => handleRoleChange(2)}
                                                 checked={form.idRol === 2}
                                                 required />
-                                            <label htmlFor="cliente" className="inline-flex items-center justify-between w-full p-5 rounded-lg cursor-pointer border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50  dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600">
+                                            <label htmlFor="cliente" className="inline-flex items-center justify-between w-full p-5 rounded-2xl cursor-pointer border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50  dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600">
                                                 <div className="block">
                                                     <div className="w-full text-lg font-semibold">Cliente</div>
                                                     <div className="w-full">Para contratar turnos</div>
@@ -200,7 +200,7 @@ const Register = () => {
                                             <input type="radio" id="gestorComplejo" name="idRol" value="3" className="hidden peer"
                                                 onChange={() => handleRoleChange(3)}
                                                 checked={form.idRol === 3} />
-                                            <label htmlFor="gestorComplejo" className="inline-flex items-center justify-between w-full p-5 rounded-lg cursor-pointer border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50  dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600">
+                                            <label htmlFor="gestorComplejo" className="inline-flex items-center justify-between w-full p-5 rounded-2xl cursor-pointer border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50  dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:text-lime-600">
                                                 <div className="block">
                                                     <div className="w-full text-lg font-semibold">Complejo</div>
                                                     <div className="w-full">Para gestionar mis turnos</div>
@@ -210,13 +210,13 @@ const Register = () => {
                                     </ul>
                                 </div>
                                 {errors.idRol &&
-                                    <div className="p-2 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
                                         <span >{errors.idRol}</span>
                                     </div>
                                 }
                                 {/* Rol */}
 
-                                <button onClick={submitRegistro} className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Registrarse</button>
+                                <button onClick={submitRegistro} className="w-full py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Registrarse</button>
                             </div>
                         </form>
                         {/* Formulario */}
@@ -227,7 +227,7 @@ const Register = () => {
 
             {/* modal exitoso */}
             <Modal isOpen={isOpenModal} closeModal={closeModal}>
-                <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-16 text-green-600">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
@@ -240,7 +240,7 @@ const Register = () => {
 
             {/* modal fallido */}
             <Modal isOpen={isOpenModalFallido} closeModal={closeModalFallido}>
-                <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-16 text-red-600">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                     </svg>

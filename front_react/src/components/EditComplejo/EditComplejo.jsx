@@ -152,12 +152,12 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
     return (
         <div>
             <div className="mt-4">
-                <form className="flex mx-auto max-w-[66rem] px-2 flex-col">
-                    <div className="flex flex-row w-full mb-3">
+                <form className="flex mx-auto max-w-[66rem] flex-col">
+                    <div className="flex flex-row w-full mb-4 px-4 gap-4 items-center">
                         {/* Input para ingresar el nombre del complejo */}
-                        <div className="basis-1/3 px-2">
-                            <div className="mb-2">
-                                <label htmlFor="nombreComplejo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre del Complejo</label>
+                        <div className="basis-1/3">
+                            <div className="basis-full">
+                                <label htmlFor="nombreComplejo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre del Complejo:</label>
                                 <input type="text" value={form.nombreComplejo} onChange={handleChange} name="nombreComplejo" placeholder='Nombre' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" required />
                             </div>
                             <div>
@@ -167,10 +167,10 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                     </div>}
                             </div>
                         </div>
-                        <div className="basis-1/3 px-2">
+                        <div className="basis-1/3">
                             {/* Input para ingresar la ciudad donde se encuentra el complejo */}
                             <div className="basis-full">
-                                <label htmlFor="ciudad" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
+                                <label htmlFor="ciudad" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad:</label>
                                 <input type="text" value={form.ciudad} onChange={handleChange} name="ciudad" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" placeholder="Ciudad" required />
                             </div>
                             <div>
@@ -180,7 +180,7 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                     </div>}
                             </div>
                         </div>
-                        <div className="basis-1/3 px-2">
+                        <div className="basis-1/3">
                             {/* Input para ingresar dirección del complejo */}
                             <div className="flex space-x-4">
                                 <div className="w-1/2">
@@ -200,18 +200,18 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col md:flex-row w-full mb-4 justify-center">
+                    <div className="flex flex-col md:flex-row w-full justify-center gap-4 px-4">
                         {/* Configuración de días de apertura y cierre */}
-                        <div className="basis-1/2 px-2">
+                        <div className="basis-1/2">
                             <div className="flex-col">
-                                <div className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Configura los Horarios para Cada Día</div>
+                                <div className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Configura los Horarios para Cada Día:</div>
                                 {diasSemana.map((dia) => (
                                     <div
                                         key={dia}
                                         className="flex flex-row mb-1 w-full p-2 bg-white  border border-gray-200 rounded-lg shadow-sm dark:bg-neutral-700 dark:border-neutral-600"
                                     >
-                                        <div className="basis-1/6 flex items-center justify-center text-base font-medium text-gray-900 dark:text-white">{dia}</div>
-                                        <div className="basis-1/6 flex items-center justify-center mx-4">
+                                        <div className="basis-1/4 flex items-center justify-center text-base font-medium text-gray-900 dark:text-white">{dia}</div>
+                                        <div className="basis-1/4 flex items-center justify-center mx-4">
                                             <input
                                                 type="checkbox"
                                                 checked={diasConfiguracion[dia].abierto}
@@ -222,7 +222,7 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                         </div>
 
                                         {diasConfiguracion[dia].abierto && (
-                                            <div className="basis-4/6">
+                                            <div className="basis-1/4">
                                                 <div className="flex flex-row">
                                                     <div className="basis-1/2 mr-4 flex flex-col justify-center">
                                                         <label htmlFor={`apertura-${dia}`} className="block text-xs font-medium text-gray-700 dark:text-white">
@@ -238,7 +238,7 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                                         />
                                                     </div>
 
-                                                    <div className="basis-1/2 flex flex-col justify-center">
+                                                    <div className="basis-1/4 flex flex-col justify-center">
                                                         <label htmlFor={`cierre-${dia}`} className="block text-xs font-medium text-gray-700 dark:text-white">
                                                             Horario de Cierre:
                                                         </label>
@@ -258,37 +258,43 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                 ))}
                             </div>
                         </div>
-                        <div className="basis-2/6 px-2">
+                        <div className="basis-1/2">
                             <div>
                                 <div className='mb-8'>
                                     <h3 className="block mb-4 text-sm font-bold text-gray-900 dark:text-white">Resumen de Horarios:</h3>
-                                    <ul className="list-disc pl-6 mt-2 block mb-2 text-sm font-medium text-start text-gray-900 dark:text-white">
-                                        {diasSemana.map((dia) => (
-                                            <li key={dia}>
-                                                <div className="flex flex-row gap-1">
-                                                    <div className="font-bold">{dia}: </div>
-                                                    <div className="">
-                                                        {diasConfiguracion[dia].abierto ? `Abierto de ${diasConfiguracion[dia].apertura} a ${diasConfiguracion[dia].cierre}` : "Cerrado"}
+                                    <div className="flex justify-center">
+                                        <ul className="list-disc block text-sm font-medium text-start text-gray-900 dark:text-white">
+                                            {diasSemana.map((dia) => (
+                                                <li key={dia}>
+                                                    <div className="flex flex-row gap-1">
+                                                        <div className="font-bold">{dia}: </div>
+                                                        <div className="">
+                                                            {diasConfiguracion[dia].abierto ? `Abierto de ${diasConfiguracion[dia].apertura} a ${diasConfiguracion[dia].cierre}` : "Cerrado"}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </div>
                                 {/* Selección de servicios */}
                                 <div className='block text-sm font-medium text-gray-900 dark:text-white text-start'>
-                                    <h2 className='mb-4 text-sm font-bold text-gray-900 dark:text-white flex justify-center' >Selecciona los servicios adicionales</h2>
-                                    {serviciosEstado.map((servicio, index) => (
-                                        <div key={servicio.id}>
-                                            <input
-                                                type="checkbox"
-                                                checked={servicio.seleccionado}
-                                                onChange={() => handleChangeServiciosSeleccionados(index)}
-                                                className='ml-1'
-                                            />
-                                            <label className='ml-2'>{servicio.descripcionServicio}</label>
+                                    <h2 className='mb-4 text-sm font-bold text-gray-900 dark:text-white flex justify-center' >Selecciona los servicios adicionales:</h2>
+                                    <div className="flex justify-center">
+                                        <div className="flex flex-col">
+                                            {serviciosEstado.map((servicio, index) => (
+                                                <div key={servicio.id}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={servicio.seleccionado}
+                                                        onChange={() => handleChangeServiciosSeleccionados(index)}
+                                                        className='ml-1'
+                                                    />
+                                                    <label className='ml-2'>{servicio.descripcionServicio}</label>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
+                                    </div>
                                 </div>
                                 {/* Fin de selección de servicios */}
                             </div>

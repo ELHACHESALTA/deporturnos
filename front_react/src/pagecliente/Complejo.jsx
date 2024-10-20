@@ -50,10 +50,10 @@ const Complejo = () => {
             await axios.post('http://localhost:8000/api/cliente/obtenerCliente', { idUsuario }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+ getToken()
+                    'Authorization': 'Bearer ' + getToken()
                 }
-            }).then(({data})=> {
-                if(data.success){
+            }).then(({ data }) => {
+                if (data.success) {
                     setCliente(data.cliente);
                 }
             });
@@ -61,7 +61,7 @@ const Complejo = () => {
         obtenerInfoComplejo();
         obtenerCliente();
     }, []);
-  
+
     if (loading) {
         return (<Loading />);
     }
@@ -74,8 +74,8 @@ const Complejo = () => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + getToken()
             }
-        }).then(({data})=> {
-            if(data.success){
+        }).then(({ data }) => {
+            if (data.success) {
                 console.log("agregado a favoritos exitosamente");
                 const nuevoFavorito = {
                     idCliente: cliente.id,
@@ -97,10 +97,10 @@ const Complejo = () => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + getToken()
             }
-        }).then(({data})=> {
-            if(data.success){
+        }).then(({ data }) => {
+            if (data.success) {
                 console.log("eliminado de favoritos exitosamente");
-                const nuevosFavoritos = favoritosComplejo.filter(favorito => 
+                const nuevosFavoritos = favoritosComplejo.filter(favorito =>
                     !(favorito.idCliente === idCliente && favorito.idComplejo === idComplejo)
                 );
                 setFavoritosComplejo(nuevosFavoritos);
@@ -125,61 +125,89 @@ const Complejo = () => {
     };
 
     return (
-    <div>
-        {/* Mostrar la información del complejo */}
-        <div className="mt-4 bg-gray-100 p-4 rounded-lg">
-            <div className="backdrop-blur-sm bg-gray-100/30 dark:bg-black/30 border border-neutral-400 dark:border-neutral-700 rounded-full absolute top-[385px] right-[50px] p-3">
-                {esFavorito ? 
-                    <button type='button' onClick={eliminarFavorito}>
-                    <Star size={52} className="text-yellow-500" fill="#EAB308" />
-                    </button>
-                    :
-                    <button type='button' onClick={agregarFavorito}>
-                    <Star size={52} className="text-yellow-500" />
-                    </button>
-                }
-            </div>
-            <p><strong>Nombre del Complejo:</strong> {complejo.nombreComplejo}</p>
-            <p><strong>Ciudad:</strong> {complejo.ciudad}</p>
-            <p><strong>Calle:</strong> {complejo.ubicacion}</p>
-            <h2>Servicios del Complejo:</h2>
-            <ul>
-                {serviciosComplejo.length > 0 ? (
-                    serviciosComplejo.map((servicio, index) => (
-                        <li key={index} className="text-green-600">{servicio}</li>
-                    ))
-                ) : (
-                    <p>No hay servicios disponibles para este complejo.</p>
-                )}
-            </ul>
-            <h2>Canchas del complejo:</h2>
-            <div className="flex flex-wrap justify-start gap-4">
-                {canchasComplejo.length > 0 ? (
-                    canchasComplejo.map((cancha, index) => (
-                        <div
-                            key={index}
-                            onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
-                            className="cursor-pointer p-4 bg-white border border-gray-300 rounded-lg shadow hover:bg-gray-100 transition duration-300 ease-in-out w-full sm:w-1/2 lg:w-1/3"
-                        >
-                            <h3 className="text-lg font-semibold text-green-600">{cancha.nombreCancha}</h3>
-                            <p className="text-gray-600">
-                                <strong>Deporte:</strong> {obtenerDeporte(cancha.idDeporte)}
-                            </p>
-                            <p className="text-gray-600">
-                                <strong>ID de la Cancha:</strong> {cancha.id}
-                            </p>
-                            <p className="text-gray-600">
-                                <strong>ID del Complejo:</strong> {cancha.idComplejo}
-                            </p>
+        <div>
+            <div className='flex-grow overflow-visible'>
+                <div className="flex flex-col mx-auto max-w-[66rem] px-2">
+                    <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
+                        <img className="object-cover w-full h-[450px]" src="/cancha01.jpg" alt="cancha" />
+                        <div className="absolute top-[300px] left-0 p-4 dark:text-white text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
+                            {complejo.nombreComplejo}
                         </div>
-                    ))
-                ) : (
-                    <p>No hay canchas disponibles en este complejo.</p>
-                )}
+                        <div className="absolute top-[425px] left-0 h-[25px] bg-gray-100 dark:bg-neutral-800 rounded-t-3xl w-full"></div>
+                        <div className="backdrop-blur-sm bg-gray-100/30 dark:bg-black/30 border border-neutral-400 dark:border-neutral-700 rounded-full absolute top-[385px] right-[50px] p-3">
+                            {esFavorito ?
+                                <button type='button' onClick={eliminarFavorito}>
+                                    <Star size={52} className="text-yellow-500" fill="#EAB308" />
+                                </button>
+                                :
+                                <button type='button' onClick={agregarFavorito}>
+                                    <Star size={52} className="text-yellow-500" />
+                                </button>
+                            }
+                        </div>
+                        <div className="h-[20px]"></div>
+                        <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
+                            <div className="basis-1/4 flex justify-center items-center font-bold dark:text-white">Ciudad: {complejo.ciudad}</div>
+                            <div className="basis-1/4 flex justify-center items-center font-bold dark:text-white">Calle: {complejo.ubicacion}</div>
+                            <div className="basis-1/4 flex justify-center items-center font-bold dark:text-white">Servicios del Complejo: </div>
+                            <div className="basis-1/4 flex justify-center items-center font-bold dark:text-white">
+                                <ul>
+                                    {serviciosComplejo.length > 0 ? (
+                                        serviciosComplejo.map((servicio, index) => (
+                                            <li key={index} className="text-lime-600">{servicio}</li>
+                                        ))
+                                    ) : (
+                                        <p>No hay servicios disponibles para este complejo.</p>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="flex flex-row bg-gray-100 dark:bg-neutral-800"></div>
+                        <div className="flex flex-row dark:bg-neutral-800 w-full h-[16px]"></div>
+                    </div>
+                </div>
+            </div>
+            {/* Canchas del Complejo */}
+            <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Canchas del Complejo</h2>
+            <div className="flex mx-auto max-w-[66rem] px-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                    {canchasComplejo.length > 0 ? (
+                        canchasComplejo.map((cancha, index) => (
+                            <div
+                                key={index}
+                                onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                                <img className="object-cover w-full h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
+                                <div className="p-4 md:p-5">
+                                    <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                                        {cancha.nombreCancha}
+                                    </h3>
+                                    <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                        Deporte: {obtenerDeporte(cancha.idDeporte)}
+                                    </p>
+                                    <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                        ID de la Cancha: {cancha.id}
+                                    </p>
+                                    <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                        ID del Complejo: {cancha.idComplejo}
+                                    </p>
+
+                                    <button
+                                        className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                        onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                    >
+                                        Sacar Turno
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p className='block text-sm mb-4 dark:text-white mt-4'>No hay canchas disponibles en este complejo.</p>
+                    )}
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Complejo

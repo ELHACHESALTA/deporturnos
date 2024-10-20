@@ -30,9 +30,9 @@ const Navbar = () => {
                             <div className="flex items-center">
                                 <img className="w-6 h-auto rounded-full max-w-xs flex-shrink-0 mr-2" src="/fotoPerfil.jpg" alt="Avatar" />
                                 <div className="flex items-center">
-                                    <span className="">{getUser().name}</span>
+                                    <span className="text-white dark:text-neutral-900">{getUser().name}</span>
                                 </div>
-                                <svg className="ml-2 w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path
+                                <svg className="ml-2 w-5 h-5 shrink-0 text-white dark:text-neutral-900" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path
                                     d="m6 9 6 6 6-6"></path></svg>
                             </div>
                         </button>
@@ -72,7 +72,7 @@ const Navbar = () => {
             return (
                 <>
                     <a href="/register">
-                        <button type="button" className="whitespace-nowrap min-w-24 max-w-auto py-2 px-3 text-sm font-medium rounded-full border border-transparent bg-lime-500 text-black hover:bg-lime-600 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-600">
+                        <button type="button" className="whitespace-nowrap min-w-24 max-w-auto py-2 px-3 text-sm font-medium rounded-full border border-transparent bg-lime-500 text-white dark:text-neutral-900 hover:bg-lime-600 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-600">
                             Regístrate
                         </button>
                     </a>
@@ -112,15 +112,15 @@ const Navbar = () => {
                             Cliente
                         </a>
                         <a className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/cliente/verCanchas">
-                            <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>                            
+                            <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                             Ver Canchas
                         </a>
                         <a className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/cliente/misTurnosCliente">
-                        <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>                            
+                            <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /></svg>
                             Mis Turnos
                         </a>
                         <a className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/cliente/misFavoritos">
-                            <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>                            
+                            <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                             Mis Favoritos
                         </a>
                     </div>
@@ -155,20 +155,22 @@ const Navbar = () => {
 
     return (
         <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm bg-white dark:bg-neutral-900">
-            <nav className="my-4 relative max-w-[66rem] w-full bg-white border border-gray-200 rounded-[2rem] mx-2 py-2.5 md:items-center md:justify-between md:py-2.5 md:px-4 lg:mx-auto dark:bg-neutral-800 dark:border-neutral-700">
-                <div className="px-4 md:px-0 flex justify-between items-center">
-                    {/* Logo */}
-                    <a className="w-[150px] flex items-center justify-center rounded-md text-xl font-semibold focus:outline-none focus:opacity-80" href="/" aria-label="Home">
-                        <img className="h-auto block dark:hidden" src="/logoLight.png" alt="deporturnos" />
-                        <img className="h-auto hidden dark:block" src="/logoDark.png" alt="deporturnos" />
-                    </a>
-                    {/* Logo */}
+            <nav className="w-full mx-auto max-w-[66rem] px-2">
+                <div className=" bg-white border border-gray-200 rounded-3xl my-4 p-2  md:items-center md:justify-between  dark:bg-neutral-800 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
+                    <div className="flex justify-between items-center">
+                        {/* Logo */}
+                        <a className="w-[150px] flex items-center justify-center rounded-md text-xl font-semibold focus:outline-none focus:opacity-80" href="/" aria-label="Home">
+                            <img className="h-auto block dark:hidden" src="/logoLight.png" alt="deporturnos" />
+                            <img className="h-auto hidden dark:block" src="/logoDark.png" alt="deporturnos" />
+                        </a>
+                        {/* Logo */}
 
-                    {/* Botones de Sesión*/}
-                    <div className="flex items-center gap-x-3 py-1 md:col-span-3">
-                        {renderLinks()}
+                        {/* Botones de Sesión*/}
+                        <div className="flex items-center gap-x-3 md:col-span-3">
+                            {renderLinks()}
+                        </div>
+                        {/* Botones de Sesión */}
                     </div>
-                    {/* Botones de Sesión */}
                 </div>
             </nav>
         </header>

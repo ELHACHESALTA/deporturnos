@@ -37,7 +37,7 @@ const Login = () => {
     return (
         <div className="flex-grow w-96 mx-auto">
             <div className="px-2 max-w-[66rem]">
-                <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700 ">
+                <div className="mt-7 bg-gray-100 border border-gray-200 rounded-3xl dark:bg-neutral-800 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     <div className="p-4 sm:p-7">
 
                         {/* Cabecera */}
@@ -59,7 +59,7 @@ const Login = () => {
                                 <div>
                                     <label htmlFor="email" className="block text-sm mb-4 dark:text-white">Correo electrónico</label>
                                     <div className="relative">
-                                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="email" className="py-3 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="email-error" placeholder="Ingrese su correo electrónico" required />
+                                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} id="email" className="py-2 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="email-error" placeholder="Ingrese su correo electrónico" required />
                                     </div>
                                 </div>
                                 {/* Email */}
@@ -68,14 +68,14 @@ const Login = () => {
                                 <div>
                                     <label htmlFor="password" className="block text-sm mb-4 dark:text-white">Contraseña</label>
                                     <div className="relative">
-                                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password" className="py-3 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="password-error" placeholder="Ingrese su contraseña" required />
+                                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password" className="py-2 px-4 block w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" aria-describedby="password-error" placeholder="Ingrese su contraseña" required />
                                     </div>
                                 </div>
                                 {/* Password */}
 
                                 <div>
                                     {message !== "" &&
-                                        <div className="p-2 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                                        <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
                                             <span >{message}</span>
                                         </div>}
                                 </div>
@@ -92,7 +92,7 @@ const Login = () => {
                                 </div>
                                 {/* Recuerdo y recuperación */}
 
-                                <button onClick={submitLogin} className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Ingresar</button>
+                                <button onClick={submitLogin} className="w-full py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Ingresar</button>
                             </div>
                         </form>
                         {/* Formulario */}
