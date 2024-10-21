@@ -99,7 +99,7 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
         <div>
             <Modal isOpen={isOpen} closeModal={closeModal}>
                 <div className="flex flex-col gap-y-4">
-                    <button className="absolute top-0 right-0" onClick={cancelarReserva}>
+                    <button type='button' className="absolute top-0 right-0" onClick={cancelarReserva}>
                         <X className="size-7 dark:text-white" />
                     </button>
                     <div className="text-md font-medium  text-center dark:text-white underline underline-offset-4">Información del turno:</div>

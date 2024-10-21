@@ -83,7 +83,7 @@ const CreateCancha = ({ closeModal }) => {
 
     return (
         <form className="flex flex-col gap-y-4">
-            <button className="absolute top-0 right-0" onClick={closeModal}>
+            <button type='button' className="absolute top-0 right-0" onClick={closeModal}>
                 <X className="size-7 dark:text-white" />
             </button>
             <label htmlFor="nombreCancha" className="text-sm font-medium text-center dark:text-white">

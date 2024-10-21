@@ -9,6 +9,9 @@ use App\Models\Turno;
 use App\Models\GestorComplejo;
 use App\Models\Complejo;
 use App\Models\Cancha;
+use App\Models\Deporte;
+use Carbon\Carbon;
+use App\Models\Dia;
 
 class TurnoController extends Controller
 {
@@ -59,8 +62,53 @@ class TurnoController extends Controller
             return response()->json($response, 200);
         }
 
-        
+        // se obtienen las fechas de inicio y fin de generación de turnos en formato Carbon
+        $fechaInicio = Carbon::parse($request->fechaInicioTurnos);
+        $fechaFin = Carbon::parse($request->fechaFinTurnos);
 
+        // se buscan los días en los que se encuentra abierto el complejo al que pertenece la cancha
+        $cancha = Cancha::where('id', $request->idCancha)->first();
+        $diasAbiertosComplejo = Dia::where('idComplejo', $cancha->idComplejo)->get();
+
+        // se obtiene el deporte de la cancha
+        $deporte = Deporte::where('id', $cancha->idDeporte)->first();
+
+        $duracionTurnoString = $deporte->duracionTurno;
+        $duracionCarbon = Carbon::createFromFormat('H:i:s', $duracionTurnoString);
+        $duracionTurno = ($duracionCarbon->hour * 60) + $duracionCarbon->minute;
+        
+        // se recorren las fechas entre el rango de inicio y fin recibidas por parametro
+        for($fecha = $fechaInicio; $fecha->lte($fechaFin); $fecha->addDay()){
+            // se obtiene el nombre del dia
+            $nombreDia = ucfirst($fecha->locale('es')->dayName);
+            $diaAbierto = $diasAbiertosComplejo->where('dia', $nombreDia)->first();
+            if($diaAbierto){
+                $horaAperturaDia = Carbon::parse($fecha->toDateString() . ' ' . $diaAbierto->horaApertura);
+                $horaCierreDia = Carbon::parse($fecha->toDateString() . ' ' . $diaAbierto->horaCierre);
+                while($horaAperturaDia->lt($horaCierreDia)){
+                    $horaFinTurno = $horaAperturaDia->copy()->addMinutes($duracionTurno);
+                    if($horaFinTurno->lte($horaCierreDia)){
+                        $turnoExistente = Turno::where('idCancha', $request->idCancha)
+                        ->where('horarioInicio', '<', $horaFinTurno->toDateTimeString())
+                        ->where('horarioFin', '>', $horaAperturaDia->toDateTimeString())
+                        ->exists();
+                        if(!$turnoExistente){
+                            $nuevoTurno = new Turno();
+                            $nuevoTurno->idCancha = $request->idCancha;
+                            $nuevoTurno->horarioInicio = $horaAperturaDia->toDateTimeString();
+                            $nuevoTurno->horarioFin = $horaFinTurno->toDateTimeString();
+                            $nuevoTurno->estadoDisponible = 'disponible';
+                            $nuevoTurno->metodoPago = 'mercado pago';
+                            $nuevoTurno->timerPago = '00:05:00';
+                            $nuevoTurno->timerReprogramacion = $request->timerReprogramacion;
+                            $nuevoTurno->precio = $request->precio;
+                            $nuevoTurno->save();
+                        }
+                    }
+                    $horaAperturaDia->addMinutes($duracionTurno);
+                }
+            }
+        }
         $response["success"] = true;
         return response()->json($response, 200);
     }

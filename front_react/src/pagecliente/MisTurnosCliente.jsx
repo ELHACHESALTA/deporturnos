@@ -162,12 +162,12 @@ const MisTurnosCliente = () => {
                                                         </div>
                                                         <div className="flex justify-between items-center mt-2">
                                                             <p className="text-lg font-medium text-lime-600">Precio: ${turno.precio}</p>
-                                                            <button
+                                                            {/* <button
                                                                 className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
                                                                 onClick={() => navigate('/cliente/reprogramarTurno', { state: { turno } })}
                                                             >
                                                                 Reprogramar
-                                                            </button>
+                                                            </button> */}
                                                         </div>
                                                     </div>
                                                 );
@@ -204,12 +204,12 @@ const MisTurnosCliente = () => {
                                                     </div>
                                                     <div className="flex justify-between items-center mt-2">
                                                         <p className="text-lg font-medium text-lime-600">Precio: ${turno.precio}</p>
-                                                        <button
+                                                        {/* <button
                                                             className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
                                                             onClick={() => navigate('/cliente/reprogramarTurno', { state: { turno } })}
                                                         >
                                                             Reprogramar
-                                                        </button>
+                                                        </button> */}
                                                     </div>
                                                 </div>
                                             );

@@ -28,7 +28,7 @@ class DiasTableSeeder extends Seeder
         $dia2->save();
 
         $dia3 = new Dia();
-        $dia3->dia = "Sabado";
+        $dia3->dia = "Sábado";
         $dia3->horaApertura = "09:30";
         $dia3->horaCierre = "17:30";
         $dia3->idComplejo = 1;
@@ -70,7 +70,7 @@ class DiasTableSeeder extends Seeder
         $dia8->save();
 
         $dia9 = new Dia();
-        $dia9->dia = "Miercoles";
+        $dia9->dia = "Miércoles";
         $dia9->horaApertura = "08:00";
         $dia9->horaCierre = "16:00";
         $dia9->idComplejo = 3;
@@ -91,7 +91,7 @@ class DiasTableSeeder extends Seeder
         $dia11->save();
 
         $dia12 = new Dia();
-        $dia12->dia = "Sabado";
+        $dia12->dia = "Sábado";
         $dia12->horaApertura = "14:30";
         $dia12->horaCierre = "22:30";
         $dia12->idComplejo = 3;
@@ -105,7 +105,7 @@ class DiasTableSeeder extends Seeder
         $dia13->save();
 
         $dia14 = new Dia();
-        $dia14->dia = "Miercoles";
+        $dia14->dia = "Miércoles";
         $dia14->horaApertura = "10:00";
         $dia14->horaCierre = "18:00";
         $dia14->idComplejo = 4;
@@ -140,7 +140,7 @@ class DiasTableSeeder extends Seeder
         $dia18->save();
 
         $dia19 = new Dia();
-        $dia19->dia = "Miercoles";
+        $dia19->dia = "Miércoles";
         $dia19->horaApertura = "12:00";
         $dia19->horaCierre = "20:00";
         $dia19->idComplejo = 5;
@@ -154,7 +154,7 @@ class DiasTableSeeder extends Seeder
         $dia20->save();
 
         $dia21 = new Dia();
-        $dia21->dia = "Sabado";
+        $dia21->dia = "Sábado";
         $dia21->horaApertura = "12:00";
         $dia21->horaCierre = "20:00";
         $dia21->idComplejo = 6;
@@ -196,7 +196,7 @@ class DiasTableSeeder extends Seeder
         $dia26->save();
 
         $dia27 = new Dia();
-        $dia27->dia = "Sabado";
+        $dia27->dia = "Sábado";
         $dia27->horaApertura = "14:00";
         $dia27->horaCierre = "22:00";
         $dia27->idComplejo = 7;
@@ -210,7 +210,7 @@ class DiasTableSeeder extends Seeder
         $dia28->save();
 
         $dia29 = new Dia();
-        $dia29->dia = "Miercoles";
+        $dia29->dia = "Miércoles";
         $dia29->horaApertura = "09:00";
         $dia29->horaCierre = "17:00";
         $dia29->idComplejo = 7;
