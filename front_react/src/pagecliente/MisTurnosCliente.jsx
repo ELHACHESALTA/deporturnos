@@ -70,7 +70,6 @@ const MisTurnosCliente = () => {
                 </div>
             </div>
             {/* Banner */}
-
             <div className="flex flex-col mx-auto max-w-[66rem] px-2 mt-4">
                 <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     <div className="flex flex-col gap-8">
@@ -97,7 +96,6 @@ const MisTurnosCliente = () => {
                                                     const deporte = deportes.find((deporte) => deporte.id === cancha.idDeporte);
                                                     const [fechaInicio, horaInicio] = turno.horarioInicio.split(" ");
                                                     const [, horaFin] = turno.horarioFin.split(" ");
-
                                                     return (
                                                         <div key={reserva.id} className="bg-white rounded-2xl p-4 w-full dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                                                             <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Complejo: {complejo.nombreComplejo}</h3>
@@ -125,7 +123,6 @@ const MisTurnosCliente = () => {
                                     </div>
                                 </div>
                             )}
-
                         {/* Sección de Turnos Futuros */}
                         {reservas.some((reserva) => {
                             const turno = turnos.find((turno) => turno.id === reserva.idTurno);
@@ -148,7 +145,6 @@ const MisTurnosCliente = () => {
                                                 const deporte = deportes.find((deporte) => deporte.id === cancha.idDeporte);
                                                 const [fechaInicio, horaInicio] = turno.horarioInicio.split(" ");
                                                 const [, horaFin] = turno.horarioFin.split(" ");
-
                                                 return (
                                                     <div key={reserva.id} className="bg-white rounded-lg p-4 w-full dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                                                         <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Complejo: {complejo.nombreComplejo}</h3>
@@ -162,12 +158,6 @@ const MisTurnosCliente = () => {
                                                         </div>
                                                         <div className="flex justify-between items-center mt-2">
                                                             <p className="text-lg font-medium text-lime-600">Precio: ${turno.precio}</p>
-                                                            {/* <button
-                                                                className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
-                                                                onClick={() => navigate('/cliente/reprogramarTurno', { state: { turno } })}
-                                                            >
-                                                                Reprogramar
-                                                            </button> */}
                                                         </div>
                                                     </div>
                                                 );
@@ -175,7 +165,6 @@ const MisTurnosCliente = () => {
                                     </div>
                                 </div>
                             )}
-
                         {/* Sección de Turnos Pasados */}
                         {reservas.some((reserva) => new Date(turnos.find((turno) => turno.id === reserva.idTurno)?.horarioFin) <= new Date()) && (
                             <div>
@@ -190,7 +179,6 @@ const MisTurnosCliente = () => {
                                             const deporte = deportes.find((deporte) => deporte.id === cancha.idDeporte);
                                             const [fechaInicio, horaInicio] = turno.horarioInicio.split(" ");
                                             const [, horaFin] = turno.horarioFin.split(" ");
-
                                             return (
                                                 <div key={reserva.id} className="bg-white rounded-lg p-4 w-full dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                                                     <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Complejo: {complejo.nombreComplejo}</h3>
@@ -204,12 +192,6 @@ const MisTurnosCliente = () => {
                                                     </div>
                                                     <div className="flex justify-between items-center mt-2">
                                                         <p className="text-lg font-medium text-lime-600">Precio: ${turno.precio}</p>
-                                                        {/* <button
-                                                            className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
-                                                            onClick={() => navigate('/cliente/reprogramarTurno', { state: { turno } })}
-                                                        >
-                                                            Reprogramar
-                                                        </button> */}
                                                     </div>
                                                 </div>
                                             );
@@ -222,7 +204,6 @@ const MisTurnosCliente = () => {
                 </div>
             </div>
         </div>
-
     );
 }
 

@@ -38,14 +38,6 @@ const messages = {
 
 const localizer = momentLocalizer(moment);
 
-const events = [
-    {
-        title: 'Reunión de trabajo',
-        start: new Date(2024, 9, 15, 10, 0),  // 15 de octubre de 2024, 10:00 AM
-        end: new Date(2024, 9, 15, 12, 0),    // 12:00 PM
-    },
-];
-
 const formats = {
     dayFormat: (date, culture, localizer) =>
         localizer.format(date, 'dddd D', culture),  // Muestra "Lunes 15"

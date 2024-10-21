@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AuthUser from "../pageauth/AuthUser";
 import axios from "axios";
 import { ChevronDown, Settings, Headset, LogOut, CircleUserRound, MonitorCog, Search, Calendar, Star, House, Trophy, Clock } from 'lucide-react';

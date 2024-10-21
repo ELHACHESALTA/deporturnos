@@ -5,7 +5,7 @@ import AuthUser from "./AuthUser";
 import useForm from "../hooks/useForm";
 import { useModal } from "../hooks/useModal";
 import Modal from "../components/Modal/Modal";
-import { CircleCheck, CircleAlert, X } from 'lucide-react';
+import { CircleCheck, X } from 'lucide-react';
 
 
 // se inicializan las variables que se le pasarán al hook personalizado
@@ -71,7 +71,6 @@ const Register = () => {
 
     // variables para manejar los modales
     const [isOpenModal, openModal, closeModal] = useModal(false);
-    const [isOpenModalFallido, openModalFallido, closeModalFallido] = useModal(false);
 
     // constantes para utilizar navigate y generar obtener un token en caso de que el usuario esté registrado
     const navigate = useNavigate();
@@ -110,8 +109,6 @@ const Register = () => {
                 if (data.success) {
                     resetForm();
                     openModal();
-                } else {
-                    openModalFallido();
                 }
             });
         }
@@ -237,22 +234,6 @@ const Register = () => {
                 <h3 className="text-lg font-semibold text-center dark:text-white">Usuario creado exitosamente!</h3>
                 <button onClick={() => navigate('/login')} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">
                     Ir a Login
-                </button>
-            </Modal>
-
-            {/* modal fallido */}
-            <Modal isOpen={isOpenModalFallido} closeModal={closeModalFallido}>
-                <button className="absolute top-0 right-0" onClick={closeModal}>
-                    <X className="size-7 dark:text-white" />
-                </button>
-                <div className="flex justify-center p-6">
-                    <CircleAlert className="size-16 text-red-600" />
-                </div>
-                <div className="text-lg font-semibold text-center dark:text-white">
-                    No se pudo crear el usuario. Intente más tarde
-                </div>
-                <button onClick={closeModalFallido} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">
-                    Cerrar
                 </button>
             </Modal>
         </div>

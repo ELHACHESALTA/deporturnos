@@ -1,9 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react';
 
 const PageError = () => {
-    const navigate = useNavigate();
     return (
         <div className="max-w-[50rem] flex flex-col mx-auto size-full">
             <div className="text-center py-10 px-4 sm:px-6 lg:px-8">

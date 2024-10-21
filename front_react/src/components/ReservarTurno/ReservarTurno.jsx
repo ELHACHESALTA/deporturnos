@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Modal from '../Modal/Modal'
 import axios from 'axios';
 import AuthUser from '../../pageauth/AuthUser';
@@ -39,7 +39,6 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
 
     const idTurno = turno.id;
 
-
     const reservarTurno = async () => {
         await axios.post('http://localhost:8000/api/cliente/reservarTurno', { idTurno, idCliente }, {
             headers: {
@@ -48,7 +47,6 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
             }
         }).then(({ data }) => {
             if (data.success) {
-                console.log("Se reservó el turno correctamente");
                 window.location.reload();
             } else {
                 console.log(data.error);
@@ -66,8 +64,6 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
             }
         }).then(({ data }) => {
             if (data.success) {
-                console.log("Se buscaron los turnos periódicos");
-                console.log(data.arregloTurnosPeriodicos)
                 setArregloTurnosPeriodicos(data.arregloTurnosPeriodicos);
                 setMostrarDatosReserva(true);
             } else {
@@ -84,16 +80,12 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
             }
         }).then(({ data }) => {
             if (data.success) {
-                console.log("Se reservaron los turnos periodicos");
                 window.location.reload();
-                console.log(data.arregloTurnosPeriodicos);
             } else {
                 console.log(data.error);
             }
         });
     }
-
-    const esFecha = (dato) => typeof dato === "string";
 
     return (
         <div>

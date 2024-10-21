@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import useForm from '../../hooks/useForm'
-import { useNavigate } from 'react-router-dom';
 import AuthUser from '../../pageauth/AuthUser';
 import axios from 'axios';
 import Modal from '../Modal/Modal';
@@ -56,8 +55,7 @@ const EditCancha = ({ cancha, closeModal, isOpen }) => {
     const idDeporte = form.idDeporte;
 
     const [errors, setErrors] = useState({});
-    const navigate = useNavigate();
-    const { getToken, getUser } = AuthUser();
+    const { getToken } = AuthUser();
 
     // para la seleccion del deporte
     const [selectedDeporte, setSelectedDeporte] = useState(form.idDeporte);

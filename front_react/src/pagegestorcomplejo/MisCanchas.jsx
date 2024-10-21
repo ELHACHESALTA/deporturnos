@@ -4,11 +4,9 @@ import axios from 'axios';
 import Loading from '../components/Loading/Loading';
 import Modal from '../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
-import useForm from '../hooks/useForm';
 import { useModal } from '../hooks/useModal';
 import CreateCancha from '../components/CreateCancha/CreateCancha';
 import EditCancha from '../components/EditCancha/EditCancha';
-import CreateTurno from '../components/CreateTurno/CreateTurno';
 import { CircleAlert, SquarePen, Trash2, X } from 'lucide-react';
 
 const MisCanchas = () => {
@@ -25,8 +23,6 @@ const MisCanchas = () => {
     const [isOpenModalCreate, openModalCreate, closeModalCreate] = useModal(false);
     const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal(false);
     const [isOpenModalDelete, openModalDelete, closeModalDelete] = useModal(false);
-
-    const [isOpenModalTurno, openModalTurno, closeModalTurno] = useModal(false);
 
     const openModalEdit1 = (cancha) => {
         setCanchaAEditar(cancha);
@@ -92,7 +88,6 @@ const MisCanchas = () => {
 
     return (
         <div className='flex-grow'>
-
             {/* Banner */}
             <div className="flex mx-auto max-w-[66rem] px-2">
                 <div className="flex justify-center w-full">
@@ -102,8 +97,6 @@ const MisCanchas = () => {
                 </div>
             </div>
             {/* Banner */}
-
-
             <div className="flex flex-col mx-auto max-w-[66rem] px-2 mt-4">
                 <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     {complejo === null ? (
@@ -173,17 +166,13 @@ const MisCanchas = () => {
                                 </div>
                             </div>
                         </div>
-
                     }
-
                     {/* modal para crear canchas */}
                     <Modal isOpen={isOpenModalCreate} closeModal={closeModalCreate}>
                         <CreateCancha closeModal={closeModalCreate} />
                     </Modal>
-
                     {/* modal para editar canchas */}
                     <EditCancha cancha={canchaAEditar} closeModal={closeModalEdit1} isOpen={isOpenModalEdit} />
-
                     {/* modal para la confirmación de dar de baja canchas */}
                     <Modal isOpen={isOpenModalDelete}>
                         <button className="absolute top-0 right-0" onClick={closeModalDelete1}>

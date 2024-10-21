@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import useForm from '../../hooks/useForm';
-import { useNavigate } from 'react-router-dom';
 import AuthUser from '../../pageauth/AuthUser';
 import axios from 'axios';
 import Modal from '../Modal/Modal';
@@ -13,7 +12,7 @@ const validationsForm = (form) => {
     let regexFecha = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
     let regexTiempo = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
-    if (form.precio == 0) {
+    if (form.precio === 0) {
         errors.precio = "El campo 'precio' debe ser distinto de 0";
     } else if (!form.precio.toString().trim()) {
         errors.precio = "El campo 'precio' es obligatorio";
@@ -47,8 +46,6 @@ const validationsForm = (form) => {
 
     return errors;
 }
-
-
 
 const EditTurno = ({ turno, closeModal, isOpen }) => {
     const emptyForm = {
@@ -94,8 +91,7 @@ const EditTurno = ({ turno, closeModal, isOpen }) => {
     const timerReprogramacion = form.timerReprogramacion;
 
     const [errors, setErrors] = useState({});
-    const navigate = useNavigate();
-    const { getToken, getUser } = AuthUser();
+    const { getToken } = AuthUser();
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     const handleDeleteClick = () => {

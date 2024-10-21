@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthUser from '../pageauth/AuthUser';
-import Loading from '../components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
 
@@ -14,7 +13,6 @@ const VerCanchas = () => {
     const [servicios, setServicios] = useState([]);
     const [complejoServicios, setComplejoServicios] = useState([]);
     const [turnos, setTurnos] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     const [valorBuscador, setValorBuscador] = useState('');
     const [deporteFiltro, setDeporteFiltro] = useState('');
@@ -40,7 +38,6 @@ const VerCanchas = () => {
         setComplejoServicios(respuesta.data.complejoServicios);
         setTurnos(respuesta.data.turnos);
         setCanchasFiltradas(respuesta.data.canchas);
-        setLoading(false);
     };
 
     useEffect(() => {
@@ -76,7 +73,7 @@ const VerCanchas = () => {
                 const matchesTurnoFecha = fechaFiltro === '' || turnosCancha.some(turno => turno.horarioInicio.startsWith(fechaFiltro));
                 const matchesTurnoHora = horaInicioFiltro === '' || turnosCancha.some(turno => {
                     const horaInicioTurno = turno.horarioInicio.split(' ')[1];
-                    return horaInicioTurno == (horaInicioFiltro + ":00");
+                    return horaInicioTurno === (horaInicioFiltro + ":00");
                 });
 
                 // filtro por precio
@@ -88,10 +85,6 @@ const VerCanchas = () => {
         };
         filtrarCanchas();
     }, [valorBuscador, deporteFiltro, ciudadFiltro, serviciosSeleccionados, canchas, turnos, fechaFiltro, horaInicioFiltro, precioFiltro]);
-
-    /*if (loading) {
-        return (<Loading />);
-    }*/
 
     const ciudadesUnicas = Array.from(new Set(complejos.map(complejo => complejo.ciudad)));
 

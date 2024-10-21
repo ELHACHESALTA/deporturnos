@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import AuthUser from '../../pageauth/AuthUser'
 import useForm from '../../hooks/useForm';
 import { X } from 'lucide-react';
@@ -54,8 +54,7 @@ const validationsForm = (form) => {
     return errors;
 }
 const CreateTurno = ({ closeModal, idCancha }) => {
-    const { getUser, getToken } = AuthUser();
-    const idUser = getUser().id;
+    const { getToken } = AuthUser();
     const [errors, setErrors] = useState({});
     const {
         form,
