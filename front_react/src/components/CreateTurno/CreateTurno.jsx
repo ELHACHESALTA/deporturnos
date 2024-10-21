@@ -95,99 +95,97 @@ const CreateTurno = ({ closeModal, idCancha }) => {
     }
 
     return (
-        <form className="">
-            <div className="flex flex-col gap-y-4">
-                <button className="absolute top-0 right-0" onClick={closeModal}>
-                    <X className="size-7 dark:text-white" />
-                </button>
-                <label htmlFor="precio" className="text-sm font-medium text-center dark:text-white">
-                    Precio del turno:
-                </label>
-                <input
-                    type="text"
-                    name="precio"
-                    value={form.precio}
-                    onChange={handleChange}
-                    className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
-                    required
-                />
-                {errors.precio &&
-                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
-                        <span >{errors.precio}</span>
-                    </div>
-                }
-                <label htmlFor="fecha" className="text-sm font-medium text-center dark:text-white">
-                    Fecha del turno:
-                </label>
-                <input name='fecha'
-                    type="date"
-                    value={form.fecha}
-                    onChange={handleChange}
-                    className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" />
-                {errors.fecha &&
-                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black">
-                        <span >{errors.fecha}</span>
-                    </div>
-                }
-                {/* Input para ingresar la hora de inicio del turno */}
-                <label htmlFor="horarioInicio" className="text-sm font-medium text-center dark:text-white">
-                    Horario de Inicio:
-                </label>
-                <input
-                    type="time"
-                    value={form.horarioInicio}
-                    onChange={handleChange}
-                    name="horarioInicio"
-                    className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
-                    required
-                />
-                {errors.horarioInicio &&
-                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
-                        <span >{errors.horarioInicio}</span>
-                    </div>}
-                {/* Input para ingresar la hora de fin del turno */}
-                <label htmlFor="horarioFin" className="text-sm font-medium text-center dark:text-white">
-                    Horario de Fin:
-                </label>
-                <input
-                    type="time"
-                    value={form.horarioFin}
-                    onChange={handleChange}
-                    name="horarioFin"
-                    className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
-                    required
-                />
-                {errors.horarioFin &&
-                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
-                        <span >{errors.horarioFin}</span>
-                    </div>
-                }
-                {/* Input para ingresar el tiempo para reprogramar el turno */}
-                <label htmlFor="timerReprogramacion" className="text-sm font-medium text-center dark:text-white">
-                    Tiempo para reprogramar el turno:
-                </label>
-                <input
-                    type="time"
-                    value={form.timerReprogramacion}
-                    onChange={handleChange}
-                    name="timerReprogramacion"
-                    className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
-                    required
-                />
-                {errors.timerReprogramacion &&
-                    <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
-                        <span >{errors.timerReprogramacion}</span>
-                    </div>
-                }
-                <div className="flex justify-center">
-                    <button
-                        type="submit"
-                        className="py-2 px-6 rounded-2xl inline-flex justify-center items-center text-sm font-medium border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
-                        onClick={submitTurno}
-                    >
-                        Crear Turno
-                    </button>
+        <form className="flex flex-col gap-y-4">
+            <button className="absolute top-0 right-0" onClick={closeModal}>
+                <X className="size-7 dark:text-white" />
+            </button>
+            <label htmlFor="precio" className="text-sm font-medium text-center dark:text-white">
+                Precio del turno:
+            </label>
+            <input
+                type="text"
+                name="precio"
+                value={form.precio}
+                onChange={handleChange}
+                className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+                required
+            />
+            {errors.precio &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                    <span >{errors.precio}</span>
                 </div>
+            }
+            <label htmlFor="fecha" className="text-sm font-medium text-center dark:text-white">
+                Fecha del turno:
+            </label>
+            <input name='fecha'
+                type="date"
+                value={form.fecha}
+                onChange={handleChange}
+                className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" />
+            {errors.fecha &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black">
+                    <span >{errors.fecha}</span>
+                </div>
+            }
+            {/* Input para ingresar la hora de inicio del turno */}
+            <label htmlFor="horarioInicio" className="text-sm font-medium text-center dark:text-white">
+                Horario de Inicio:
+            </label>
+            <input
+                type="time"
+                value={form.horarioInicio}
+                onChange={handleChange}
+                name="horarioInicio"
+                className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+                required
+            />
+            {errors.horarioInicio &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                    <span >{errors.horarioInicio}</span>
+                </div>}
+            {/* Input para ingresar la hora de fin del turno */}
+            <label htmlFor="horarioFin" className="text-sm font-medium text-center dark:text-white">
+                Horario de Fin:
+            </label>
+            <input
+                type="time"
+                value={form.horarioFin}
+                onChange={handleChange}
+                name="horarioFin"
+                className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+                required
+            />
+            {errors.horarioFin &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                    <span >{errors.horarioFin}</span>
+                </div>
+            }
+            {/* Input para ingresar el tiempo para reprogramar el turno */}
+            <label htmlFor="timerReprogramacion" className="text-sm font-medium text-center dark:text-white">
+                Tiempo para reprogramar el turno:
+            </label>
+            <input
+                type="time"
+                value={form.timerReprogramacion}
+                onChange={handleChange}
+                name="timerReprogramacion"
+                className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+                required
+            />
+            {errors.timerReprogramacion &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                    <span >{errors.timerReprogramacion}</span>
+                </div>
+            }
+            <div className="flex justify-center">
+                <button
+                    type="submit"
+                    className="py-2 px-6 rounded-2xl inline-flex justify-center items-center text-sm font-medium border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                    onClick={submitTurno}
+                >
+                    Crear Turno
+                </button>
             </div>
         </form>
     )
