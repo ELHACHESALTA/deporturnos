@@ -322,18 +322,20 @@ const Cancha = () => {
                                 }
                             `}
                             </style>
-                            <div className="flex flex-col w-full h-[500px] mt-4 px-2 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
+                            <div className="flex flex-col w-full  mt-4 px-4 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
                                 {componenteActivo === 'turnos' && (
-                                    <Calendar
-                                        localizer={localizer}
-                                        events={calendarEvents}  // Eventos mapeados (turnos)
-                                        startAccessor="start"
-                                        endAccessor="end"
-                                        onSelectEvent={(event) => openModalReserva1(event.id)}
-                                        messages={messages} // Traducción personalizada
-                                        formats={formats}  // Formatos personalizados
-                                        className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
-                                    />
+                                    <div className="h-[500px]">
+                                        <Calendar
+                                            localizer={localizer}
+                                            events={calendarEvents}  // Eventos mapeados (turnos)
+                                            startAccessor="start"
+                                            endAccessor="end"
+                                            onSelectEvent={(event) => openModalReserva1(event.id)}
+                                            messages={messages} // Traducción personalizada
+                                            formats={formats}  // Formatos personalizados
+                                            className="dark:text-white bg-white text-black border dark:bg-neutral-800 dark:border-neutral-700"
+                                        />
+                                    </div>
                                 )}
                                 {componenteActivo === 'datosCancha' && (
                                     <DatosCancha cancha={cancha} deporte={deporte} />
@@ -354,7 +356,7 @@ const Cancha = () => {
                             </div>
                         </>
                     </div>
-                    <div className="flex flex-row dark:bg-neutral-800 w-full h-[25px]">
+                    <div className="flex flex-row dark:bg-neutral-800 w-full h-[16px]">
 
                     </div>
                 </div>

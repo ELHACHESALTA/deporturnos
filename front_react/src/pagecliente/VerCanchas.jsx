@@ -151,7 +151,7 @@ const VerCanchas = () => {
                                 <form className="">
                                     {/* Buscador por nombre de complejo */}
                                     <div className="relative mb-4 w-full flex items-center justify-between rounded-xl">
-                                        <Search className="absolute left-2 block h-5 w-5 text-gray-400"/>
+                                        <Search className="absolute left-2 block h-5 w-5 text-gray-400" />
                                         <input
                                             type="search"
                                             id="default-search"
@@ -314,33 +314,37 @@ const VerCanchas = () => {
                                             <div className="relative">
                                                 <div className="absolute top-[-16px] left-0 h-[16px] bg-white dark:bg-neutral-900 rounded-t-3xl w-full"></div>
                                             </div>
-                                            <div className="px-4 pb-4">
-                                                <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-                                                    {cancha.nombreCancha}
-                                                </h3>
-                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                    Complejo: {complejoFinal?.nombreComplejo}
-                                                </p>
-                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                    Ciudad: {complejoFinal?.ciudad}
-                                                </p>
-                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                    Calle: {complejoFinal?.ubicacion}
-                                                </p>
-                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                    {/* Deporte: {deporteFinal?.nombreDeporte} */}
-                                                    Deporte: {`${deporteFinal?.nombreDeporte} ${deporteFinal?.tipoDeporte}`}
-                                                </p>
-                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                    Servicios: {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}
-                                                </p>
+                                            <div className="h-full flex flex-col items-center">
+                                                <div className="my-auto">
+                                                    <div className="px-4 pb-4">
+                                                        <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                                                            {cancha.nombreCancha}
+                                                        </h3>
+                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                            Complejo: {complejoFinal?.nombreComplejo}
+                                                        </p>
+                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                            Ciudad: {complejoFinal?.ciudad}
+                                                        </p>
+                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                            Calle: {complejoFinal?.ubicacion}
+                                                        </p>
+                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                            {/* Deporte: {deporteFinal?.nombreDeporte} */}
+                                                            Deporte: {`${deporteFinal?.nombreDeporte} ${deporteFinal?.tipoDeporte}`}
+                                                        </p>
+                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                            Servicios: {serviciosFinal.map(servicio => servicio.descripcionServicio).join(', ') || 'Ninguno'}
+                                                        </p>
 
-                                                <button
-                                                    className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
-                                                    onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
-                                                >
-                                                    Sacar Turno
-                                                </button>
+                                                        <button
+                                                            className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                                                            onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                                        >
+                                                            Sacar Turno
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     );

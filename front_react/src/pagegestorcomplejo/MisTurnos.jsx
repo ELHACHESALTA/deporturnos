@@ -261,7 +261,7 @@ const MisTurnos = () => {
                                         }
                                     `}
                                 </style>
-                                <div className="flex flex-col w-full h-[500px] mt-4 px-2 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
+                                <div className="flex flex-col w-full h-[500px] mt-4 px-4 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
                                     <Calendar
                                         localizer={localizer}
                                         events={calendarEvents}  // Eventos mapeados (turnos)

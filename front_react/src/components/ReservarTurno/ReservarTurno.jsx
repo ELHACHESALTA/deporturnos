@@ -188,12 +188,14 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
                             <div className="flex mx-auto max-w-[66rem] px-4">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
                                     <div className="">
-                                        <div className="p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
-                                            <div>Cancha disponible:</div>
-                                            <div>Id Cancha: {turno.idCancha}</div>
-                                            <div>Horario Inicio: {turno.horarioInicio}</div>
-                                            <div>Horario Fin: {turno.horarioFin}</div>
-                                            <div>Precio: {turno.precio}</div>
+                                        <div className="h-full flex flex-col items-center p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
+                                            <div className="my-auto">
+                                                <div><strong>Cancha disponible:</strong></div>
+                                                <div>Id Cancha: {turno.idCancha}</div>
+                                                <div>Horario Inicio: {turno.horarioInicio}</div>
+                                                <div>Horario Fin: {turno.horarioFin}</div>
+                                                <div>Precio: {turno.precio}</div>
+                                            </div>
                                         </div>
                                     </div>
                                     {arregloTurnosPeriodicos.map((turno, index) => (
@@ -202,13 +204,14 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
                                                 Fecha no disponible: {turno}
                                             </div>
                                         ) : (
-                                            <div key={index} className="p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
-                                                <p><strong>Cancha disponible:</strong></p>
-                                                <p>Id Cancha: {turno.idCancha}</p>
-                                                <p>Horario Inicio: {turno.horarioInicio}</p>
-                                                <p>Horario Fin: {turno.horarioFin}</p>
-                                                <p>Estado: {turno.estadoDisponible}</p>
-                                                <p>Precio: {turno.precio}</p>
+                                            <div key={index} className="h-full flex flex-col items-center p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
+                                                <div className="my-auto">
+                                                    <div><strong>Cancha disponible:</strong></div>
+                                                    <div>Id Cancha: {turno.idCancha}</div>
+                                                    <div>Horario Inicio: {turno.horarioInicio}</div>
+                                                    <div>Horario Fin: {turno.horarioFin}</div>
+                                                    <div>Precio: {turno.precio}</div>
+                                                </div>
                                             </div>
                                         )
                                     ))}
