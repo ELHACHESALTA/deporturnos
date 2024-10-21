@@ -5,17 +5,17 @@ import AuthUser from '../../pageauth/AuthUser'
 import axios from 'axios'
 
 const initialForm = {
-  nombreComplejo: "",
-  ciudad: "",
-  calle: "",
-  numero: "",
-  diasDisponibles: "",
-  horaApertura: "",
-  horaCierre: "",
+    nombreComplejo: "",
+    ciudad: "",
+    calle: "",
+    numero: "",
+    diasDisponibles: "",
+    horaApertura: "",
+    horaCierre: "",
 }
 
 const validationsForm = (form) => {
-  let errors = {};
+    let errors = {};
 
     // expresiones regulares para los distintos campos del formulario
     let regexNombreComplejo = /^[a-zA-Z0-9À-ÿ\u00f1\u00d1\s'"]+$/;
@@ -25,237 +25,270 @@ const validationsForm = (form) => {
     let regexHora = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 
-    if (!form.nombreComplejo.trim()){
+    if (!form.nombreComplejo.trim()) {
         errors.nombreComplejo = "El campo 'nombre del complejo' es obligatorio";
-    } else if (!regexNombreComplejo.test(form.nombreComplejo.trim())){
+    } else if (!regexNombreComplejo.test(form.nombreComplejo.trim())) {
         errors.nombreComplejo = "El campo debe contener sólo letras, números o espacios en blanco";
     }
 
-    if (!form.ciudad.trim()){
+    if (!form.ciudad.trim()) {
         errors.ciudad = "El campo 'ciudad' es obligatorio";
-    } else if (!regexCiudad.test(form.ciudad.trim())){
+    } else if (!regexCiudad.test(form.ciudad.trim())) {
         errors.ciudad = "El campo 'ciudad' solo debe contener letras y espacios en blanco";
     }
 
-    if (!form.calle.trim() || !form.numero.trim()){
+    if (!form.calle.trim() || !form.numero.trim()) {
         errors.calle = "Los campos 'calle' y 'N°' son obligatorios";
-    } else if (!regexCalle.test(form.calle.trim())){
+    } else if (!regexCalle.test(form.calle.trim())) {
         errors.calle = "El campo 'calle' sólo acepta letras, números y espacios en blanco";
-    } else if (!regexNumero.test(form.numero.trim())){
-      errors.calle = "El campo 'número' sólo acepta números";
+    } else if (!regexNumero.test(form.numero.trim())) {
+        errors.calle = "El campo 'número' sólo acepta números";
     }
     return errors;
 }
 
-const CreateComplejo = ({servicios}) => {
- const {
-  form, 
-  handleChange, 
-  resetForm,
- } = useForm(initialForm); 
+const CreateComplejo = ({ servicios }) => {
+    const {
+        form,
+        handleChange,
+        resetForm,
+    } = useForm(initialForm);
 
- const nombreComplejo = form.nombreComplejo;
- const ciudad = form.ciudad;
- const ubicacion = form.calle + " " + form.numero;
+    const nombreComplejo = form.nombreComplejo;
+    const ciudad = form.ciudad;
+    const ubicacion = form.calle + " " + form.numero;
 
- const [errors, setErrors] = useState({});
- const navigate = useNavigate();
- const { getToken, getUser } = AuthUser();
- const endpoint = 'http://localhost:8000/api/gestorComplejo/crearComplejo';
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
+    const { getToken, getUser } = AuthUser();
+    const endpoint = 'http://localhost:8000/api/gestorComplejo/crearComplejo';
 
- const idUser = getUser().id;
+    const idUser = getUser().id;
 
- const enviarComplejo = async (e) => {
-  e.preventDefault();
-  const validationErrors = validationsForm(form);
-  setErrors(validationErrors);
+    const enviarComplejo = async (e) => {
+        e.preventDefault();
+        const validationErrors = validationsForm(form);
+        setErrors(validationErrors);
 
-  if (Object.keys(validationErrors).length === 0){
-    await axios.post(endpoint, {nombreComplejo, ciudad, ubicacion, diasConfiguracion, selectedServices, idUser}, {
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+ getToken()
-      }
-  }).then(({data})=> {
-      if(data.success){
-          resetForm();
-          window.location.reload();
-      }
-    });
-  }
- }
+        if (Object.keys(validationErrors).length === 0) {
+            await axios.post(endpoint, { nombreComplejo, ciudad, ubicacion, diasConfiguracion, selectedServices, idUser }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + getToken()
+                }
+            }).then(({ data }) => {
+                if (data.success) {
+                    resetForm();
+                    window.location.reload();
+                }
+            });
+        }
+    }
 
-  // Días de la semana
-  const diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
- 
-  // Estado para guardar la disponibilidad y los horarios seleccionados para cada día
-  const [diasConfiguracion, setDiasConfiguracion] = useState(
-    diasSemana.reduce((acc, dia) => {
-      acc[dia] = { abierto: false, apertura: "10:00", cierre: "17:00" };
-      return acc;
-    }, {})
-  );
-  // Maneja el cambio de si el complejo está abierto o cerrado
-  const handleAbiertoChange = (dia, e) => {
-    setDiasConfiguracion({
-      ...diasConfiguracion,
-      [dia]: { ...diasConfiguracion[dia], abierto: e.target.checked },
-    });
-  };
+    // Días de la semana
+    const diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
-  // Maneja el cambio del horario de apertura o cierre
-  const handleHorarioChange = (dia, tipo, e) => {
-    setDiasConfiguracion({
-      ...diasConfiguracion,
-      [dia]: { ...diasConfiguracion[dia], [tipo]: e.target.value },
-    });
-  };
-
-
-  // Se almacena el estado de cada servicio como seleccionado o no seleccionado
-  const [selectedServices, setSelectedServices] = useState(
-    servicios.map((servicio) => ({
-      id: servicio.id,
-      descripcionServicio: servicio.descripcionServicio,
-      seleccionado: false,
-    }))
-  );
-
-  // Maneja el cambio de seleccionado o no seleccionado
-  const handleServiceChange = (id) => {
-    setSelectedServices((prev) =>
-      prev.map((servicio) =>
-        servicio.id === id
-          ? { ...servicio, seleccionado: !servicio.seleccionado }
-          : servicio
-      )
+    // Estado para guardar la disponibilidad y los horarios seleccionados para cada día
+    const [diasConfiguracion, setDiasConfiguracion] = useState(
+        diasSemana.reduce((acc, dia) => {
+            acc[dia] = { abierto: false, apertura: "10:00", cierre: "17:00" };
+            return acc;
+        }, {})
     );
-  };
 
-  return (
-    <div>
-      <h1 className="text-center text-blue-800">CREAR COMPLEJO</h1>
-      <form className="max-w-sm mx-auto">
-        {/* Input para ingresar el nombre del complejo */}
-        <div className="mb-2">
-            <label htmlFor="nombreComplejo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre del Complejo</label>
-            <input type="text" value={form.nombreComplejo} onChange={handleChange} name="nombreComplejo" placeholder='Nombre' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <div>
-            {errors.nombreComplejo &&
-              <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-              <span >{errors.nombreComplejo}</span>
-            </div>}
-        </div>
-        {/* Input para ingresar la ciudad donde se encuentra el complejo */}
-        <div className="mb-5">
-            <label htmlFor="ciudad" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad</label>
-            <input type="text" value={form.ciudad} onChange={handleChange} name="ciudad" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ciudad" required />
-        </div>
-        <div>
-            {errors.ciudad &&
-              <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-              <span >{errors.ciudad}</span>
-            </div>}
-        </div>
-        {/* Input para ingresar dirección del complejo */}
-        <div className="mb-5 flex space-x-4">
-          <div className="w-3/4">
-              <label htmlFor="calle" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Calle:</label>
-              <input type="text" value={form.calle} onChange={handleChange} name="calle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Calle" required />
-          </div>
-          <div className="w-1/4">
-              <label htmlFor="numero" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">N°:</label>
-              <input type="number" value={form.numero} onChange={handleChange} name="numero" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="N°" required />
-          </div>
-      </div>
-      <div>
-            {errors.calle &&
-              <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-              <span >{errors.calle}</span>
-            </div>}
-        </div>
-        {/* Configuración de días de apertura y cierre */}
-        <div className="flex flex-wrap justify-center gap-4">
-          <h2 className="text-xl font-semibold text-black mb-4">Configura los Horarios para Cada Día</h2>
-          {diasSemana.map((dia) => (
-            <div
-              key={dia}
-              className="relative block p-4 max-w-[10rem] bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50"
-            >
-              <h3 className="text-base font-medium text-gray-900">{dia}</h3>
-              <label className="flex items-center mt-2">
-                <input
-                  type="checkbox"
-                  checked={diasConfiguracion[dia].abierto}
-                  onChange={(e) => handleAbiertoChange(dia, e)}
-                  className="form-checkbox h-4 w-4 text-blue-600"
-                />
-                <span className="ml-2 text-sm text-gray-700">¿Abierto?</span>
-              </label>
+    // Maneja el cambio de si el complejo está abierto o cerrado
+    const handleAbiertoChange = (dia, e) => {
+        setDiasConfiguracion({
+            ...diasConfiguracion,
+            [dia]: { ...diasConfiguracion[dia], abierto: e.target.checked },
+        });
+    };
 
-              {diasConfiguracion[dia].abierto && (
-                <div className="mt-3">
-                  <label htmlFor={`apertura-${dia}`} className="block text-xs font-medium text-gray-700">
-                    Horario de Apertura:
-                  </label>
-                  <input
-                    type="time"
-                    id={`apertura-${dia}`}
-                    value={diasConfiguracion[dia].apertura}
-                    onChange={(e) => handleHorarioChange(dia, "apertura", e)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
-                  />
+    // Maneja el cambio del horario de apertura o cierre
+    const handleHorarioChange = (dia, tipo, e) => {
+        setDiasConfiguracion({
+            ...diasConfiguracion,
+            [dia]: { ...diasConfiguracion[dia], [tipo]: e.target.value },
+        });
+    };
 
-                  <label htmlFor={`cierre-${dia}`} className="block mt-2 text-xs font-medium text-gray-700">
-                    Horario de Cierre:
-                  </label>
-                  <input
-                    type="time"
-                    id={`cierre-${dia}`}
-                    value={diasConfiguracion[dia].cierre}
-                    onChange={(e) => handleHorarioChange(dia, "cierre", e)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    required
-                  />
-                </div>
-              )}
+    // Se almacena el estado de cada servicio como seleccionado o no seleccionado
+    const [selectedServices, setSelectedServices] = useState(
+        servicios.map((servicio) => ({
+            id: servicio.id,
+            descripcionServicio: servicio.descripcionServicio,
+            seleccionado: false,
+        }))
+    );
+
+    // Maneja el cambio de seleccionado o no seleccionado
+    const handleServiceChange = (id) => {
+        setSelectedServices((prev) =>
+            prev.map((servicio) =>
+                servicio.id === id
+                    ? { ...servicio, seleccionado: !servicio.seleccionado }
+                    : servicio
+            )
+        );
+    };
+
+    return (
+        <>
+            <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Ingresa los datos de tu complejo:</h2>
+            <div className="mt-4">
+                <form className="flex mx-auto max-w-[66rem] flex-col">
+                    <div className="flex flex-row w-full mb-4 px-4 gap-4 items-center">
+                        {/* Input para ingresar el nombre del complejo */}
+                        <div className="basis-1/3">
+                            <div className="basis-full">
+                                <label htmlFor="nombreComplejo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre del Complejo:</label>
+                                <input type="text" value={form.nombreComplejo} onChange={handleChange} name="nombreComplejo" placeholder='Nombre' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" required />
+                            </div>
+                            <div>
+                                {errors.nombreComplejo &&
+                                    <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                        <span >{errors.nombreComplejo}</span>
+                                    </div>}
+                            </div>
+                        </div>
+                        <div className="basis-1/3">
+                            {/* Input para ingresar la ciudad donde se encuentra el complejo */}
+                            <div className="basis-full">
+                                <label htmlFor="ciudad" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad:</label>
+                                <input type="text" value={form.ciudad} onChange={handleChange} name="ciudad" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" placeholder="Ciudad" required />
+                            </div>
+                            <div>
+                                {errors.ciudad &&
+                                    <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                        <span >{errors.ciudad}</span>
+                                    </div>}
+                            </div>
+                        </div>
+                        <div className="basis-1/3">
+                            {/* Input para ingresar dirección del complejo */}
+                            <div className="flex space-x-4">
+                                <div className="w-1/2">
+                                    <label htmlFor="calle" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Calle:</label>
+                                    <input type="text" value={form.calle} onChange={handleChange} name="calle" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" placeholder="Calle" required />
+                                </div>
+                                <div className="w-1/2">
+                                    <label htmlFor="numero" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">N°:</label>
+                                    <input type="number" value={form.numero} onChange={handleChange} name="numero" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" placeholder="N°" required />
+                                </div>
+                            </div>
+                            <div>
+                                {errors.calle &&
+                                    <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                        <span >{errors.calle}</span>
+                                    </div>}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row w-full justify-center gap-4 px-4">
+                        {/* Configuración de días de apertura y cierre */}
+                        <div className="basis-1/2">
+                            <div className="flex-col">
+                                <div className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Configura los Horarios para Cada Día:</div>
+                                {diasSemana.map((dia) => (
+                                    <div
+                                        key={dia}
+                                        className="flex flex-row mb-1 w-full p-2 bg-white  border border-gray-200 rounded-lg shadow-sm dark:bg-neutral-700 dark:border-neutral-600"
+                                    >
+                                        <div className="basis-1/4 flex items-center justify-center text-base font-medium text-gray-900 dark:text-white">{dia}</div>
+                                        <div className="basis-1/4 flex items-center justify-center mx-4">
+                                            <input
+                                                type="checkbox"
+                                                checked={diasConfiguracion[dia].abierto}
+                                                onChange={(e) => handleAbiertoChange(dia, e)}
+                                                className="form-checkbox h-4 w-4 text-lime-600"
+                                            />
+                                            <span className="ml-2 text-sm text-gray-700 dark:text-white">¿Abierto?</span>
+                                        </div>
+                                        {diasConfiguracion[dia].abierto && (
+                                            <div className="basis-1/4">
+                                                <div className="flex flex-row">
+                                                    <div className="basis-1/2 mr-4 flex flex-col justify-center">
+                                                        <label htmlFor={`apertura-${dia}`} className="block text-xs font-medium text-gray-700 dark:text-white">
+                                                            Horario de Apertura:
+                                                        </label>
+                                                        <input
+                                                            type="time"
+                                                            id={`apertura-${dia}`}
+                                                            value={diasConfiguracion[dia].apertura}
+                                                            onChange={(e) => handleHorarioChange(dia, "apertura", e)}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max mx-auto p-1"
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="basis-1/4 flex flex-col justify-center">
+                                                        <label htmlFor={`cierre-${dia}`} className="block text-xs font-medium text-gray-700 dark:text-white">
+                                                            Horario de Cierre:
+                                                        </label>
+                                                        <input
+                                                            type="time"
+                                                            id={`cierre-${dia}`}
+                                                            value={diasConfiguracion[dia].cierre}
+                                                            onChange={(e) => handleHorarioChange(dia, "cierre", e)}
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max mx-auto p-1"
+                                                            required
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="basis-1/2">
+                            <div>
+                                <div className='mb-8'>
+                                    <h3 className="block mb-4 text-sm font-bold text-gray-900 dark:text-white">Resumen de Horarios:</h3>
+                                    <div className="flex justify-center">
+                                        <ul className="list-disc block text-sm font-medium text-start text-gray-900 dark:text-white">
+                                            {diasSemana.map((dia) => (
+                                                <li key={dia}>
+                                                    <div className="flex flex-row gap-1">
+                                                        <div className="font-bold">{dia}: </div>
+                                                        <div className="">
+                                                            {diasConfiguracion[dia].abierto ? `Abierto de ${diasConfiguracion[dia].apertura} a ${diasConfiguracion[dia].cierre}` : "Cerrado"}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {/* Selección de servicios */}
+                                <div className='block text-sm font-medium text-gray-900 dark:text-white text-start'>
+                                    <h2 className='mb-4 text-sm font-bold text-gray-900 dark:text-white flex justify-center' >Selecciona los servicios adicionales:</h2>
+                                    <div className="flex justify-center">
+                                        <div className="flex flex-col">
+                                            {selectedServices.map((servicio) => (
+                                                <div key={servicio.id}>
+                                                    <label>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={servicio.seleccionado}
+                                                            onChange={() => handleServiceChange(servicio.id)}
+                                                        />
+                                                        {servicio.descripcionServicio}
+                                                    </label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Fin de selección de servicios */}
+                            </div>
+                            <button onClick={enviarComplejo} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Crear complejo</button>
+                        </div>
+                    </div>
+                    {/* Fin de configuración de días */}
+                </form>
             </div>
-          ))}
-
-          <h3 className="text-xl font-semibold mt-4 text-black">Resumen de Horarios:</h3>
-          <ul className="list-disc pl-6 mt-2 text-black">
-            {diasSemana.map((dia) => (
-              <li key={dia}>
-                {dia}: {diasConfiguracion[dia].abierto ? `Abierto de ${diasConfiguracion[dia].apertura} a ${diasConfiguracion[dia].cierre}` : "Cerrado"}
-              </li>
-            ))}
-          </ul>
-        </div>
-        {/* Fin de configuración de días */}
-
-        {/* Sección para seleccionar los servicios disponibles */}
-        <div className='text-black'>
-          <h2 className='text-xl font-semibold text-black mb-4 mt-6' >Selecciona los servicios adicionales</h2>
-          {selectedServices.map((servicio) => (
-            <div key={servicio.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={servicio.seleccionado}
-                  onChange={() => handleServiceChange(servicio.id)}
-                />
-                {servicio.descripcionServicio}
-              </label>
-            </div>
-          ))}
-      </div>
-        {/* Fin de la sección para seleccionar los servicios disponibles */}
-        <button onClick={enviarComplejo} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-      </form>    
-    </div>
-  )
+        </>
+    )
 }
 
 export default CreateComplejo

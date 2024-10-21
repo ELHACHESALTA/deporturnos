@@ -12,7 +12,7 @@ const WelcomeCliente = () => {
                             </div>
 
                             <div className="relative max-w-5xl mx-auto mt-6">
-                                <img className="w-full object-cover h-96 sm:h-[480px] bg-no-repeat bg-center bg-cover rounded-xl" src="/vistaBienvenida.jpg" alt="vistaBienvenida" />
+                                <img className="w-full object-cover h-96 sm:h-[480px] bg-no-repeat bg-center bg-cover rounded-2xl" src="/vistaBienvenida.jpg" alt="vistaBienvenida" />
                             </div>
                         </div>
                     </div>

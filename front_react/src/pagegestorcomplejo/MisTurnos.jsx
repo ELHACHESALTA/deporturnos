@@ -8,6 +8,7 @@ import CreateTurno from '../components/CreateTurno/CreateTurno';
 import CreateTurnoAutomatico from '../components/CreateTurnoAutomatico/CreateTurnoAutomatico';
 import { useModal } from '../hooks/useModal';
 import EditTurno from '../components/EditTurno/EditTurno';
+import { CircleAlert } from 'lucide-react';
 
 // Inicio configuraciones de React Big Calendar
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -158,31 +159,27 @@ const MisTurnos = () => {
                     {/* Zona de selección */}
                     {complejo === null ? (
                         <Modal isOpen={true}>
-                            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto text-center">
-                                <div className="flex justify-center mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-16 h-16 text-red-600">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                    </svg>
-                                </div>
-                                <p className="block text-sm mb-4 dark:text-white mt-4">
-                                    Primero debes crear un complejo para acceder a "Mis Canchas"!
-                                </p>
-                                <button
-                                    onClick={() => navigate('/gestorComplejo/miComplejo')}
-                                    className="bg-lime-500 text-white border-none px-6 py-3 rounded-lg transition-colors duration-300 hover:bg-lime-600 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
-                                >
-                                    Ir a Mi Complejo
-                                </button>
+                            <div className="flex justify-center p-6">
+                                <CircleAlert className="w-16 h-16 text-red-600" />
                             </div>
+                            <div className="text-lg font-semibold text-center dark:text-white">
+                                Primero debes crear un complejo para acceder a "Mis Turnos"
+                            </div>
+                            <button
+                                onClick={() => navigate('/gestorComplejo/miComplejo')}
+                                className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                            >
+                                Ir a Mi Complejo
+                            </button>
                         </Modal>
                     ) : (
                         <div className="w-full">
                             {canchas.length > 0 ? (
                                 <>
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2">
                                         {/* Columna izquierda: Select */}
                                         <div className="w-full">
-                                            <form className="max-w-sm mx-auto my-4">
+                                            <form className="max-w-sm mx-auto mt-4">
                                                 <div>
                                                     <label htmlFor="cancha" className="block text-sm mb-4 dark:text-white">Elige una cancha</label>
                                                     <select
@@ -206,17 +203,17 @@ const MisTurnos = () => {
                                         {/* Columna derecha: Información de la cancha */}
                                         {idCanchaSeleccionada !== 0 ? (
                                             <>
-                                                <div className="w-full mt-4">
+                                                <div className="w-full">
                                                     <div className=''>
-                                                        <div className="block text-sm mb-4 dark:text-white font-bold">{canchaSeleccionada.nombreCancha}</div>
-                                                        <div className="block text-sm mb-4 dark:text-white font-bold">Id: {canchaSeleccionada.id}</div>
-                                                        <div className="block text-sm mb-4 dark:text-white font-bold">Complejo: {canchaSeleccionada.idComplejo}</div>
-                                                        <div className="block text-sm mb-4 dark:text-white font-bold">Deporte: {canchaSeleccionada.idDeporte}</div>
+                                                        <div className="block text-sm mt-4 dark:text-white font-bold">{canchaSeleccionada.nombreCancha}</div>
+                                                        <div className="block text-sm mt-4 dark:text-white font-bold">Id: {canchaSeleccionada.id}</div>
+                                                        <div className="block text-sm mt-4 dark:text-white font-bold">Complejo: {canchaSeleccionada.idComplejo}</div>
+                                                        <div className="block text-sm mt-4 dark:text-white font-bold">Deporte: {canchaSeleccionada.idDeporte}</div>
                                                         <div>
-                                                            <button onClick={openModalCreate} className='py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none'>Crear turno manual</button>
+                                                            <button onClick={openModalCreate} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Crear turno manual</button>
                                                         </div>
                                                         <div>
-                                                            <button onClick={openModalCreateAutomatico} className='py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-lime-600 text-white hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none mt-4'>Crear turno automático</button>
+                                                            <button onClick={openModalCreateAutomatico} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Crear turno automático</button>
                                                         </div>
                                                     </div>
                                                 </div>

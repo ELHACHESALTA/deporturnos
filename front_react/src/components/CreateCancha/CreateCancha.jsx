@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import useForm from '../../hooks/useForm';
 import AuthUser from '../../pageauth/AuthUser';
 import axios from 'axios';
+import { X } from 'lucide-react';
 
 const initialForm = {
-    nombreCancha : "",
-    idDeporte : 0,
+    nombreCancha: "",
+    idDeporte: 0,
 }
 
 const validationsForm = (form) => {
@@ -13,20 +14,20 @@ const validationsForm = (form) => {
 
     const regexNombreCancha = /^[a-zA-Z0-9 ]*$/;
 
-    if (!form.nombreCancha.trim()){
+    if (!form.nombreCancha.trim()) {
         errors.nombreCancha = "El campo 'nombre de la cancha' es obligatorio";
-    } else if (!regexNombreCancha.test(form.nombreCancha.trim())){
+    } else if (!regexNombreCancha.test(form.nombreCancha.trim())) {
         errors.nombreCancha = "El campo solo acepta números, letras y espacios en blanco";
     }
 
-    if (form.idDeporte === 0){
+    if (form.idDeporte === 0) {
         errors.idDeporte = "Debes seleccionar algún deporte";
     }
     return errors;
 }
 
 const CreateCancha = ({ closeModal }) => {
-    const {getUser, getToken} = AuthUser();
+    const { getUser, getToken } = AuthUser();
     const idUser = getUser().id;
     const [errors, setErrors] = useState({});
     const {
@@ -55,7 +56,6 @@ const CreateCancha = ({ closeModal }) => {
         }
     };
 
-
     const submitCancha = async (e) => {
         e.preventDefault();
         const validationErrors = validationsForm(form);
@@ -63,13 +63,13 @@ const CreateCancha = ({ closeModal }) => {
 
         // Solo procede con el envío si no hay errores y se ha seleccionado un rol válido    
         if (Object.keys(validationErrors).length === 0) {
-            await axios.post('http://localhost:8000/api/gestorComplejo/crearCancha', {nombreCancha, idDeporte, idUser}, {
+            await axios.post('http://localhost:8000/api/gestorComplejo/crearCancha', { nombreCancha, idDeporte, idUser }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+ getToken()
+                    'Authorization': 'Bearer ' + getToken()
                 }
-            }).then(({data})=> {
-                if(data.success){
+            }).then(({ data }) => {
+                if (data.success) {
                     resetForm();
                     console.log("creado exitosamente");
                     closeModal();
@@ -81,58 +81,50 @@ const CreateCancha = ({ closeModal }) => {
         }
     }
 
-  return (
-    <div>
-        <div>Create cancha</div>
-        <form className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-            <div className="mb-6">
-                <label htmlFor="nombreCancha" className="block mb-2 text-sm font-medium text-gray-900">
-                    Nombre de la cancha:
-                </label>
-                <input
-                    type="text"
-                    name="nombreCancha"
-                    value={form.nombreCancha}
-                    onChange={handleChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
-                    required
-                />
-            </div>
-            <div>
-                {errors.nombreCancha &&
-                 <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                 <span >{errors.nombreCancha}</span>
-               </div>}
-            </div>
-
-            <div className="mb-6">
-                <h2 className="text-lg font-semibold mb-4 text-center text-gray-800">Seleccione un deporte</h2>
-                <div className="flex justify-center gap-4">
-                    <button
-                        type="button"
-                        onClick={() => handleDeporteClick('Fútbol')}
-                        className={`px-4 py-3 rounded-lg shadow-md transition-colors duration-300 ${
-                            selectedDeporte === 'Fútbol' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                        }`}
-                    >
-                        Fútbol
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => handleDeporteClick('Pádel')}
-                        className={`px-4 py-3 rounded-lg shadow-md transition-colors duration-300 ${
-                            selectedDeporte === 'Pádel' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                        }`}
-                    >
-                        Pádel
-                    </button>
+    return (
+        <form className="flex flex-col gap-y-4">
+            <button className="absolute top-0 right-0" onClick={closeModal}>
+                <X className="size-7 dark:text-white" />
+            </button>
+            <label htmlFor="nombreCancha" className="text-sm font-medium text-center dark:text-white">
+                Nombre de la cancha:
+            </label>
+            <input
+                type="text"
+                name="nombreCancha"
+                value={form.nombreCancha}
+                onChange={handleChange}
+                className="py-2 px-4 block w-full bg-white border border-gray-300 text-gray-900 rounded-2xl text-sm focus:border-lime-500 focus:ring-lime-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+                required
+            />
+            {errors.nombreCancha &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                    <span >{errors.nombreCancha}</span>
                 </div>
+            }
+            <div className="text-sm font-medium text-center dark:text-white">Seleccione un deporte:</div>
+            <div className="flex justify-center gap-4">
+                <button
+                    type="button"
+                    onClick={() => handleDeporteClick('Fútbol')}
+                    className={`py-2 px-6 rounded-2xl ${selectedDeporte === 'Fútbol' ? 'inline-flex justify-center items-center text-sm font-medium border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none' : 'text-sm font-medium bg-white text-neutral-900 hover:bg-gray-100 dark:text-white dark:bg-neutral-900 dark:hover:bg-neutral-950'
+                        }`}
+                >
+                    Fútbol
+                </button>
+                <button
+                    type="button"
+                    onClick={() => handleDeporteClick('Pádel')}
+                    className={`py-2 px-6 rounded-2xl ${selectedDeporte === 'Pádel' ? 'inline-flex justify-center items-center text-sm font-medium border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none' : 'text-sm font-medium bg-white text-neutral-900 hover:bg-gray-100 dark:text-white dark:bg-neutral-900 dark:hover:bg-neutral-950'
+                        }`}
+                >
+                    Pádel
+                </button>
             </div>
-
             {subOpcionesFutbol && (
-                <div className="mb-6">
-                    <h3 className="text-lg font-medium mb-4 text-gray-800">Seleccione una opción de fútbol</h3>
-                    <div className="flex flex-col gap-4 justify-center items-start">
+                <>
+                    <div className="text-sm font-medium text-center dark:text-white">Seleccione una opción de fútbol:</div>
+                    <div className="flex flex-row gap-4 justify-center items-start">
                         {subOpcionesFutbol.map((opcion, index) => (
                             <li key={index} className="list-none">
                                 <input
@@ -146,43 +138,33 @@ const CreateCancha = ({ closeModal }) => {
                                 />
                                 <label
                                     htmlFor={`futbol-${opcion}`}
-                                    className="flex items-center justify-between w-full p-4 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                    className="py-2 px-6 rounded-2xl flex items-center justify-between w-full text-sm font-medium bg-white border border-transparent border-lime-600 cursor-pointer dark:text-white focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none hover:bg-lime-700 dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-lime-500 peer-checked:border-lime-600 peer-checked:bg-lime-600 peer-checked:text-white hover:text-white dark:bg-neutral-900 dark:hover:bg-neutral-950"
                                 >
                                     <div className="block">
-                                        <div className="w-full text-lg font-semibold">{opcion}</div> {/* Mantenido a text-lg */}
+                                        <div className="">{opcion}</div> {/* Mantenido a text-lg */}
                                     </div>
                                 </label>
                             </li>
                         ))}
                     </div>
-                </div>
+                </>
             )}
-            <div>
-                {errors.idDeporte &&
-                 <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                 <span >{errors.idDeporte}</span>
-               </div>}
-            </div>
-
-            <div className="flex justify-between mt-4">
+            {errors.idDeporte &&
+                <div className="p-2 text-sm text-red-800 rounded-2xl bg-red-100 dark:bg-red-300 dark:text-black" role="alert">
+                    <span >{errors.idDeporte}</span>
+                </div>
+            }
+            <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                    className="py-2 px-6 rounded-2xl inline-flex justify-center items-center text-sm font-medium border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
                     onClick={submitCancha}
                 >
-                    Crear
-                </button>
-                <button
-                    type="button"
-                    onClick={closeModal}
-                    className="bg-gray-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600"
-                >
-                    Cancelar
+                    Crear Cancha
                 </button>
             </div>
         </form>
-    </div>
-  )
+    )
 }
 
 export default CreateCancha

@@ -194,14 +194,14 @@ const ReprogramarTurno = () => {
             {/* Banner */}
             <div className="flex mx-auto max-w-[66rem] px-2">
                 <div className="flex justify-center w-full">
-                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 py-4 rounded-xl w-full max-w-full">
+                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 h-24 rounded-3xl w-full flex items-center justify-center border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                         <h2 className="text-white dark:text-neutral-900 font-bold text-2xl text-center">REPROGRAMAR TURNO</h2>
                     </div>
                 </div>
             </div>
             {/* Banner */}
             <div className="flex flex-col mx-auto max-w-[66rem] px-2 mt-4">
-                <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
+                <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     <h1 className="text-2xl font-bold text-center my-4 dark:text-white">Elige un nuevo turno</h1>
                     <div className="flex flex-row bg-gray-100 dark:bg-neutral-800">
                         <>

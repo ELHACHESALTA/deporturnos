@@ -77,7 +77,7 @@ const Cancha = () => {
 
     const [turnosAMostrar, setTurnosAMostrar] = useState([]);
     const [turnoAReservar, setTurnoAReservar] = useState([]);
-    
+
 
     // modal para reservar un turno
     const [isOpenModalReserva, openModalReserva, closeModalReserva] = useModal(false);
@@ -141,20 +141,20 @@ const Cancha = () => {
             setLoading(false);
         };
 
-    const obtenerCliente = async () => {
-        await axios.post('http://localhost:8000/api/cliente/obtenerCliente', { idUsuario }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+ getToken()
-            }
-        }).then(({data})=> {
-            if(data.success){
-                setCliente(data.cliente);
-            }
-        });
-    }    
-    obtenerInfoCancha();
-    obtenerCliente();
+        const obtenerCliente = async () => {
+            await axios.post('http://localhost:8000/api/cliente/obtenerCliente', { idUsuario }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + getToken()
+                }
+            }).then(({ data }) => {
+                if (data.success) {
+                    setCliente(data.cliente);
+                }
+            });
+        }
+        obtenerInfoCancha();
+        obtenerCliente();
     }, []);
 
     useEffect(() => {
@@ -174,8 +174,8 @@ const Cancha = () => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + getToken()
             }
-        }).then(({data})=> {
-            if(data.success){
+        }).then(({ data }) => {
+            if (data.success) {
                 console.log("agregado a favoritos exitosamente");
                 const nuevoFavorito = {
                     idCliente: cliente.id,
@@ -198,10 +198,10 @@ const Cancha = () => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + getToken()
             }
-        }).then(({data})=> {
-            if(data.success){
+        }).then(({ data }) => {
+            if (data.success) {
                 console.log("eliminado de favoritos exitosamente");
-                const nuevosFavoritos = favoritosComplejo.filter(favorito => 
+                const nuevosFavoritos = favoritosComplejo.filter(favorito =>
                     !(favorito.idCliente === idCliente && favorito.idComplejo === idComplejo)
                 );
                 setFavoritosComplejo(nuevosFavoritos);
@@ -231,70 +231,81 @@ const Cancha = () => {
     return (
         <div className='flex-grow overflow-visible'>
             <div className="flex flex-col mx-auto max-w-[66rem] px-2">
-                <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
+                <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     <img className="object-cover w-full h-[450px]" src="/cancha01.jpg" alt="cancha" />
                     <div className="absolute top-[300px] left-0 p-4 dark:text-white text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
                         {cancha.nombreCancha}
                     </div>
                     <div className="absolute top-[425px] left-0 h-[25px] bg-gray-100 dark:bg-neutral-800 rounded-t-3xl w-full"></div>
                     <div className="backdrop-blur-sm bg-gray-100/30 dark:bg-black/30 border border-neutral-400 dark:border-neutral-700 rounded-full absolute top-[385px] right-[50px] p-3">
-                        {esFavorito ? 
-                         <button type='button' onClick={eliminarFavorito}>
-                            <Star size={52} className="text-yellow-500" fill="#EAB308" />
-                         </button>
-                         :
-                         <button type='button' onClick={agregarFavorito}>
-                            <Star size={52} className="text-yellow-500" />
-                         </button>
+                        {esFavorito ?
+                            <button type='button' onClick={eliminarFavorito}>
+                                <Star size={52} className="text-yellow-500" fill="#EAB308" />
+                            </button>
+                            :
+                            <button type='button' onClick={agregarFavorito}>
+                                <Star size={52} className="text-yellow-500" />
+                            </button>
                         }
                     </div>
                     <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                             <button type='button' onClick={() => handleDotClick('turnos')}>
-                                <div className='flex flex-col'>
-                                    <div>Turnos</div>
-                                    {componenteActivo === 'turnos' ? (
-                                        <Dot className='mx-auto' /> 
-                                    ) : (
+                                {componenteActivo === 'turnos' ? (
+                                    <div className='flex flex-col text-lime-600'>
+                                        <div>Turnos</div>
+                                        <Dot className='mx-auto' />
+                                    </div>
+                                ) : (
+                                    <div className='flex flex-col'>
+                                        <div>Turnos</div>
                                         <Dot className='mx-auto text-white dark:text-neutral-800' />
-                                    )}
-                                </div>
+                                    </div>
+                                )}
                             </button>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                             <button type='button' onClick={() => handleDotClick('datosCancha')}>
-                                <div className='flex flex-col'>
-                                    <div>Datos de Cancha</div>
-                                    {componenteActivo === 'datosCancha' ? (
-                                        <Dot className='mx-auto' /> 
-                                    ) : (
+                                {componenteActivo === 'datosCancha' ? (
+                                    <div className='flex flex-col text-lime-600'>
+                                        <div>Datos de Cancha</div>
+                                        <Dot className='mx-auto' />
+                                    </div>
+                                ) : (
+                                    <div className='flex flex-col'>
+                                        <div>Datos de Cancha</div>
                                         <Dot className='mx-auto text-white dark:text-neutral-800' />
-                                    )}
-                                </div>
+                                    </div>
+                                )}
                             </button>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                             <button type='button' onClick={() => handleDotClick('datosComplejo')}>
-                                <div className='flex flex-col'>
-                                    <div>Datos de Complejo</div>
-                                    {componenteActivo === 'datosComplejo' ? (
-                                        <Dot className='mx-auto' /> 
-                                    ) : (
+                                {componenteActivo === 'datosComplejo' ? (
+                                    <div className='flex flex-col text-lime-600'>
+                                        <div>Datos de Complejo</div>
+                                        <Dot className='mx-auto' />
+                                    </div>
+                                ) : (
+                                    <div className='flex flex-col'>
+                                        <div>Datos de Complejo</div>
                                         <Dot className='mx-auto text-white dark:text-neutral-800' />
-                                    )}
-                                </div>
+                                    </div>
+                                )}
                             </button>
                         </div>
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                             <button type='button' onClick={() => handleDotClick('resenias')}>
-                                <div className='flex flex-col'>
-                                    <div>Reseñas</div>
-                                    {componenteActivo === 'resenias' ? (
-                                        <Dot className='mx-auto' /> 
-                                    ) : (
+                                {componenteActivo === 'resenias' ? (
+                                    <div className='flex flex-col text-lime-600'>
+                                        <div>Reseñas</div>
+                                        <Dot className='mx-auto' />
+                                    </div>
+                                ) : (
+                                    <div className='flex flex-col'>
+                                        <div>Reseñas</div>
                                         <Dot className='mx-auto text-white dark:text-neutral-800' />
-                                    )}
-                                </div>
+                                    </div>)}
                             </button>
                         </div>
                     </div>
@@ -318,7 +329,6 @@ const Cancha = () => {
                                         events={calendarEvents}  // Eventos mapeados (turnos)
                                         startAccessor="start"
                                         endAccessor="end"
-                                        //onSelectEvent={(event) => alert(`Turno seleccionado: ${event.title}`)}
                                         onSelectEvent={(event) => openModalReserva1(event.id)}
                                         messages={messages} // Traducción personalizada
                                         formats={formats}  // Formatos personalizados
@@ -326,12 +336,12 @@ const Cancha = () => {
                                     />
                                 )}
                                 {componenteActivo === 'datosCancha' && (
-                                    <DatosCancha cancha={cancha} deporte={deporte}/>
+                                    <DatosCancha cancha={cancha} deporte={deporte} />
                                 )}
 
                                 {componenteActivo === 'datosComplejo' && (
-                                    <DatosComplejo complejo={complejo} 
-                                        complejoServicios={complejoServicios} 
+                                    <DatosComplejo complejo={complejo}
+                                        complejoServicios={complejoServicios}
                                         servicios={servicios}
                                         canchasComplejo={canchasComplejo}
                                         diasDisponiblesComplejo={diasDisponiblesComplejo}
@@ -339,7 +349,7 @@ const Cancha = () => {
                                 )}
 
                                 {componenteActivo === 'resenias' && (
-                                    <Resenias complejo={complejo} resenias={resenias}/>
+                                    <Resenias complejo={complejo} resenias={resenias} />
                                 )}
                             </div>
                         </>
@@ -350,12 +360,12 @@ const Cancha = () => {
                 </div>
             </div>
             {/* modal para reservar turnos */}
-            <ReservarTurno isOpen={isOpenModalReserva} 
-             closeModal={() => closeModalReserva1(turnoAReservar.id)} 
-             turno={turnoAReservar}
-             cancha={cancha}
-             idCliente={cliente.id}
-             deporte={deporte}/>
+            <ReservarTurno isOpen={isOpenModalReserva}
+                closeModal={() => closeModalReserva1(turnoAReservar.id)}
+                turno={turnoAReservar}
+                cancha={cancha}
+                idCliente={cliente.id}
+                deporte={deporte} />
             <div className="">
                 {/* Sección Datos del Complejo */}
                 {/* <div>

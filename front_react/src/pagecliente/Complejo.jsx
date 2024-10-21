@@ -128,7 +128,7 @@ const Complejo = () => {
         <div>
             <div className='flex-grow overflow-visible'>
                 <div className="flex flex-col mx-auto max-w-[66rem] px-2">
-                    <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
+                    <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                         <img className="object-cover w-full h-[450px]" src="/cancha01.jpg" alt="cancha" />
                         <div className="absolute top-[300px] left-0 p-4 dark:text-white text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
                             {complejo.nombreComplejo}
@@ -163,47 +163,47 @@ const Complejo = () => {
                             </div>
                         </div>
                         <div className="flex flex-row bg-gray-100 dark:bg-neutral-800"></div>
+                        {/* Canchas del Complejo */}
+                        <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Canchas del Complejo</h2>
+                        <div className="flex px-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                                {canchasComplejo.length > 0 ? (
+                                    canchasComplejo.map((cancha, index) => (
+                                        <div
+                                            key={index}
+                                            onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                            className="flex flex-col bg-white rounded-xl dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
+                                            <img className="object-cover w-full h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
+                                            <div className="p-4 md:p-5">
+                                                <h3 className="text-lg font-bold text-gray-800 dark:text-white">
+                                                    {cancha.nombreCancha}
+                                                </h3>
+                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                    Deporte: {obtenerDeporte(cancha.idDeporte)}
+                                                </p>
+                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                    ID de la Cancha: {cancha.id}
+                                                </p>
+                                                <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
+                                                    ID del Complejo: {cancha.idComplejo}
+                                                </p>
+
+                                                <button
+                                                    className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                                                    onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
+                                                >
+                                                    Sacar Turno
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className='block text-sm mb-4 dark:text-white mt-4'>No hay canchas disponibles en este complejo.</p>
+                                )}
+                            </div>
+                        </div>
                         <div className="flex flex-row dark:bg-neutral-800 w-full h-[16px]"></div>
                     </div>
-                </div>
-            </div>
-            {/* Canchas del Complejo */}
-            <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Canchas del Complejo</h2>
-            <div className="flex mx-auto max-w-[66rem] px-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-                    {canchasComplejo.length > 0 ? (
-                        canchasComplejo.map((cancha, index) => (
-                            <div
-                                key={index}
-                                onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
-                                className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                                <img className="object-cover w-full h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
-                                <div className="p-4 md:p-5">
-                                    <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-                                        {cancha.nombreCancha}
-                                    </h3>
-                                    <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                        Deporte: {obtenerDeporte(cancha.idDeporte)}
-                                    </p>
-                                    <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                        ID de la Cancha: {cancha.id}
-                                    </p>
-                                    <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                        ID del Complejo: {cancha.idComplejo}
-                                    </p>
-
-                                    <button
-                                        className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
-                                        onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
-                                    >
-                                        Sacar Turno
-                                    </button>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className='block text-sm mb-4 dark:text-white mt-4'>No hay canchas disponibles en este complejo.</p>
-                    )}
                 </div>
             </div>
         </div>

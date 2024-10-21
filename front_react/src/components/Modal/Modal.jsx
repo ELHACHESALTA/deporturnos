@@ -1,25 +1,22 @@
-import React from 'react'
-import "./Modal.module.css";
-import style from "./Modal.module.css";
+import React from 'react';
 
-const Modal = ({children, isOpen, closeModal}) => {
 
+const Modal = ({ children, isOpen, closeModal }) => {
     const handleModalClick = (e) => {
         e.stopPropagation();
     }
 
-  return (
-    <article className={`${style.modal} ${ isOpen && style.isOpen}`} onClick={closeModal}>
-        <div className={style.modalContainer} onClick={handleModalClick}>
-            <button className={style.modalClose} onClick={closeModal}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-            </button>
-            {children}
-        </div>
-    </article>
-  )
+    return (
+        <>
+            <div className={`fixed z-50 top-0 left-0 w-full min-h-screen bg-lime-600 bg-opacity-50 dark:bg-lime-900 dark:bg-opacity-50 flex justify-center items-center ${isOpen ? 'flex' : 'hidden'}`}>
+                <div className="flex items-center justify-center overflow-y-auto p-4 rounded-3xl bg-gray-200 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700">
+                    <div className="relative">
+                        {children}
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 }
 
-export default Modal
+export default Modal;

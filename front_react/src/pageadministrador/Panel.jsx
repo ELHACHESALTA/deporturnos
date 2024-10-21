@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthUser from "../pageauth/AuthUser";
 import { useModal } from "../hooks/useModal";
 import Modal from "../components/Modal/Modal";
+import { CircleAlert } from 'lucide-react';
 
 const Panel = () => {
     // Estado para controlar los filtros por roles y por dados de baja o no
@@ -221,10 +222,7 @@ const Panel = () => {
                     {/* modal para confirmacion de dar de baja */}
                     <Modal isOpen={isOpenModalBaja} closeModal={closeModalBaja}>
                         <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-16 text-gray-400">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
-
+                            <CircleAlert className="size-16 text-red-600" />
                         </div>
                         <h3 className="mb-4 text-lg font-semibold text-center">¿Estás seguro que deseas dar de baja al usuario?</h3>
                         <button onClick={cambiarEstadoUsuario} className="bg-red-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-red-600">
@@ -238,9 +236,7 @@ const Panel = () => {
                     {/* modal para confirmacion de dar de alta */}
                     <Modal isOpen={isOpenModalAlta} closeModal={closeModalAlta}>
                         <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-16 text-gray-400">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
+                            <CircleAlert className="size-16 text-green-600" />
                         </div>
                         <h3 className="mb-4 text-lg font-semibold text-center">¿Estás seguro que deseas dar de alta al usuario?</h3>
                         <button onClick={cambiarEstadoUsuario} className="bg-green-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-green-600">

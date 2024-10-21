@@ -4,31 +4,24 @@ import useForm from '../../hooks/useForm';
 import AuthUser from '../../pageauth/AuthUser';
 import { useNavigate } from 'react-router-dom';
 
-
 const validationsForm = (form) => {
     let errors = {};
-
     // expresiones regulares para los distintos campos del formulario
     let regexNombreComplejo = /^[a-zA-Z0-9À-ÿ\u00f1\u00d1\s'"]+$/;
     let regexCiudad = /^[A-Za-zÁ-Ýá-ýñÑ’']([A-Za-zÁ-Ýá-ýñÑ’' ]*)$/;
     let regexCalle = /^[A-Za-zÁ-Ýá-ýñÑ’'0-9]([A-Za-zÁ-Ýá-ýñÑ’'0-9 ]*)$/;
     let regexNumero = /^[0-9]+$/;
     let regexHora = /^([01]\d|2[0-3]):([0-5]\d)$/;
-
-
-
     if (!form.nombreComplejo.trim()) {
         errors.nombreComplejo = "El campo 'nombre del complejo' es obligatorio";
     } else if (!regexNombreComplejo.test(form.nombreComplejo.trim())) {
         errors.nombreComplejo = "El campo debe contener sólo letras, números o espacios en blanco";
     }
-
     if (!form.ciudad.trim()) {
         errors.ciudad = "El campo 'ciudad' es obligatorio";
     } else if (!regexCiudad.test(form.ciudad.trim())) {
         errors.ciudad = "El campo 'ciudad' solo debe contener letras y espacios en blanco";
     }
-
     if (!form.calle.trim() || !form.numero.trim()) {
         errors.calle = "Los campos 'calle' y 'N°' son obligatorios";
     } else if (!regexCalle.test(form.calle.trim())) {
@@ -52,6 +45,7 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
     };
 
     const diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+
     // Estado para guardar la disponibilidad y los horarios seleccionados para cada día
     const [diasConfiguracion, setDiasConfiguracion] = useState(
         diasSemana.reduce((acc, dia) => {
@@ -72,7 +66,6 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                     cierre: "17:00",
                 };
             }
-
             return acc;
         }, {}));
 
@@ -99,7 +92,6 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
             ...servicio,
             seleccionado: serviciosSeleccionados.some(sel => sel.idServicio === servicio.id),
         }));
-
         setServiciosEstado(serviciosConSeleccion);
     }, [servicios, serviciosSeleccionados]);
 
@@ -109,8 +101,6 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
         nuevosServicios[index].seleccionado = !nuevosServicios[index].seleccionado;
         setServiciosEstado(nuevosServicios);
     };
-
-    // console.log(serviciosEstado);
 
     const {
         form,
@@ -150,7 +140,8 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
     }
 
     return (
-        <div>
+        <>
+            <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Modifica los datos de tu complejo:</h2>
             <div className="mt-4">
                 <form className="flex mx-auto max-w-[66rem] flex-col">
                     <div className="flex flex-row w-full mb-4 px-4 gap-4 items-center">
@@ -220,7 +211,6 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                             />
                                             <span className="ml-2 text-sm text-gray-700 dark:text-white">¿Abierto?</span>
                                         </div>
-
                                         {diasConfiguracion[dia].abierto && (
                                             <div className="basis-1/4">
                                                 <div className="flex flex-row">
@@ -237,7 +227,6 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                                             required
                                                         />
                                                     </div>
-
                                                     <div className="basis-1/4 flex flex-col justify-center">
                                                         <label htmlFor={`cierre-${dia}`} className="block text-xs font-medium text-gray-700 dark:text-white">
                                                             Horario de Cierre:
@@ -298,15 +287,13 @@ const EditComplejo = ({ complejo, diasDisponibles, servicios, serviciosSeleccion
                                 </div>
                                 {/* Fin de selección de servicios */}
                             </div>
-                            <button onClick={actualizarComplejo} className="mt-4 text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full mx-auto sm:w-auto px-5 py-2.5 text-center dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800">Guardar</button>
+                            <button onClick={actualizarComplejo} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Guardar cambios</button>
                         </div>
                     </div>
                     {/* Fin de configuración de días */}
-
-
                 </form>
             </div>
-        </div >
+        </>
     )
 }
 

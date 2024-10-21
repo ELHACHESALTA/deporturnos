@@ -5,6 +5,7 @@ import AuthUser from "./AuthUser";
 import useForm from "../hooks/useForm";
 import { useModal } from "../hooks/useModal";
 import Modal from "../components/Modal/Modal";
+import { CircleCheck, CircleAlert, X } from 'lucide-react';
 
 
 // se inicializan las variables que se le pasarán al hook personalizado
@@ -227,26 +228,30 @@ const Register = () => {
 
             {/* modal exitoso */}
             <Modal isOpen={isOpenModal} closeModal={closeModal}>
-                <div className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-16 text-green-600">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
+                <button className="absolute top-0 right-0" onClick={closeModal}>
+                    <X className="size-7 dark:text-white" />
+                </button>
+                <div className="flex flex-col items-center p-6">
+                    <CircleCheck className="size-16 text-green-600" />
                 </div>
-                <h3 className="mb-4 text-lg font-semibold text-center">Usuario creado exitosamente!</h3>
-                <button onClick={() => navigate('/login')} className="bg-blue-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-blue-600">
+                <h3 className="text-lg font-semibold text-center dark:text-white">Usuario creado exitosamente!</h3>
+                <button onClick={() => navigate('/login')} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">
                     Ir a Login
                 </button>
             </Modal>
 
             {/* modal fallido */}
             <Modal isOpen={isOpenModalFallido} closeModal={closeModalFallido}>
-                <div className="flex flex-col items-center bg-white p-6 rounded-2xl shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-16 text-red-600">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                    </svg>
+                <button className="absolute top-0 right-0" onClick={closeModal}>
+                    <X className="size-7 dark:text-white" />
+                </button>
+                <div className="flex justify-center p-6">
+                    <CircleAlert className="size-16 text-red-600" />
                 </div>
-                <h3 className="mb-4 text-lg font-semibold text-center">No se pudo crear el usuario. Intente más tarde</h3>
-                <button onClick={closeModalFallido} className="bg-blue-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-blue-600">
+                <div className="text-lg font-semibold text-center dark:text-white">
+                    No se pudo crear el usuario. Intente más tarde
+                </div>
+                <button onClick={closeModalFallido} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">
                     Cerrar
                 </button>
             </Modal>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AuthUser from '../pageauth/AuthUser';
 import Loading from '../components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
+import { Search } from 'lucide-react';
 
 const VerCanchas = () => {
     const { getToken } = AuthUser();
@@ -134,46 +135,43 @@ const VerCanchas = () => {
             {/* Banner */}
             <div className="flex mx-auto max-w-[66rem] px-2">
                 <div className="flex justify-center w-full">
-                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 py-4 rounded-xl w-full max-w-full">
-                        <h2 className="text-white dark:text-neutral-900 font-bold text-2xl text-center">VER CANCHAS</h2>
+                    <div className="bg-gradient-to-r from-lime-500 to-amber-600 dark:from-lime-600 dark:to-amber-700 h-24 rounded-3xl w-full flex items-center justify-center border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
+                        <h2 className="text-white dark:text-neutral-900 font-bold text-2xl text-center">BUSCAR CANCHAS</h2>
                     </div>
                 </div>
             </div>
             {/* Banner */}
 
             <div className="flex flex-col mx-auto max-w-[66rem] px-2 mt-4">
-                <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
+                <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     {/* Búsqueda y filtros */}
                     <div className="flex mx-auto max-w-[66rem] px-4 mt-4">
                         <div className="flex flex-col mx-auto w-full">
-                            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-lg dark:bg-neutral-900 dark:border-neutral-700">
+                            <div className="rounded-2xl bg-white p-4 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                                 <form className="">
                                     {/* Buscador por nombre de complejo */}
-                                    <div className="relative mb-4 w-full flex items-center justify-between rounded-md">
-                                        <svg className="absolute left-2 block h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <circle cx="11" cy="11" r="8" className=""></circle>
-                                            <line x1="21" y1="21" x2="16.65" y2="16.65" className=""></line>
-                                        </svg>
+                                    <div className="relative mb-4 w-full flex items-center justify-between rounded-xl">
+                                        <Search className="absolute left-2 block h-5 w-5 text-gray-400"/>
                                         <input
                                             type="search"
                                             id="default-search"
                                             value={valorBuscador}
                                             onChange={(e) => setValorBuscador(e.target.value)}
-                                            className="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-4 pl-9 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                            className="h-12 w-full cursor-text rounded-xl border border-gray-100 bg-gray-100 py-4 pr-4 pl-9 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
                                             placeholder="Buscar por nombre de complejo"
                                         />
                                     </div>
                                     {/* Buscador por nombre de complejo */}
 
                                     {/* Filtros */}
-                                    <label htmlFor="date" className="text-lg flex justify-center rounded-md w-full bg-neutral-200 font-medium text-stone-600 mb-4 dark:bg-neutral-500 dark:text-white">Filtros</label>
-                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+                                    <label htmlFor="date" className="text-lg flex justify-center rounded-xl w-full bg-neutral-200 font-medium text-stone-600 mb-4 dark:bg-neutral-500 dark:text-white">Filtros</label>
+                                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
                                         {/* Filtro por deporte */}
                                         <div className="flex flex-col items-center justify-center">
                                             <select
                                                 value={deporteFiltro}
                                                 onChange={(e) => setDeporteFiltro(e.target.value)}
-                                                className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                                className="block w-full rounded-xl border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
                                             >
                                                 <option value="">Por deporte</option>
                                                 {deportes.map((deporte) => (
@@ -190,7 +188,7 @@ const VerCanchas = () => {
                                             <select
                                                 value={ciudadFiltro}
                                                 onChange={(e) => setCiudadFiltro(e.target.value)}
-                                                className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                                className="block w-full rounded-xl border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
                                             >
                                                 <option value="">Por ciudad</option>
                                                 {ciudadesUnicas.map((ciudad, index) => (
@@ -203,7 +201,7 @@ const VerCanchas = () => {
                                         {/* Filtro por ciudad */}
 
                                         {/* Filtro por servicios */}
-                                        <div className="flex flex-row gap-6 col-span-2 bg-gray-100 dark:bg-neutral-700 rounded-md">
+                                        <div className="flex flex-row gap-4 col-span-2 bg-gray-100 dark:bg-neutral-700 rounded-xl">
                                             <div className="basis-1/2 justify-end items-center flex flex-row">
                                                 <label htmlFor="date" className="text-sm font-medium text-stone-600 dark:text-white">Filtrar por servicios:</label>
                                             </div>
@@ -228,20 +226,20 @@ const VerCanchas = () => {
                                         </div>
                                         {/* Fin de filtro por servicios */}
                                     </div>
-                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 mt-4">
+                                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 mt-4">
                                         {/* Filtro por día turno */}
                                         <div className="flex flex-col items-center justify-center">
                                             <label htmlFor="diaTurno" className="text-sm font-medium text-stone-600 dark:text-white">Por fecha turno:</label>
                                             <input type="date"
                                                 id="diaTurno"
-                                                className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                                className="mt-2 block w-full cursor-pointer rounded-xl border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
                                                 value={fechaFiltro}
                                                 onChange={handleFechaFiltroChange} />
 
                                             <button
                                                 type='button'
                                                 onClick={limpiarFechaFiltro}
-                                                className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                                className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
                                             >
                                                 Limpiar fecha
                                             </button>
@@ -253,14 +251,14 @@ const VerCanchas = () => {
                                             <label htmlFor="name" className="text-sm font-medium text-stone-600 dark:text-white">Por hora inicio turno:</label>
                                             <input type="time"
                                                 id="time"
-                                                className="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none dark:shadow-neutral-700/70 focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                                className="mt-2 block w-full cursor-pointer rounded-xl border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none dark:shadow-neutral-700/70 focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
                                                 value={horaInicioFiltro}
                                                 onChange={handleHoraInicioFiltroChange}
                                             />
                                             <button
                                                 type='button'
                                                 onClick={limpiarHoraInicioFiltro}
-                                                className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                                className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
                                             >
                                                 Limpiar hora
                                             </button>
@@ -268,7 +266,7 @@ const VerCanchas = () => {
                                         {/* Filtro por hora inicio turno */}
 
                                         {/* Filtro por precio de turno */}
-                                        <div className="flex flex-row gap-6 col-span-2 bg-gray-100 dark:bg-neutral-700 rounded-md my-auto">
+                                        <div className="flex flex-row gap-4 col-span-2 bg-gray-100 dark:bg-neutral-700 rounded-xl my-auto">
                                             <div className="relative mb-6 px-6 w-[400px] mx-auto">
                                                 <label htmlFor="labels-range-input" className="text-sm font-medium text-stone-600 dark:text-white">Por precio turno menor a: {precioFiltro > 0 ? `$${precioFiltro}` : ""}</label>
                                                 <input id="labels-range-input"
@@ -311,7 +309,7 @@ const VerCanchas = () => {
                                     const serviciosFinal = getServiciosComplejo(cancha.idComplejo);
 
                                     return (
-                                        <div key={cancha.id} className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                                        <div key={cancha.id} className="flex flex-col bg-white rounded-2xl dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                                             <img className="object-cover w-full h-[200px] rounded-t-xl" src="/cancha01.jpg" alt="cancha" />
                                             <div className="relative">
                                                 <div className="absolute top-[-16px] left-0 h-[16px] bg-white dark:bg-neutral-900 rounded-t-3xl w-full"></div>
@@ -338,7 +336,7 @@ const VerCanchas = () => {
                                                 </p>
 
                                                 <button
-                                                    className="px-4 py-2 bg-lime-500 text-white rounded-lg hover:bg-lime-600 transition-colors duration-300 mt-4"
+                                                    className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
                                                     onClick={() => navigate(`/cliente/cancha/${cancha.id}`)}
                                                 >
                                                     Sacar Turno
