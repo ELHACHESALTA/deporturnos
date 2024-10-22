@@ -229,7 +229,7 @@ const Register = () => {
                     <X className="size-7 dark:text-white" />
                 </button>
                 <div className="flex flex-col items-center p-6">
-                    <CircleCheck className="size-16 text-green-600" />
+                    <CircleCheck className="size-16 text-lime-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-center dark:text-white">Usuario creado exitosamente!</h3>
                 <button onClick={() => navigate('/login')} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">

@@ -100,20 +100,26 @@ const MisCanchas = () => {
             <div className="flex flex-col mx-auto max-w-[66rem] px-2 mt-4">
                 <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     {complejo === null ? (
-                        <Modal isOpen={true}>
-                            <div className="flex justify-center p-6">
-                                <CircleAlert className="w-16 h-16 text-red-600" />
+                        <>
+                            <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center p-4">
+                                <p className="text-gray-600 dark:text-neutral-400 font-semibold">Para crear Canchas primero debes tener un Complejo creado.</p>
+                                <p className="text-gray-500 dark:text-neutral-500">Rellena los datos de tu complejo y luego vuelve por aquí.</p>
                             </div>
-                            <p className="text-lg font-semibold text-center dark:text-white">
-                                Primero debes crear un complejo para acceder a "Mis Canchas"
-                            </p>
-                            <button
-                                onClick={() => navigate('/gestorComplejo/miComplejo')}
-                                className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
-                            >
-                                Ir a Mi Complejo
-                            </button>
-                        </Modal>
+                            <Modal isOpen={true}>
+                                <div className="flex justify-center p-6">
+                                    <CircleAlert className="w-16 h-16 text-red-600" />
+                                </div>
+                                <p className="text-lg font-semibold text-center dark:text-white">
+                                    Primero debes crear un complejo para acceder a "Mis Canchas"
+                                </p>
+                                <button
+                                    onClick={() => navigate('/gestorComplejo/miComplejo')}
+                                    className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                                >
+                                    Ir a Mi Complejo
+                                </button>
+                            </Modal>
+                        </>
                     ) :
                         <div className="">
                             <div className="flex mx-auto max-w-[66rem] px-4">
@@ -135,12 +141,6 @@ const MisCanchas = () => {
                                                             {cancha.nombreCancha}
                                                         </h3>
                                                         <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                            Id: {cancha.id}
-                                                        </p>
-                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
-                                                            Complejo: {cancha.idComplejo}
-                                                        </p>
-                                                        <p className="mt-1 text-gray-500 dark:text-neutral-400 font-bold">
                                                             Deporte: {cancha.idDeporte}
                                                         </p>
                                                         <div className="absolute top-6 right-6 dark:text-white">
@@ -161,7 +161,10 @@ const MisCanchas = () => {
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="block text-sm mb-4 dark:text-white mt-4">No hay canchas en este complejo</div>
+                                        <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center p-4">
+                                            <p className="text-gray-600 dark:text-neutral-400 font-semibold">No hay canchas aún en este complejo.</p>
+                                            <p className="text-gray-500 dark:text-neutral-500">Procede a crear una desde el botón en la parte superior.</p>
+                                        </div>
                                     )}
                                 </div>
                             </div>

@@ -19,10 +19,6 @@ const ReprogramarTurno = () => {
     const location = useLocation();
     const { turno } = location.state;
 
-    // console.log(state);
-    // console.log(state.complejo.nombreComplejo);
-
-
     moment.locale('es');
 
     const messages = {
@@ -54,7 +50,6 @@ const ReprogramarTurno = () => {
             localizer.format(date, 'HH:mm', culture),  // Muestra las horas en formato 24h
     };
     // Fin configuraciones de React Big Calendar
-
 
     const { getToken, getUser } = AuthUser();
     const navigate = useNavigate();
@@ -189,6 +184,31 @@ const ReprogramarTurno = () => {
         });
     }
 
+    const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    // Función para formatear fecha y hora
+    const formatearFechaHora = (fechaCompleta) => {
+        if (!fechaCompleta) return { fechaFormateada: "", horaFormateada: "" };
+        const [fecha, hora] = fechaCompleta.split(" ");
+        const [anio, mes, dia] = fecha.split("-");
+        const [horaInicio, minutos] = hora.split(":");
+
+        const nombreMes = meses[parseInt(mes, 10) - 1];
+        const fechaFormateada = `${dia} de ${nombreMes} de ${anio}`;
+        const horaFormateada = `${horaInicio}:${minutos}`;
+
+        return { fechaFormateada, horaFormateada };
+    };
+
+    const { fechaFormateada: fechaInicioTurno, horaFormateada: horaInicioTurno } = formatearFechaHora(turno.horarioInicio);
+    const { fechaFormateada: fechaFinTurno, horaFormateada: horaFinTurno } = formatearFechaHora(turno.horarioFin);
+
+    const { fechaFormateada: fechaInicioNuevoTurno, horaFormateada: horaInicioNuevoTurno } = formatearFechaHora(nuevoTurno.horarioInicio || "");
+    const { fechaFormateada: fechaFinNuevoTurno, horaFormateada: horaFinNuevoTurno } = formatearFechaHora(nuevoTurno.horarioFin || "");
+
     return (
         <div className="flex-grow">
             {/* Banner */}
@@ -235,37 +255,43 @@ const ReprogramarTurno = () => {
 
                     {/* Modal para confirmar reprogramación */}
                     <Modal isOpen={isOpenModalReprogramar} closeModal={closeModalReprogramar}>
-                        <h1>Turno a descartar:</h1>
-                        <p>{turno.id}</p>
-                        <p>{turno.horarioInicio}</p>
-                        <p>{turno.horarioFin}</p>
-                        <p>{turno.precio}</p>
-                        <br />
-                        <br />
-                        <br />
-                        <h1>Turno nuevo a reservar:</h1>
-                        <p>{nuevoTurno.id}</p>
-                        <p>{nuevoTurno.horarioInicio}</p>
-                        <p>{nuevoTurno.horarioFin}</p>
-                        <p>{nuevoTurno.precio}</p>
-                        <br />
-                        <br />
-                        <br />
-                        <h2>¿Desea confirmar la operación?</h2>
-                        <button
-                            type="button"
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                            onClick={confirmarReprogramacion}
-                        >
-                            Confirmar
-                        </button>
-                        <button
-                            type="button"
-                            onClick={closeModalReprogramar1}
-                            className="bg-gray-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-gray-600"
-                        >
-                            Cancelar
-                        </button>
+                        <div className="flex flex-col gap-y-4">
+                            <h1 className="text-lg font-bold text-gray-800 dark:text-white">Turno a descartar:</h1>
+                            <div className="flex justify-center">
+                                <div className="text-md text-gray-800 dark:text-white flex flex-col items-start">
+                                    <div><strong>Fecha:</strong> {fechaInicioTurno}</div>
+                                    <div><strong>Horario Inicio:</strong> {horaInicioTurno}</div>
+                                    <div><strong>Horario Fin:</strong> {horaFinTurno}</div>
+                                    <div><strong>Precio:</strong> {turno.precio}</div>
+                                </div>
+                            </div>
+                            <h1 className="text-lg font-bold text-gray-800 dark:text-white">Turno nuevo a reservar:</h1>
+                            <div className="flex justify-center">
+                                <div className="text-md text-gray-800 dark:text-white flex flex-col items-start">
+                                    <div><strong>Fecha:</strong> {fechaInicioNuevoTurno}</div>
+                                    <div><strong>Horario Inicio:</strong> {horaInicioNuevoTurno}</div>
+                                    <div><strong>Horario Fin:</strong> {horaFinNuevoTurno}</div>
+                                    <div><strong>Precio:</strong> {nuevoTurno.precio}</div>
+                                </div>
+                            </div>
+                            <h2 className="text-md font-bold text-gray-800 dark:text-white">¿Desea confirmar la operación?</h2>
+                            <div className="flex flex-row gap-4 justify-center">
+                                <button
+                                    type="button"
+                                    className="py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                                    onClick={confirmarReprogramacion}
+                                >
+                                    Confirmar
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={closeModalReprogramar1}
+                                    className="py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-gray-300 text-black hover:bg-gray-400"
+                                >
+                                    Cancelar
+                                </button>
+                            </div>
+                        </div>
                     </Modal>
                     <div className="flex flex-row dark:bg-neutral-800 w-full h-[16px]"></div>
                 </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 import AuthUser from "../pageauth/AuthUser";
 import { useModal } from "../hooks/useModal";
 import Modal from "../components/Modal/Modal";
-import { CircleAlert } from 'lucide-react';
+import { CircleAlert, X, CircleCheck  } from 'lucide-react';
 
 const Panel = () => {
     // Estado para controlar los filtros por roles y por dados de baja o no
@@ -200,7 +200,7 @@ const Panel = () => {
                                                         {user.bajaUsuario !== null && <td className="px-2 py-4 text-sm font-medium text-gray-800 dark:text-neutral-200">{user.bajaUsuario}</td>}
                                                         <td className="px-2 py-4 text-sm font-medium text-gray-800 dark:text-neutral-200">
                                                             {user.bajaUsuario !== null
-                                                                ? <button onClick={() => openModalAlta1(user.id)} className="mx-auto flex items-center text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900">
+                                                                ? <button onClick={() => openModalAlta1(user.id)} className="mx-auto flex items-center text-lime-700 hover:text-white border border-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm px-3 py-2 dark:border-lime-500 dark:text-lime-500 dark:hover:text-white dark:hover:bg-lime-600 dark:focus:ring-lime-900">
                                                                     Dar de Alta
                                                                 </button>
                                                                 : <button onClick={() => openModalBaja1(user.id)} className="mx-auto flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
@@ -221,29 +221,29 @@ const Panel = () => {
 
                     {/* modal para confirmacion de dar de baja */}
                     <Modal isOpen={isOpenModalBaja} closeModal={closeModalBaja}>
-                        <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
+                        <button className="absolute top-0 right-0" onClick={closeModalBaja1}>
+                            <X className="size-7 dark:text-white" />
+                        </button>
+                        <div className="flex flex-col items-center p-6">
                             <CircleAlert className="size-16 text-red-600" />
                         </div>
-                        <h3 className="mb-4 text-lg font-semibold text-center">¿Estás seguro que deseas dar de baja al usuario?</h3>
-                        <button onClick={cambiarEstadoUsuario} className="bg-red-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-red-600">
+                        <h3 className="text-lg font-semibold text-center dark:text-white">¿Estás seguro que deseas dar de baja al usuario?</h3>
+                        <button onClick={cambiarEstadoUsuario} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-red-600 text-white dark:text-neutral-900 hover:bg-red-700 focus:outline-none focus:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
                             Si, estoy seguro
-                        </button>
-                        <button onClick={closeModalBaja1} className="text-gray-500 ml-5 bg-white hover:bg-gray-100 focus:ring-4 transition-colors duration-300 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 text-center">
-                            Cancelar
                         </button>
                     </Modal>
 
                     {/* modal para confirmacion de dar de alta */}
                     <Modal isOpen={isOpenModalAlta} closeModal={closeModalAlta}>
-                        <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
-                            <CircleAlert className="size-16 text-green-600" />
-                        </div>
-                        <h3 className="mb-4 text-lg font-semibold text-center">¿Estás seguro que deseas dar de alta al usuario?</h3>
-                        <button onClick={cambiarEstadoUsuario} className="bg-green-500 text-white border-none px-4 py-2 rounded transition-colors duration-300 hover:bg-green-600">
-                            Si, estoy seguro
+                        <button className="absolute top-0 right-0" onClick={closeModalAlta1}>
+                            <X className="size-7 dark:text-white" />
                         </button>
-                        <button onClick={closeModalAlta1} className="text-gray-500 ml-5 bg-white hover:bg-gray-200 focus:ring-4 transition-colors duration-300 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 text-center">
-                            Cancelar
+                        <div className="flex flex-col items-center p-6">
+                            <CircleCheck className="size-16 text-lime-600" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-center dark:text-white">¿Estás seguro que deseas dar de alta al usuario?</h3>
+                        <button onClick={cambiarEstadoUsuario} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">
+                            Si, estoy seguro
                         </button>
                     </Modal>
                     <div className="flex flex-row dark:bg-neutral-800 w-full h-[16px]"></div>

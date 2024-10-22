@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AuthUser from '../pageauth/AuthUser'
 import Loading from '../components/Loading/Loading'
-import { Star, Dot } from 'lucide-react';
+import { Star, Dot, CircleChevronLeft } from 'lucide-react';
 import { useModal } from '../hooks/useModal';
 import DatosCancha from '../components/DatosCancha/DatosCancha'
 import DatosComplejo from '../components/DatosComplejo/DatosComplejo'
@@ -223,7 +223,7 @@ const Cancha = () => {
             <div className="flex flex-col mx-auto max-w-[66rem] px-2">
                 <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     <img className="object-cover w-full h-[450px]" src="/cancha01.jpg" alt="cancha" />
-                    <div className="absolute top-[300px] left-0 p-4 dark:text-white text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
+                    <div className="absolute top-[300px] left-0 p-4 text-neutral-900 dark:text-neutral-200 text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
                         {cancha.nombreCancha}
                     </div>
                     <div className="absolute top-[425px] left-0 h-[25px] bg-gray-100 dark:bg-neutral-800 rounded-t-3xl w-full"></div>
@@ -238,6 +238,9 @@ const Cancha = () => {
                             </button>
                         }
                     </div>
+                    <a href="/cliente/verCanchas" className='backdrop-blur-sm bg-white-100/30 rounded-full absolute top-[20px] left-[20px]'>
+                        <CircleChevronLeft size={52} className="text-neutral-800" />
+                    </a>
                     <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
                         <div className="basis-1/4 flex justify-center items-end font-bold dark:text-white">
                             <button type='button' onClick={() => handleDotClick('turnos')}>
@@ -358,38 +361,6 @@ const Cancha = () => {
                 cancha={cancha}
                 idCliente={cliente.id}
                 deporte={deporte} />
-            <div className="">
-                {/* Sección Datos del Complejo */}
-                {/* <div>
-                    <button
-                        type='button'>
-                        Agregar complejo a favoritos
-                    </button>
-                </div>
-                <div className="mb-6">
-                    <h2 className="text-xl font-semibold mb-4">Datos del Complejo</h2>
-                    <p><strong>Nombre:</strong> {complejo.nombreComplejo}</p>
-                    <p><strong>Ciudad:</strong> {complejo.ciudad}</p>
-                    <p><strong>Dirección:</strong> {complejo.ubicacion}</p>
-                    Dias disponibles
-                    <div>
-                        {diasDisponiblesComplejo.map((diaDisponible) => {
-                            <p key={diaDisponible.id}>{diaDisponible.dia}</p>
-                        })}
-                    </div>
-                </div> */}
-
-                {/* Sección Información de la Cancha */}
-                {/* <div className="mb-6">
-                    <h2 className="text-xl font-semibold mb-4">Información de la Cancha Seleccionada</h2>
-                    <p><strong>Nombre:</strong> {cancha.nombreCancha}</p>
-                    <p><strong>Deporte:</strong> {cancha.idDeporte}</p>
-                </div>
-                <div>
-                    aca va todo informacion
-                </div> */}
-            </div>
-
         </div>
     )
 }

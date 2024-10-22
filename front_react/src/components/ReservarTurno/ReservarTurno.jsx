@@ -87,6 +87,28 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
         });
     }
 
+    const meses = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    // Función para formatear fecha y hora
+    const formatearFechaHora = (fechaCompleta) => {
+        if (!fechaCompleta) return { fechaFormateada: "", horaFormateada: "" };
+        const [fecha, hora] = fechaCompleta.split(" ");
+        const [anio, mes, dia] = fecha.split("-");
+        const [horaInicio, minutos] = hora.split(":");
+
+        const nombreMes = meses[parseInt(mes, 10) - 1];
+        const fechaFormateada = `${dia} de ${nombreMes} de ${anio}`;
+        const horaFormateada = `${horaInicio}:${minutos}`;
+
+        return { fechaFormateada, horaFormateada };
+    };
+
+    const { fechaFormateada: fechaInicioTurno, horaFormateada: horaInicioTurno } = formatearFechaHora(turno.horarioInicio);
+    const { fechaFormateada: fechaFinTurno, horaFormateada: horaFinTurno } = formatearFechaHora(turno.horarioFin);
+
     return (
         <div>
             <Modal isOpen={isOpen} closeModal={closeModal}>
@@ -96,10 +118,11 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
                     </button>
                     <div className="text-md font-medium  text-center dark:text-white underline underline-offset-4">Información del turno:</div>
                     <div className="text-sm font-medium text-center dark:text-white border border-neutral-900 dark:border-white border-x-0 border-t-0">
-                        <p>Id del turno: {turno.id}</p>
-                        <p>Cancha del turno: {cancha.nombreCancha}</p>
-                        <p>Id del cliente que reserva: {idCliente}</p>
-                        <p className="mb-4">Deporte: {deporte.id}</p>
+                        <div>Fecha: {fechaInicioTurno}</div>
+                        <div><strong>Horario:</strong> {horaInicioTurno} a {horaFinTurno}</div>
+                        <div><strong>Precio:</strong> {turno.precio}</div>
+                        <div>Cancha: {cancha.nombreCancha}</div>
+                        <div className="mb-4">Deporte: {deporte.nombreDeporte}</div>
                     </div>
                     {/* Botón de Eliminar */}
                     {!confirmarReserva ? (
@@ -182,31 +205,60 @@ const ReservarTurno = ({ turno, cancha, deporte, idCliente, isOpen, closeModal }
                                     <div className="">
                                         <div className="h-full flex flex-col items-center p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
                                             <div className="my-auto">
-                                                <div><strong>Cancha disponible:</strong></div>
-                                                <div>Id Cancha: {turno.idCancha}</div>
-                                                <div>Horario Inicio: {turno.horarioInicio}</div>
-                                                <div>Horario Fin: {turno.horarioFin}</div>
-                                                <div>Precio: {turno.precio}</div>
+                                                <div className="text-md font-medium  text-center dark:text-white underline underline-offset-4">Información del turno 1:</div>
+                                                <div className="text-sm font-medium text-center dark:text-white pt-4">
+                                                    <div>Fecha: {fechaInicioTurno}</div>
+                                                    <div><strong>Horario:</strong> {horaInicioTurno} a {horaFinTurno}</div>
+                                                    <div><strong>Precio:</strong> {turno.precio}</div>
+                                                    <div>Cancha: {cancha.nombreCancha}</div>
+                                                    <div className="flex flex-row gap-4 justify-center">
+                                                        <div>Deporte: {deporte.nombreDeporte}</div>
+                                                        <div>{deporte.tipoDeporte ? `Tipo: ${deporte.tipoDeporte}` : ''}</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {arregloTurnosPeriodicos.map((turno, index) => (
-                                        typeof turno === 'string' ? (
-                                            <div key={index} className="flex items-center text-red-600 p-4 bg-white dark:bg-neutral-900 rounded-2xl">
-                                                Fecha no disponible: {turno}
-                                            </div>
-                                        ) : (
-                                            <div key={index} className="h-full flex flex-col items-center p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
-                                                <div className="my-auto">
-                                                    <div><strong>Cancha disponible:</strong></div>
-                                                    <div>Id Cancha: {turno.idCancha}</div>
-                                                    <div>Horario Inicio: {turno.horarioInicio}</div>
-                                                    <div>Horario Fin: {turno.horarioFin}</div>
-                                                    <div>Precio: {turno.precio}</div>
+                                    {arregloTurnosPeriodicos.map((turno, index) => {
+                                        if (typeof turno === 'string') {
+                                            const fechaNoDisponible = turno.match(/\d{4}-\d{2}-\d{2}/);
+                                            let fechaFormateadaNoDisponible = '';
+                                            if (fechaNoDisponible) {
+                                                const { fechaFormateada } = formatearFechaHora(`${fechaNoDisponible[0]} 00:00:00`);
+                                                fechaFormateadaNoDisponible = fechaFormateada;
+                                            }
+                                            const { fechaFormateada: fechaInicio, horaFormateada: horaInicio } = formatearFechaHora(turno.horarioInicio);
+                                            return (
+                                                <div key={index} className="flex flex-col items-center justify-center text-red-600 p-4 bg-white dark:bg-neutral-900 rounded-2xl h-full">
+                                                    <div className='text-md font-medium underline underline-offset-4 pb-4'>Fecha no disponible:</div>
+                                                    <div className='text-sm font-medium text-center'>{fechaFormateadaNoDisponible}</div>
                                                 </div>
-                                            </div>
-                                        )
-                                    ))}
+                                            );
+                                        } else {
+                                            // Formatear la fecha y la hora del turno específico
+                                            const { fechaFormateada: fechaInicio, horaFormateada: horaInicio } = formatearFechaHora(turno.horarioInicio);
+                                            const { fechaFormateada: fechaFin, horaFormateada: horaFin } = formatearFechaHora(turno.horarioFin);
+                                            return (
+                                                <div key={index} className="h-full flex flex-col items-center p-4 bg-white dark:bg-neutral-900 dark:text-white rounded-2xl">
+                                                    <div className="my-auto">
+                                                        <div className="text-md font-medium text-center dark:text-white underline underline-offset-4">
+                                                            Información del turno {index + 2}:
+                                                        </div>
+                                                        <div className="text-sm font-medium text-center dark:text-white pt-4">
+                                                            <div>Fecha: {fechaInicio}</div>
+                                                            <div><strong>Horario:</strong> {horaInicio} a {horaFin}</div>
+                                                            <div><strong>Precio:</strong> {turno.precio}</div>
+                                                            <div>Cancha: {turno.nombreCancha}</div>
+                                                            <div className="flex flex-row gap-4 justify-center">
+                                                                <div>Deporte: {deporte.nombreDeporte}</div>
+                                                                <div>{deporte.tipoDeporte ? `Tipo: ${deporte.tipoDeporte}` : ''}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                    })}
                                 </div>
                             </div>
                             <div className="text-sm text-center dark:text-white"><strong>Atención:</strong> En caso de confirmar el turno periódico, sólo se reservaran los turnos que se muestran disponibles.</div>

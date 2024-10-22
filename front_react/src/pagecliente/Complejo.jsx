@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AuthUser from '../pageauth/AuthUser'
 import Loading from '../components/Loading/Loading'
-import { Star } from 'lucide-react'
+import { Star, CircleChevronLeft } from 'lucide-react'
 
 const Complejo = () => {
     const { id } = useParams();
@@ -130,7 +130,7 @@ const Complejo = () => {
                 <div className="flex flex-col mx-auto max-w-[66rem] px-2">
                     <div className="relative flex flex-col w-full bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                         <img className="object-cover w-full h-[450px]" src="/cancha01.jpg" alt="cancha" />
-                        <div className="absolute top-[300px] left-0 p-4 dark:text-white text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
+                        <div className="absolute top-[300px] left-0 p-4 text-neutral-900 dark:text-neutral-200 text-3xl font-bold backdrop-blur-sm bg-white/30 rounded-r-full pr-8">
                             {complejo.nombreComplejo}
                         </div>
                         <div className="absolute top-[425px] left-0 h-[25px] bg-gray-100 dark:bg-neutral-800 rounded-t-3xl w-full"></div>
@@ -145,6 +145,9 @@ const Complejo = () => {
                                 </button>
                             }
                         </div>
+                        <a href="/cliente/verCanchas" className='backdrop-blur-sm bg-white-100/30 rounded-full absolute top-[20px] left-[20px]'>
+                            <CircleChevronLeft size={52} className="text-neutral-800" />
+                        </a>
                         <div className="h-[20px]"></div>
                         <div className="flex flex-row bg-gray-100 dark:bg-neutral-800 h-[65px]">
                             <div className="basis-1/4 flex justify-center items-center font-bold dark:text-white">Ciudad: {complejo.ciudad}</div>

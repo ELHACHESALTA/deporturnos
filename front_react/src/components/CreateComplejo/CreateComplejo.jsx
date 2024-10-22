@@ -151,14 +151,15 @@ const CreateComplejo = ({ servicios }) => {
                                     </div>}
                             </div>
                         </div>
-                        <div className="basis-1/3"> 
-                        {/* Selección de ciudad */}
+                        <div className="basis-1/3">
+                            {/* Selección de ciudad */}
+                            <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad:</div>
                             <div className="flex flex-col items-center justify-center">
                                 <select
                                     value={form.ciudad}
                                     name='ciudad'
                                     onChange={handleChange}
-                                    className="block w-full rounded-xl border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-neutral-900 focus:border-neutral-900 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-900 dark:focus:border-neutral-900"
                                 >
                                     <option value="">Selecciona una ciudad</option>
                                     <option value="Neuquén">Neuquén</option>
@@ -169,11 +170,11 @@ const CreateComplejo = ({ servicios }) => {
                             </div>
                             <div>
                                 {errors.ciudad &&
-                                <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                    <span >{errors.ciudad}</span>
-                                </div>}
+                                    <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                        <span >{errors.ciudad}</span>
+                                    </div>}
                             </div>
-                        {/* Selección de ciudad */}
+                            {/* Selección de ciudad */}
                         </div>
                         <div className="basis-1/3">
                             {/* Input para ingresar dirección del complejo */}

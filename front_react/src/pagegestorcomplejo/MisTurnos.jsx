@@ -150,20 +150,27 @@ const MisTurnos = () => {
                 <div className="bg-gray-100 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-neutral-700 shadow-md dark:shadow-neutral-700/70">
                     {/* Zona de selección */}
                     {complejo === null ? (
-                        <Modal isOpen={true}>
-                            <div className="flex justify-center p-6">
-                                <CircleAlert className="w-16 h-16 text-red-600" />
+                        <>
+                            <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center px-4 pt-4">
+                                <p className="text-gray-600 dark:text-neutral-400 font-semibold">Para crear Turnos primero debes tener un Complejo creado y Canchas creadas dentro de él.</p>
+                                <p className="text-gray-500 dark:text-neutral-500">Rellena los datos de tu complejo y luego vuelve por aquí.</p>
                             </div>
-                            <div className="text-lg font-semibold text-center dark:text-white">
-                                Primero debes crear un complejo para acceder a "Mis Turnos"
-                            </div>
-                            <button
-                                onClick={() => navigate('/gestorComplejo/miComplejo')}
-                                className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
-                            >
-                                Ir a Mi Complejo
-                            </button>
-                        </Modal>
+                            <Modal isOpen={true}>
+                                <div className="flex justify-center p-6">
+                                    <CircleAlert className="w-16 h-16 text-red-600" />
+                                </div>
+                                <div className="text-lg font-semibold text-center dark:text-white">
+                                    Primero debes crear un complejo para acceder a "Mis Turnos"
+                                </div>
+                                <button
+                                    onClick={() => navigate('/gestorComplejo/miComplejo')}
+                                    className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none"
+                                >
+                                    Ir a Mi Complejo
+                                </button>
+                            </Modal>
+                        </>
+
                     ) : (
                         <div className="w-full">
                             {canchas.length > 0 ? (
@@ -198,8 +205,7 @@ const MisTurnos = () => {
                                                 <div className="w-full">
                                                     <div className=''>
                                                         <div className="block text-sm mt-4 dark:text-white font-bold">{canchaSeleccionada.nombreCancha}</div>
-                                                        <div className="block text-sm mt-4 dark:text-white font-bold">Id: {canchaSeleccionada.id}</div>
-                                                        <div className="block text-sm mt-4 dark:text-white font-bold">Complejo: {canchaSeleccionada.idComplejo}</div>
+                                                        <div className="block text-sm mt-4 dark:text-white font-bold">Complejo: {complejo.nombreComplejo}</div>
                                                         <div className="block text-sm mt-4 dark:text-white font-bold">Deporte: {canchaSeleccionada.idDeporte}</div>
                                                         <div>
                                                             <button onClick={openModalCreate} className="mt-4 py-2 px-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-2xl border border-transparent bg-lime-600 text-white dark:text-neutral-900 hover:bg-lime-700 focus:outline-none focus:bg-lime-700 disabled:opacity-50 disabled:pointer-events-none">Crear turno manual</button>
@@ -211,14 +217,17 @@ const MisTurnos = () => {
                                                 </div>
                                             </>
                                         ) : (
-                                            <div className="block text-sm mb-4 dark:text-white mt-4">No hay una cancha seleccionada.</div>
+                                            <div className="flex items-center justify-center pt-4">
+                                                <div className="block text-sm mb-4 dark:text-white mt-4">No hay una cancha seleccionada.</div>
+                                            </div>
                                         )}
                                         {/* Columna derecha: Información de la cancha */}
                                     </div>
                                 </>
                             ) : (
-                                <div className="block text-sm mb-4 dark:text-white mt-4">
-                                    No hay canchas en este complejo.
+                                <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center px-4 pt-4">
+                                    <p className="text-gray-600 dark:text-neutral-400 font-semibold">No hay canchas aún en este complejo.</p>
+                                    <p className="text-gray-500 dark:text-neutral-500">Procede a crear una desde la sección <a href="/gestorComplejo/misCanchas" className="text-lime-600 hover:text-lime-700 focus:outline-none focus:text-lime-700">Mis Canchas</a> .</p>
                                 </div>
                             )}
                             {/* modal para crear turnos */}
@@ -238,20 +247,24 @@ const MisTurnos = () => {
                     {/* Zona de selección */}
 
                     {/* Calendario */}
-
-                    {turnosAMostrar.length > 0 ? (
-                        <div className="flex flex-row bg-gray-100 dark:bg-neutral-800">
-                            <>
+                    {canchas.length > 0 && idCanchaSeleccionada !== 0 ? (
+                        turnosAMostrar.length === 0 ? (
+                            <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center px-4 pt-4">
+                                <p className="text-gray-600 dark:text-neutral-400 font-semibold">No hay Turnos creados en esta cancha aún.</p>
+                                <p className="text-gray-500 dark:text-neutral-500">Puedes crearlo manualmente de a uno o generar varios automaticamente.</p>
+                            </div>
+                        ) : (
+                            <div className="flex flex-row bg-gray-100 dark:bg-neutral-800">
                                 <style>
                                     {`
-                                        .rbc-today {
-                                            background-color: #B3B3B3;
-                                        }
-                                        
-                                        .rbc-event {
-                                            background-color: #65A30D;
-                                        }
-                                    `}
+                                    .rbc-today {
+                                        background-color: #B3B3B3;
+                                    }
+                                    
+                                    .rbc-event {
+                                        background-color: #65A30D;
+                                    }
+                                `}
                                 </style>
                                 <div className="flex flex-col w-full h-[500px] mt-4 px-4 bg-gray-100 dark:bg-neutral-800 dark:text-white text-black">
                                     <Calendar
@@ -293,15 +306,10 @@ const MisTurnos = () => {
                                         }}
                                     />
                                 </div>
-
-                            </>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="mx-auto mt-4">
-                                <div className="block text-sm dark:text-white">No hay turnos en esta cancha</div>
                             </div>
-                        </>
+                        )
+                    ) : (
+                        <></>
                     )}
                     {/* Calendario */}
                     <div className="flex flex-row dark:bg-neutral-800 w-full h-[16px]"></div>
