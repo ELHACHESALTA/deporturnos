@@ -13,7 +13,6 @@ class Reserva extends Model
         'idTurno',
         'idCliente',
         'esPeriodica',
-        'patronPeriodico',
     ];
 
     public function cliente(){

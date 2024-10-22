@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             ComplejoServiciosTableSeeder::class,
             CanchasTableSeeder::class,
             DiasTableSeeder::class,
-            TurnosTableSeeder::class
+            TurnosTableSeeder::class,
+            ReservasTableSeeder::class
         ]);
     }
 }

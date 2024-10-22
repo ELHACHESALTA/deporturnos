@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('idCliente');
             $table->foreign('idCliente')->references('id')->on('clientes')->onDelete('cascade');
             $table->boolean('esPeriodica');
-            $table->string('patronPeriodico', 50);
             $table->timestamps();
         });
     }

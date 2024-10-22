@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('estadoDisponible', 50);
             $table->string('metodoPago', 50);
             $table->time('timerPago');
-            $table->time('timerReprogramacion');
+            $table->integer('timerReprogramacion');
             $table->float('precio', 8, 2);
             $table->timestamps();
         });

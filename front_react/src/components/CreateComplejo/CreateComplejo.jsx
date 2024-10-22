@@ -151,18 +151,29 @@ const CreateComplejo = ({ servicios }) => {
                                     </div>}
                             </div>
                         </div>
-                        <div className="basis-1/3">
-                            {/* Input para ingresar la ciudad donde se encuentra el complejo */}
-                            <div className="basis-full">
-                                <label htmlFor="ciudad" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ciudad:</label>
-                                <input type="text" value={form.ciudad} onChange={handleChange} name="ciudad" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500" placeholder="Ciudad" required />
+                        <div className="basis-1/3"> 
+                        {/* Selección de ciudad */}
+                            <div className="flex flex-col items-center justify-center">
+                                <select
+                                    value={form.ciudad}
+                                    name='ciudad'
+                                    onChange={handleChange}
+                                    className="block w-full rounded-xl border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500"
+                                >
+                                    <option value="">Selecciona una ciudad</option>
+                                    <option value="Neuquén">Neuquén</option>
+                                    <option value="Cipolletti">Cipolletti</option>
+                                    <option value="Centenario">Centenario</option>
+                                    <option value="General Roca">General Roca</option>
+                                </select>
                             </div>
                             <div>
                                 {errors.ciudad &&
-                                    <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                        <span >{errors.ciudad}</span>
-                                    </div>}
+                                <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                    <span >{errors.ciudad}</span>
+                                </div>}
                             </div>
+                        {/* Selección de ciudad */}
                         </div>
                         <div className="basis-1/3">
                             {/* Input para ingresar dirección del complejo */}

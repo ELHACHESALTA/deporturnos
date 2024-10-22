@@ -33,7 +33,6 @@ class ReservaController extends Controller
         $cliente = Cliente::where('id', $request->idCliente)->first();
         $reserva->idCliente = $cliente->id;
         $reserva->esPeriodica = false;
-        $reserva->patronPeriodico = "";
         $reserva->save();
         $response["success"] = true;
         return response()->json($response, 200);
@@ -114,7 +113,6 @@ class ReservaController extends Controller
         $cliente = Cliente::where('id', $request->idCliente)->first();
         $reserva->idCliente = $cliente->id;
         $reserva->esPeriodica = true;
-        $reserva->patronPeriodico = "";
         $reserva->save();
 
         for($i=0;$i<count($request->arregloTurnosPeriodicos);$i++) {
@@ -130,7 +128,6 @@ class ReservaController extends Controller
                 $cliente = Cliente::where('id', $request->idCliente)->first();
                 $reserva->idCliente = $cliente->id;
                 $reserva->esPeriodica = true;
-                $reserva->patronPeriodico = "";
                 $reserva->save();
             }
         }
@@ -163,14 +160,12 @@ class ReservaController extends Controller
 
         $reservaADescartar = Reserva::where('idTurno', $request->idTurnoADescartar)->first();
         $esPeriodicaADescartar = $reservaADescartar->esPeriodica;
-        $patronPeriodicoADescartar = $reservaADescartar->patronPeriodico;
         $reservaADescartar->delete();
 
         $reservaNueva = new Reserva();
         $reservaNueva->idTurno = $request->idTurnoNuevo;
         $reservaNueva->idCliente = $request->idCliente;
         $reservaNueva->esPeriodica = $esPeriodicaADescartar;
-        $reservaNueva->patronPeriodico = $patronPeriodicoADescartar;
         $reservaNueva->save();
 
         $response["success"] = true;

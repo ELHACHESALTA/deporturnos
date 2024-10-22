@@ -77,7 +77,7 @@ const MisTurnosCliente = () => {
                         {reservas.some((reserva) => {
                             const turno = turnos.find((turno) => turno.id === reserva.idTurno);
                             const diferenciaHoras = (new Date(turno.horarioInicio) - new Date()) / (1000 * 60 * 60);
-                            return diferenciaHoras > 24;
+                            return diferenciaHoras > turno.timerReprogramacion;
                         }) && (
                                 <div>
                                     <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Turnos Reprogramables</h2>
@@ -87,7 +87,7 @@ const MisTurnosCliente = () => {
                                                 .filter((reserva) => {
                                                     const turno = turnos.find((turno) => turno.id === reserva.idTurno);
                                                     const diferenciaHoras = (new Date(turno.horarioInicio) - new Date()) / (1000 * 60 * 60);
-                                                    return diferenciaHoras > 24;
+                                                    return diferenciaHoras > turno.timerReprogramacion;
                                                 })
                                                 .map((reserva) => {
                                                     const turno = turnos.find((turno) => turno.id === reserva.idTurno);
@@ -127,7 +127,7 @@ const MisTurnosCliente = () => {
                         {reservas.some((reserva) => {
                             const turno = turnos.find((turno) => turno.id === reserva.idTurno);
                             const diferenciaHoras = (new Date(turno.horarioInicio) - new Date()) / (1000 * 60 * 60);
-                            return new Date(turno.horarioFin) > new Date() && diferenciaHoras <= 24;
+                            return new Date(turno.horarioFin) > new Date() && diferenciaHoras <= turno.timerReprogramacion;
                         }) && (
                                 <div>
                                     <h2 className="text-2xl font-bold text-center my-4 dark:text-white">Turnos Futuros</h2>
@@ -136,7 +136,7 @@ const MisTurnosCliente = () => {
                                             .filter((reserva) => {
                                                 const turno = turnos.find((turno) => turno.id === reserva.idTurno);
                                                 const diferenciaHoras = (new Date(turno.horarioInicio) - new Date()) / (1000 * 60 * 60);
-                                                return new Date(turno.horarioFin) > new Date() && diferenciaHoras <= 24;
+                                                return new Date(turno.horarioFin) > new Date() && diferenciaHoras <= turno.timerReprogramacion;
                                             })
                                             .map((reserva) => {
                                                 const turno = turnos.find((turno) => turno.id === reserva.idTurno);
