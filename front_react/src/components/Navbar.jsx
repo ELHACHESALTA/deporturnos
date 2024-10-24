@@ -6,7 +6,7 @@ import { ChevronDown, Settings, Headset, LogOut, CircleUserRound, MonitorCog, Se
 const Navbar = () => {
     const endpoint = "http://localhost:8000/api/auth/logout";
 
-    const { getToken, getLogout, getUser, getRol } = AuthUser();
+    const { getToken, getLogout, getUser, getRol, isTokenValid } = AuthUser();
 
     // Cierra sesión de usuario
     const logoutUser = async () => {
@@ -23,7 +23,7 @@ const Navbar = () => {
 
     // Muestra menú si está logueado o no
     const renderLinks = () => {
-        if (getToken()) {
+        if (getToken() && isTokenValid()) {
             return (
                 <>
                     <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">

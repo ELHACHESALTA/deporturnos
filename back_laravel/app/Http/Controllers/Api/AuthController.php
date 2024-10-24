@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -27,62 +28,81 @@ class AuthController extends Controller
             return response()->json($response, 200);
         }
 
-        $response = ["success" => false];
         $input = $request->all();
         $input["password"] = bcrypt($input["password"]);
         $input["idRol"] = (int)$input["idRol"];
-
+        
         $user = User::create($input);
-        $response["message"] = "El usuario fue creado exitosamente!";
-        $response["success"] = true;
-        $response["user"] = $user;
+
+        $token = JWTAuth::fromUser($user);
+        
         if ($user->idRol == 1){
-            $datos["idUser"] = $user->id;
-            $administrador = Administrador::create($datos);
-            $response["herencia"] = $administrador;
-        } elseif($user->idRol == 2){
-            $datos["idUser"] = $user->id;
-            $cliente = Cliente::create($datos);
-            $response["herencia"] = $cliente;
-        } elseif($user->idRol == 3){
-            // codigo para gestorComplejo
-            $datos["idUser"] = $user->id;
-            $gestorComplejo = GestorComplejo::create($datos);
-            $response["herencia"] = $gestorComplejo;
+            Administrador::create(["idUser" => $user->id]);
+        } elseif ($user->idRol == 2) {
+            Cliente::create(["idUser" => $user->id]);
+        } elseif ($user->idRol == 3) {
+            GestorComplejo::create(["idUser" => $user->id]);
         }
-        return response()->json($response, 200);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario registrado exitosamente',
+            'user' => $user,
+        ], 200);
     }
 
-    public function login(Request $request){
-        $response = ["success" => false];
-        // validacion
-        $validator = Validator::make($request->all(),[
+    public function login(Request $request) {
+        $response["success"] = false;
+        // Validación
+        $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
         ]);
-
-        if($validator->fails()){
-            $response = ["error" => $validator->errors()];
-            return response()->json($response, 200);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validator->errors()
+            ], 200);
         }
-
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            $user = Auth::user();
-            $response["token"] = $user->createToken("token")->plainTextToken;
-            $response["user"] = $user;
-            $response["success"] = true;
-            $response["message"] = "Logueado";
-        } else {
-            $response["error"] = "Credenciales inválidas";
+    
+        $credentials = $request->only('email', 'password');
+    
+        // Se intenta autenticar y obtener el token
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['success' => false, 'error' => 'Unauthorized'], 200);
         }
-        return response()->json($response, 200);
+    
+        $user = JWTAuth::user();
+    
+        // Se crea un array con los datos del usuario para incluir en el token
+        $customClaims = [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,       
+                'email' => $user->email,     
+                'idRol' => $user->idRol,     
+            ]
+        ];
+    
+        // Generar el token con reclamos personalizados
+        $token = JWTAuth::claims($customClaims)->fromUser($user);
+    
+        return response()->json([
+            'token' => $token,
+            'success' => true
+        ], 200);
     }
+    
+    
 
     public function logout(){
-        $response["success"] = false;
-        Auth::user()->tokens()->delete();
-        $response=["success" => true, "message" => "Sesión cerrada"];
-        return response()->json($response, 200);
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+            return response()->json(['success' => true, 'message' => 'Sesión cerrada correctamente']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al cerrar sesión'], 200);
+        }
     }
 
     public function checkEmail (Request $request){

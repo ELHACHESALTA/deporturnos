@@ -176,7 +176,6 @@ const ReprogramarTurno = () => {
             },
         }).then(({ data }) => {
             if (data.success) {
-                console.log(data.message);
                 navigate('/cliente/misTurnosCliente');
             } else {
                 console.log(data.error);

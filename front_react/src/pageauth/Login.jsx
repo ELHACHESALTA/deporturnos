@@ -4,17 +4,18 @@ import { useNavigate } from "react-router-dom";
 import AuthUser from "./AuthUser";
 import { useEffect } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { setToken, getToken } = AuthUser();
+    const { setToken, getToken, isTokenValid } = AuthUser();
     const [message, setMessage] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const endpoint = "http://localhost:8000/api/auth/login";
 
     useEffect(() => {
-        if (getToken()) {
+        if (getToken() && isTokenValid()) {
             navigate('/');
         }
     }, []);
@@ -23,11 +24,7 @@ const Login = () => {
         e.preventDefault();
         await axios.post(endpoint, { email, password }).then(({ data }) => {
             if (data.success) {
-                setToken(
-                    data.user,
-                    data.token,
-                    data.user.idRol
-                )
+                setToken(data.token);
             } else {
                 setMessage("Correo electrónico y contraseña incorrectos");
             }

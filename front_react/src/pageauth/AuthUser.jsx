@@ -1,49 +1,45 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {jwtDecode} from 'jwt-decode';
 
 const AuthUser = () => {
     const navigate = useNavigate();
 
+    // Se Obtiene el token del sessionStorage
     const getToken = () => {
-        const tokenString = sessionStorage.getItem('token');
-        const token = JSON.parse(tokenString);
-        return token;
-    }
-    
+        return sessionStorage.getItem('token');
+    };
+
+    // Se valida el token
+    const isTokenValid = () => {
+        const token = getToken();
+        if (!token) return false; 
+        try {
+            // Se comprueba si el token tiene 3 partes y si es decodificable
+            const decoded = jwtDecode(token);
+            return token.split('.').length === 3 && decoded;
+        } catch (error) {
+            return false;
+        }
+    };
+
     const getUser = () => {
-        const userString = sessionStorage.getItem('user');
-        const user = JSON.parse(userString);
-        //console.log(user.idRol);
-        return user;
-    }
+        const token = getToken();
+        if (token && isTokenValid()) {
+            const decodedToken = jwtDecode(token);
+            return decodedToken.user;
+        }
+        return null;
+    };
 
     const getRol = () => {
         const user = getUser();
-        var rol = null;
-        if(user !== null){
-            rol = user.idRol;
-        }
-        return rol;
-    }
-    
+        return user ? user.idRol : null;
+    };
 
-    const [token, setToken] = useState(getToken());
-    const [user, setUser] = useState(getUser());
-    const [rol, setRol] = useState(getRol());
-
-    //console.log(user);
-
-    const saveToken = (user, token, rol) => {
-        sessionStorage.setItem('user', JSON.stringify(user));
-        sessionStorage.setItem('token', JSON.stringify(token));
-        sessionStorage.setItem('rol', JSON.stringify(rol));
-
-        setUser(user);
-        setToken(token);
-        setRol(rol);
+    const saveToken = (token) => {
+        sessionStorage.setItem('token', token);
+        navigate('/');
 
         if(getRol() === 1){
             navigate('/administrador');
@@ -54,20 +50,21 @@ const AuthUser = () => {
         if(getRol() === 3){
             navigate('/gestorComplejo');
         }
-    }
+    };
 
     const getLogout = () => {
         sessionStorage.clear();
-        navigate('/');
-    }
+        navigate('/login');
+    };
 
     return {
         setToken: saveToken,
-        token,
-        user,
-        rol,
-        getToken, getRol, getUser, getLogout 
-    }
-}
+        getToken,
+        isTokenValid,
+        getUser,
+        getRol,
+        getLogout,
+    };
+};
 
 export default AuthUser;

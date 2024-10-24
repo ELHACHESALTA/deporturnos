@@ -11,10 +11,22 @@ use App\Models\Role;
 use App\Models\Administrador;
 use App\Models\Cliente;
 use App\Models\GestorComplejo;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, HasApiTokens;
+
+    // Métodos requeridos por JWTSubject
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     /**
      * The attributes that are mass assignable.

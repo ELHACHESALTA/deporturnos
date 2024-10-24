@@ -74,13 +74,13 @@ const Register = () => {
 
     // constantes para utilizar navigate y generar obtener un token en caso de que el usuario esté registrado
     const navigate = useNavigate();
-    const { getToken } = AuthUser();
+    const { getToken, isTokenValid } = AuthUser();
 
     // url a la que se le pasarán los parámetros y se realizará la petición asincrónica
     const endpoint = "http://localhost:8000/api/auth/register";
 
     useEffect(() => {
-        if (getToken()) {
+        if (getToken() && isTokenValid()) {
             navigate('/');
         }
     }, []);

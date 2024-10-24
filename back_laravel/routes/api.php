@@ -23,7 +23,7 @@ Route::post('/auth/check-email', [AuthController::class, 'checkEmail']);
 
 
 // RUTAS PRIVADAS
-Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::group(['middleware' => 'jwt.auth'], function () {
     // autenticación
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/admin/users', [UserController::class, 'index']);
